@@ -6,20 +6,21 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/04 20:23:01 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/06 14:50:16 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = 					scop
-
+CURRENT_PATH :=			$(shell pwd)
 CC = 					clang
 CFLAGS +=				-Wall -Wextra -Werror
 OFLAGS := 				-O3
-RM := 					rm -rf
 
 SCOP_INCLUDE =			-I $(SCOP_INCLUDES_PATH)
 SCOP_INCLUDES_PATH =	./includes
+SCOP_INCLUDES =			$(addprefix $(SCOP_INCLUDES_PATH)/,$(SCOP_INCLUDES_FILES))
+SCOP_INCLUDES_FILES =	scop.h
 
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
@@ -28,44 +29,20 @@ LIBFT_LINK :=			-L $(LIBFT_PATH) -lft
 LIBMATH_LINK :=			-lm
 
 GLEW_PATH :=			./lib/glew-2.1.0
-GLEW_INCLUDE =			-I $(GLEW_PATH)/include/GL
-GLEW_LINK =				-L $(GLEW_PATH)/lib
+GLEW_INCLUDE =			-I $(GLEW_PATH)/include
+GLEW_LINK =				-L $(GLEW_PATH)/lib $(GLEW_LIB_FILE)
+GLEW_LIB_FILE =			$(shell ls $(GLEW_PATH)/lib/libGLEW.a)
 
 GLFW_PATH :=			./lib/glfw-3.2.1
-GLFW_INCLUDE =			-I $(GLEW_PATH)/include/GL
-GLFW_LINK =				-L $(GLEW_PATH)/lib
+GLFW_BUILD_PATH := 		$(GLFW_PATH)/glfw-build
+GLFW_INCLUDE =			-I $(GLFW_PATH)/include
+GLFW_LINK =				-L $(GLFW_BUILD_PATH)/src $(GLFW_LIB_FILE)
+GLFW_LIB_FILE =			$(shell ls $(GLFW_BUILD_PATH)/src/libglfw3.a)
 
-GTK_CFLAGS =			$(shell pkg-config --cflags gtk+-3.0)
-GTK_CUDALIBS =			$(shell pkg-config --libs-only-L --libs-only-l gtk+-3.0)
+FRAMEWORKS =			-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
-
-# OPENCL :=				-framework OpenCL
-
-OS_TEST := $(shell uname)
-ifeq ($(OS_TEST), Darwin)
-# INC_NAMES = 			$(NAME).h \
-# 						mac_keys.h
-# MLXFLAGS =				-framework OpenGL -framework AppKit
-# KEYS =					-DMAC_KEYS
-OS_VERSION_TEST := $(shell uname -r | cut -d . -f 1)
-endif
-ifeq  ($(OS_VERSION_TEST),16)
-OS_NAME =				"Sierra"
-# MLX_PATH =				./lib/mlx/mlx_sierra
-else ifeq ($(OS_TEST), Darwin)
-OS_NAME =				"El_Capitan"
-# MLX_PATH =				./lib/mlx/mlx_capitan
-endif
-ifeq ($(OS_TEST),"Linux")
-OS_NAME =				"Linux"
-# MLX_PATH =				./lib/mlx/mlx_x11
-# INC_NAMES = 			$(NAME).h \
-# 						linux_keys.h
-# MLXFLAGS =				-lmlx -lXext -lX11
-# KEYS =					-DLINUX_KEYS
-endif
-
-# MLX =					$(MLX_PATH)/libmlx.a
+# GTK_CFLAGS =			$(shell pkg-config --cflags gtk+-3.0)
+# GTK_CUDALIBS =			$(shell pkg-config --libs-only-L --libs-only-l gtk+-3.0)
 
 OBJ =					$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 OBJ_PATH =				./obj
@@ -77,14 +54,14 @@ SRC_NAME =  			main.c
 
 default: all
 
-all: cmakecheck libft glew glfw $(NAME)
+all: libft glew glfw $(NAME)
 
 $(NAME): $(SRC) $(SCOP_INCLUDES) $(OBJ_PATH) $(OBJ)
-	@echo "$(GREEN)Compiling $(NAME) for $(OS_NAME)$(EOC)"
-	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(ASANFLAGS)
+	@echo "\n$(GREEN)Compiling $(NAME) for MacOSX $(OS_NAME)$(EOC)"
+	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS)
+	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS)
 
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
@@ -103,6 +80,8 @@ fclean: clean
 fcleanmega: fcleanlibft fclean glewclean glfwclean
 
 libft:
+	@echo $(SCOP_INCLUDES)
+
 	@echo "$(GREEN)Compiling$(EOC) $(YELL)Libft$(EOC) $(GREEN)library$(EOC)"
 	@make -C $(LIBFT_PATH)/ all
 
@@ -115,20 +94,34 @@ fcleanlibft: cleanlibft
 	@make -C $(LIBFT_PATH)/ fclean
 
 glew:
-	@echo "$(GREEN)Compiling$(EOC) $(YELL)GLEW$(EOC) $(GREEN)library$(EOC)"
+	@echo "\n$(GREEN)Compiling$(EOC) $(YELL)GLEW$(EOC) $(GREEN)library$(EOC)"
+ifeq ($(GLEW_LIB_FILE), $(GLEW_PATH)/lib/libGLEW.a)
+	@echo "$(YELL)GLEW$(EOC) $(GREEN)library already present and compiled, skipping step...$(EOC)"
+else
 	@make -C $(GLEW_PATH)
+endif
 
 glewclean:
 	@echo "$(GREEN)Cleaning$(EOC) $(YELL)GLEW$(EOC) $(GREEN)library$(EOC)"
 	@make -C $(GLEW_PATH)/ clean
 
 glfw:
-	@echo "$(GREEN)Compiling$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library$(EOC)"
-	# @make -C $(GLFW_PATH)
+	@echo "\n$(GREEN)Compiling$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library$(EOC)"
+ifeq ($(GLFW_LIB_FILE), $(GLFW_BUILD_PATH)/src/libglfw3.a)
+	@echo "$(YELL)GLFW$(EOC) $(GREEN)library already present and compiled, skipping step...$(EOC)"
+else
+	@echo "$(GREEN)Cleaning$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library path$(EOC)"
+	@rm -rf $(GLFW_BUILD_PATH)
+	@mkdir $(GLFW_BUILD_PATH)
+	@echo "$(GREEN)Generating$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library's makefile$(EOC)"
+	@cmake -S $(GLFW_PATH) -B $(GLFW_BUILD_PATH)
+	@echo "$(GREEN)Building$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library$(EOC)"
+	@make -C $(GLFW_BUILD_PATH)
+endif
 
 glfwclean:
-	@echo "$(GREEN)Compiling$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library$(EOC)"
-	@make -C $(GLFW_PATH)
+	@echo "$(GREEN)Cleaning$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library's files$(EOC)"
+	@rm -rf $(GLFW_BUILD_PATH)
 
 re: fclean default
 
@@ -188,21 +181,21 @@ norme:
 	norminette $(SCOP_INCLUDES_PATH)
 	norminette $(LIBFT_PATH)
 
-usage:
-	@echo "\n$(B_RED)Please use one of the following commands:$(EOC)\n"
-	@echo "\tCompile and compute with one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make cpu$(EOC)\n"
-	@echo "\tCompile the $(GREEN)LIBFT$(EOC) -> $(B_YELL)make libft$(EOC)\n"
-	@echo "\tCompile the $(GREEN)MLX$(EOC) (according to your OS) -> $(B_YELL)make mlx$(EOC)\n"
-	@echo "\tCheck the $(GREEN)42 C STANDARD$(EOC) in sources and includes directories -> $(B_YELL)make norme$(EOC)\n"
-	@echo "\tClean the $(GREEN)$(NAME)$(EOC) directory from object files -> $(B_YELL)make clean$(EOC)\n"
-	@echo "\tClean the $(GREEN)LIBFT$(EOC) directory from object files -> $(B_YELL)make cleanlibft$(EOC)\n"
-	@echo "\tClean the $(GREEN)MLX$(EOC) directory from object files -> $(B_YELL)make cleanmlx$(EOC)\n"
-	@echo "\tRemove object files and binaries from $(GREEN)$(NAME) LIBFT and MLX$(EOC) directories -> $(B_YELL)make fclean$(EOC)\n"
-	@echo "\tRemove object files and binaries from $(GREEN)LIBFT$(EOC) directory -> $(B_YELL)make fcleanlibft$(EOC)\n"
-	@echo "\tRemove object files and binaries from $(GREEN)$(NAME)$(EOC) directory then compile it again using one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make re$(EOC)\n"
-	@echo "\t$(B_RED)NOT IMPLEMENTED YET!$(EOC) Compile and compute with $(GREEN)OpenCL$(EOC) using multiple threads -> $(B_YELL)make gpu$(EOC)\n"
-	@echo "\tIf you want to activate the debugging output add \
-	$(GREEN)debug$(EOC) before -> $(B_YELL)make debug cpu$(EOC)\n"
+# usage:
+# 	@echo "\n$(B_RED)Please use one of the following commands:$(EOC)\n"
+# 	@echo "\tCompile and compute with one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make cpu$(EOC)\n"
+# 	@echo "\tCompile the $(GREEN)LIBFT$(EOC) -> $(B_YELL)make libft$(EOC)\n"
+# 	@echo "\tCompile the $(GREEN)MLX$(EOC) (according to your OS) -> $(B_YELL)make mlx$(EOC)\n"
+# 	@echo "\tCheck the $(GREEN)42 C STANDARD$(EOC) in sources and includes directories -> $(B_YELL)make norme$(EOC)\n"
+# 	@echo "\tClean the $(GREEN)$(NAME)$(EOC) directory from object files -> $(B_YELL)make clean$(EOC)\n"
+# 	@echo "\tClean the $(GREEN)LIBFT$(EOC) directory from object files -> $(B_YELL)make cleanlibft$(EOC)\n"
+# 	@echo "\tClean the $(GREEN)MLX$(EOC) directory from object files -> $(B_YELL)make cleanmlx$(EOC)\n"
+# 	@echo "\tRemove object files and binaries from $(GREEN)$(NAME) LIBFT and MLX$(EOC) directories -> $(B_YELL)make fclean$(EOC)\n"
+# 	@echo "\tRemove object files and binaries from $(GREEN)LIBFT$(EOC) directory -> $(B_YELL)make fcleanlibft$(EOC)\n"
+# 	@echo "\tRemove object files and binaries from $(GREEN)$(NAME)$(EOC) directory then compile it again using one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make re$(EOC)\n"
+# 	@echo "\t$(B_RED)NOT IMPLEMENTED YET!$(EOC) Compile and compute with $(GREEN)OpenCL$(EOC) using multiple threads -> $(B_YELL)make gpu$(EOC)\n"
+# 	@echo "\tIf you want to activate the debugging output add \
+# 	$(GREEN)debug$(EOC) before -> $(B_YELL)make debug cpu$(EOC)\n"
 
 
 ######
