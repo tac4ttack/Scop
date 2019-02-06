@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/04 19:59:54 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/06 16:54:42 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,20 @@
 # include <unistd.h>
 # include <math.h>
 # include <sys/time.h>
+# include <fcntl.h>
+
 # include "libft.h"
-# include "glew.h"
-
-// # include "mlx.h"
-// # include "mlx_opengl.h"
-
-// # ifdef MAC_KEYS
-// #  include "mac_keys.h"
-// # elif LINUX_KEYS
-// #  include "linux_keys.h"
-// # endif
+# include "GL/glew.h"
+# include "GLFW/glfw3.h"
 
 # ifdef DEBUG
-#  define DBUG					1
+#  define DEBUGGING					1
 # else
-#  define DBUG					0
+#  define DEBUGGING					0
 # endif
+
+void temp_error(char *str);
+GLuint shader_loader(const char **files, int length);
 
 // # define DESTROYNOTIFY			17
 // # define KEYPRESSMASK			(1L<<0)
