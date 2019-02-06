@@ -5,3 +5,6 @@ https://mdeverdelhan.developpez.com/tutoriel/dynamiclight/tutoriel6/
 
 OpenGL 4 API
 https://www.khronos.org/registry/OpenGL-Refpages/gl4/
+
+GLSL & SHADERS
+http://antongerdelan.net/opengl/shaders.html
