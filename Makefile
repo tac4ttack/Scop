@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/06 14:50:16 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/06 16:53:15 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,13 @@ FRAMEWORKS =			-framework OpenGL -framework Cocoa -framework IOKit -framework Co
 
 OBJ =					$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 OBJ_PATH =				./obj
-OBJ_NAME =				$(SRC_NAME:.c=.o)
+OBJ_NAME =				$(SRC_FILES:.c=.o)
 
-SRC =					$(addprefix $(SRC_PATH)/,$(SRC_NAME))
+SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
-SRC_NAME =  			main.c
+SRC_FILES =  			error.c \
+						main.c \
+						shader_loader.c
 
 default: all
 
