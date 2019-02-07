@@ -1,10 +1,10 @@
-Cours sur shaders
-https://openclassrooms.com/fr/courses/1319481-les-shaders-en-glsl/1319595-introduction-au-glsl
-https://mdeverdelhan.developpez.com/tutoriel/dynamiclight/tutoriel6/
-
-
 OpenGL 4 API
 https://www.khronos.org/registry/OpenGL-Refpages/gl4/
 
 GLSL & SHADERS
 http://antongerdelan.net/opengl/shaders.html
+https://thebookofshaders.com/01/
+https://openclassrooms.com/fr/courses/1319481-les-shaders-en-glsl/1319595-introduction-au-glsl
+https://mdeverdelhan.developpez.com/tutoriel/dynamiclight/tutoriel6/
+http://glslsandbox.com/e#52433.0
+https://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/uniform.php
