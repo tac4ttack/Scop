@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/06 16:53:15 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/07 16:38:07 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,6 @@ GLFW_LIB_FILE =			$(shell ls $(GLFW_BUILD_PATH)/src/libglfw3.a)
 
 FRAMEWORKS =			-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
-# GTK_CFLAGS =			$(shell pkg-config --cflags gtk+-3.0)
-# GTK_CUDALIBS =			$(shell pkg-config --libs-only-L --libs-only-l gtk+-3.0)
-
 OBJ =					$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 OBJ_PATH =				./obj
 OBJ_NAME =				$(SRC_FILES:.c=.o)
@@ -51,8 +48,15 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
 SRC_FILES =  			error.c \
-						main.c \
+						gl_log.c \
+						playground.c
+						# main.c \
 						shader_loader.c
+
+OS_TEST := $(shell uname)
+ifeq ($(OS_TEST), Darwin)
+MACOSX = -DMACOSX
+endif
 
 default: all
 
@@ -63,7 +67,7 @@ $(NAME): $(SRC) $(SCOP_INCLUDES) $(OBJ_PATH) $(OBJ)
 	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS)
+	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
 
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"

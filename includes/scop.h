@@ -6,22 +6,31 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/06 16:54:42 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:15:49 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCOP_H
 # define SCOP_H
 
+// STANDARD LIBS
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
-# include <sys/time.h>
+# include <time.h>
 # include <fcntl.h>
 
+// GL_LOG SHIT
+# include <stdarg.h>
+# include <stdbool.h>
+# include <assert.h>
+
+// CUSTOM LIBS
 # include "libft.h"
 # include "GL/glew.h"
 # include "GLFW/glfw3.h"
+
+#define GL_LOG_FILE "gl.log"
 
 # ifdef DEBUG
 #  define DEBUGGING					1
@@ -30,7 +39,10 @@
 # endif
 
 void temp_error(char *str);
-GLuint shader_loader(const char **files, int length);
+bool restart_gl_log();
+bool gl_log(const char *message, ...);
+bool gl_log_err(const char *message, ...);
+void gl_log_params();
 
 // # define DESTROYNOTIFY			17
 // # define KEYPRESSMASK			(1L<<0)

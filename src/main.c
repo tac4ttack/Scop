@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 14:05:26 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/06 19:19:42 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/07 11:35:38 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int main(void)
         glfwTerminate();
         return -1;
     }
+    glfwMakeContextCurrent(window); // Attache fenetre et contexte
 
-    glfwMakeContextCurrent(window); // Initialise GLEW
+    // Initialise GLEW
     glewExperimental = GL_TRUE; // Nécessaire dans le profil de base
     if (glewInit() != GLEW_OK) {
         fprintf(stderr, "Failed to initialize GLEW\n");
@@ -46,6 +47,7 @@ int main(void)
     GLuint VertexArrayID;
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
+
     // An array of 3 vectors which represents 3 vertices
     static const GLfloat g_vertex_buffer_data[] =
     {
@@ -83,6 +85,8 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glUseProgram(programID);
+
+
 
         // 1rst attribute buffer : vertices
         glEnableVertexAttribArray(0);
