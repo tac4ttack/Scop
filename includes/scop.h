@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/07 17:15:49 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/19 19:50:44 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,103 @@
 # define SCOP_H
 
 // STANDARD LIBS
-# include <stdlib.h>
-# include <unistd.h>
-# include <math.h>
-# include <time.h>
-# include <fcntl.h>
+// # include <stdlib.h>
+// # include <unistd.h>
+// # include <math.h>
 
-// GL_LOG SHIT
-# include <stdarg.h>
-# include <stdbool.h>
-# include <assert.h>
+// # include <fcntl.h>
+
+// // GL_LOG SHIT
+// # include <stdarg.h>
+
+
+
 
 // CUSTOM LIBS
 # include "libft.h"
 # include "GL/glew.h"
 # include "GLFW/glfw3.h"
 
-#define GL_LOG_FILE "gl.log"
+// PROJECT INCLUDES
+# include <sys/stat.h>	// required for stat()
+# include <stdbool.h>	// required for bool type
+# include <time.h>		// required for time()
+# include <stdio.h>		// required for FILE printf etc
+# include <stdarg.h>	// required for va_arg
+# include <assert.h>	// required for assert()
+# include <fcntl.h>      // required for open()
+# include <unistd.h>    // required for read() and close()
+
+# define LOG_FILENAME "scop.log"
+# define WIDTH 1024
+# define HEIGHT 768
+# define VERTEX_SHADER_PATH "./shaders/simple_vs.glsl"
+# define VERTEX_FRAGMENT_PATH "./shaders/simple_fs.glsl"
 
 # ifdef DEBUG
-#  define DEBUGGING					1
+#  define DEBUG_SCOP					1
 # else
-#  define DEBUGGING					0
+#  define DEBUG_SCOP					0
 # endif
 
+# ifdef MACOSX
+#	define MAC 1
+# else
+#  define MAC 0
+# endif
+
+typedef struct	s_mesh
+{
+	float		*vertex;
+	size_t		n_vertex;
+	int			*face;
+	size_t		n_face;
+	short int	n_face_vertex;
+}				t_mesh;
+
+typedef struct	s_scop
+{
+	GLFWwindow	*win;
+	GLuint		shader_program;
+	t_mesh		*mesh;
+	char		*mesh_data;
+}				t_scop;
+
+void			*error(const char *msg);
+bool			error_bool(const char *msg);
+
+void			exit_ok(void *trash);
+void			exit_fail(const char *msg, void *trash);
+
+void			flush(t_scop *trash);
+void			split_destroy(char **split);
+
+t_scop			*init(const char *av);
+
+bool			scop_log(const char *message, ...);
+bool			scop_log_err(const char *message, ...);
+void			scop_log_gl_params(void);
+bool			scop_log_restart(void);
+
+void			gl_window_callback(GLFWwindow *win, \
+									const int width, \
+									const int height);
+void			glfw_error_callback(const int error, const char *description);
+bool			glfw_launch(t_scop *env);
+
+char			*mesh_file_load(t_scop *env, const char *target);
+t_mesh			*mesh_file_process(t_scop *env);
+bool			mesh_line_process(t_mesh *mesh, char **split);
+bool			mesh_line_process_face(t_mesh *mesh, char *str);
+bool			mesh_line_process_vertex(t_mesh *mesh, char *str);
+void			mesh_print_data(t_mesh *mesh);
+
+bool			shader_build(t_scop *env);
+
+
+
+////////////////////
+// PLAYGROUND
 void temp_error(char *str);
 bool restart_gl_log();
 bool gl_log(const char *message, ...);

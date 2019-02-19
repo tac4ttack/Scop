@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/07 16:38:07 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/19 19:51:02 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,27 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
-SRC_FILES =  			error.c \
-						gl_log.c \
-						playground.c
+SRC_FILES =  			log/scop_log_gl_params.c \
+						log/scop_log_restart.c \
+						log/scop_log.c \
+						glfw/glfw_error_callback.c \
+						glfw/glfw_launch.c \
+						glfw/glfw_window_callback.c \
+						init.c \
+						main.c \
+						mesh/mesh_file_load.c \
+						mesh/mesh_file_process.c \
+						mesh/mesh_line_process.c \
+						mesh/mesh_line_process_face.c \
+						mesh/mesh_line_process_vertex.c \
+						mesh/mesh_print_data.c \
+						shader/shader_build.c \
+						utility/split_destroy.c \
+						utility/error.c \
+						utility/exit.c \
+						utility/flush.c \
+						# gl_log.c \
+						# playground.c \
 						# main.c \
 						shader_loader.c
 
@@ -72,6 +90,11 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
 	@mkdir $(OBJ_PATH)
+	@mkdir $(OBJ_PATH)/log
+	@mkdir $(OBJ_PATH)/glfw
+	@mkdir $(OBJ_PATH)/mesh
+	@mkdir $(OBJ_PATH)/shader
+	@mkdir $(OBJ_PATH)/utility
 
 clean:
 	@echo "$(GREEN)Cleaning...$(EOC)"
@@ -131,9 +154,11 @@ glfwclean:
 
 re: fclean default
 
-debug: clean cleanlibft debuglibft debug_flag
+debug: clean cleanlibft debuglibft debug_flag all
+debug_asan: clean cleanlibft debug_asan_flag debug
 debug_flag:
 	$(eval DEBUG_MACRO = -DDEBUG -g)
+debug_asan_flag:
 	$(eval ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer)
 
 debuglibft:
