@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/19 19:51:02 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/20 13:56:43 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,12 +47,13 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
-SRC_FILES =  			log/scop_log_gl_params.c \
+SRC_FILES =  			buffer/buffer_create.c \
+						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
 						glfw/glfw_error_callback.c \
 						glfw/glfw_launch.c \
-						glfw/glfw_window_callback.c \
+						glfw/glfw_window_size_callback.c \
 						init.c \
 						main.c \
 						mesh/mesh_file_load.c \
@@ -62,6 +63,7 @@ SRC_FILES =  			log/scop_log_gl_params.c \
 						mesh/mesh_line_process_vertex.c \
 						mesh/mesh_print_data.c \
 						shader/shader_build.c \
+						shader/shader_uniform.c \
 						utility/split_destroy.c \
 						utility/error.c \
 						utility/exit.c \
@@ -90,6 +92,7 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
 	@mkdir $(OBJ_PATH)
+	@mkdir $(OBJ_PATH)/buffer
 	@mkdir $(OBJ_PATH)/log
 	@mkdir $(OBJ_PATH)/glfw
 	@mkdir $(OBJ_PATH)/mesh

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/19 19:50:44 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:01:22 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,21 @@
 #  define MAC 0
 # endif
 
+typedef struct	s_vec3
+{
+	float		x;
+	float		y;
+	float		z;
+}				t_vec3;
+
+typedef struct	s_vec4
+{
+	float		x;
+	float		y;
+	float		z;
+	float		w;
+}				t_vec4;
+
 typedef struct	s_mesh
 {
 	float		*vertex;
@@ -72,9 +87,18 @@ typedef struct	s_scop
 {
 	GLFWwindow	*win;
 	GLuint		shader_program;
+
+	GLuint		vbo;
+	GLuint		vao;
+
+	GLint		uniform_test; // for testing purpose!
+	int			uniform_test_value; // for testing purpose!
+
 	t_mesh		*mesh;
 	char		*mesh_data;
 }				t_scop;
+
+bool			buffer_create(t_scop *env);
 
 void			*error(const char *msg);
 bool			error_bool(const char *msg);
@@ -92,7 +116,7 @@ bool			scop_log_err(const char *message, ...);
 void			scop_log_gl_params(void);
 bool			scop_log_restart(void);
 
-void			gl_window_callback(GLFWwindow *win, \
+void			glfw_window_size_callback(GLFWwindow *win, \
 									const int width, \
 									const int height);
 void			glfw_error_callback(const int error, const char *description);
@@ -106,6 +130,9 @@ bool			mesh_line_process_vertex(t_mesh *mesh, char *str);
 void			mesh_print_data(t_mesh *mesh);
 
 bool			shader_build(t_scop *env);
+GLuint			shader_uniform_bind(t_scop *env);
+GLuint			shader_uniform_update(t_scop *env);
+
 
 
 

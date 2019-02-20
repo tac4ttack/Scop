@@ -1,17 +1,5 @@
 #include "scop.h"
 
-void glfw_error_callback(int error, const char *description)
-{
-	gl_log_err("GLFW ERROR: code %i msg: %s\n", error, description);
-}
-
-void window_size_callback(GLFWwindow *window, int width, int height)
-{
-	if (window)
-	{
-		gl_log("Window size has changed!\n new width = %d\nnew height = %d\n\n", width, height);
-	}
-}
 
 void _update_fps_counter(GLFWwindow *window)
 {
@@ -36,67 +24,51 @@ void _update_fps_counter(GLFWwindow *window)
 
 int main()
 {
-	// start the GL logger
-	assert(restart_gl_log());
-	gl_log("Starting GLFW\n%s\n", glfwGetVersionString());
-	// register the error call-back function that we wrote, above
-	glfwSetErrorCallback(glfw_error_callback);
 
-	// start GL context and O/S window using the GLFW helper library
-	if (!glfwInit())
-	{
-		fprintf(stderr, "ERROR: could not start GLFW3\n");
-		return 1;
-	}
+	// // start GL context and O/S window using the GLFW helper library
+	// if (!glfwInit())
+	// {
+	// 	fprintf(stderr, "ERROR: could not start GLFW3\n");
+	// 	return 1;
+	// }
 
-#ifdef MACOSX
-	gl_log("You are on MacOSX!\n");
-	// Required under MacOSX
-	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
-	// Will fetch the latest compatible version above 3.2 for post mavericks systems
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		   // Pour rendre MacOS heureux ; ne devrait pas être nécessaire mais il l'est
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // On ne veut pas l'ancien OpenGL
-#endif
 
-	GLFWwindow *window;
-	if (!(window = glfwCreateWindow(1024, 768, "Scop - testing", NULL, NULL)))
-	{
-		gl_log_err("ERROR: could not open window with GLFW3\n");
-		glfwTerminate();
-		return 1;
-	}
-	// Attach window and context
-	glfwMakeContextCurrent(window);
+	// GLFWwindow *window;
+	// if (!(window = glfwCreateWindow(1024, 768, "Scop - testing", NULL, NULL)))
+	// {
+	// 	gl_log_err("ERROR: could not open window with GLFW3\n");
+	// 	glfwTerminate();
+	// 	return 1;
+	// }
+	// // Attach window and context
+	// glfwMakeContextCurrent(window);
 
-	// Set up a callback for windows resize
-	glfwSetWindowSizeCallback(window, window_size_callback);
+	// // Set up a callback for windows resize
+	// glfwSetWindowSizeCallback(window, window_size_callback);
 
 	// Glew
 	// To improve support for newer OpenGL releases
-	glewExperimental = GL_TRUE;
-	// start GLEW extension handler
-	if (glewInit() != GLEW_OK)
-	{
-		gl_log_err("Failed to initialize GLEW\n");
-		return -1;
-	}
+	// glewExperimental = GL_TRUE;
+	// // start GLEW extension handler
+	// if (glewInit() != GLEW_OK)
+	// {
+	// 	gl_log_err("Failed to initialize GLEW\n");
+	// 	return -1;
+	// }
 
-	// Print opengl params into the gl.log
-	gl_log_params();
+	// // Print opengl params into the gl.log
+	// gl_log_params();
 
-	// get version info
-	const GLubyte *renderer = glGetString(GL_RENDERER); // get renderer string
-	const GLubyte *version = glGetString(GL_VERSION);   // version as a string
-	gl_log("Renderer: %s\n", renderer);
-	gl_log("OpenGL version supported %s\n", version);
+	// // get version info
+	// const GLubyte *renderer = glGetString(GL_RENDERER); // get renderer string
+	// const GLubyte *version = glGetString(GL_VERSION);   // version as a string
+	// gl_log("Renderer: %s\n", renderer);
+	// gl_log("OpenGL version supported %s\n", version);
 
 	// tell GL to only draw onto a pixel if the shape is closer to the viewer
 	// these two are messing up with the drawing order it seems
-	glEnable(GL_DEPTH_TEST); // enable depth-testing
-	glDepthFunc(GL_LESS);	// depth-testing interprets a smaller value as "closer"
+
 
 	// defining some points
 	// Here we define our triangle, vertex are read in clockwise order

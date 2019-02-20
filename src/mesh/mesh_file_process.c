@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:15:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/19 19:17:59 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:29:08 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ t_mesh *mesh_file_process(t_scop *env)
 		if (!mesh_line_process(mesh, split))
 			return (error("[ERROR mesh_file_process()]\t" \
 							"Mesh line processing failed"));
-
-		// (DEBUG_SCOP ? mesh_print_data(mesh) : 0);
-		mesh_print_data(mesh);
-
+		(DEBUG_SCOP ? mesh_print_data(mesh) : 0);
 		split_destroy(split);
 		return (mesh);
 	}

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 19:26:16 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/19 20:01:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:32:30 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static GLuint			shader_load(const char *path, GLint mod)
 		glCompileShader(shader);
 		ft_memdel((void**)&source);
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-		if (!status)
-			return (GL_FALSE);
+		if (status == GL_FALSE) // why does it enter?
+				return (GL_FALSE);
 		return (shader);
 	}
 	return (GL_FALSE);
@@ -66,13 +66,16 @@ bool					shader_build(t_scop *env)
 	{
 		if (!(vertex = shader_load(VERTEX_SHADER_PATH, GL_VERTEX_SHADER)))
 			return (error_bool("[ERROR shader_build()]\t" \
-							"Failed to load vertex shader"));
+						"Failed to load and compile vertex shader"));
 		if (!(fragment = shader_load(VERTEX_FRAGMENT_PATH, GL_FRAGMENT_SHADER)))
 			return (error_bool("[ERROR shader_build()]\t" \
-							"Failed to load fragment shader"));
+						"Failed to load and compile fragment shader"));
 		if (!(env->shader_program = shader_compile(&vertex, &fragment)))
 			return (error_bool("[ERROR shader_build()]\t" \
-							"Failed to compile and build shader program"));
+						"Failed to compile and build shader program"));
+		if (!(shader_uniform_bind(env)))
+			return (error_bool("[ERROR shader_build()]\t" \
+						"Failed to create uniforms for the shader program"));
 		return (true);
 	}
 	return (false);
