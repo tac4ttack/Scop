@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/20 17:12:02 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:41:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ bool	glfw_launch(t_scop *env)
 			// _update_fps_counter(env->win);
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// wipe the drawing surface clear
+
 			glUseProgram(env->shader_program); // specify wich shader to use
 
 			glBindVertexArray(env->vao);

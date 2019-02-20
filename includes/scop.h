@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/20 17:01:22 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:40:12 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct	s_vec4
 
 typedef struct	s_mesh
 {
-	float		*vertex;
+	GLfloat		*vertex;
 	size_t		n_vertex;
 	int			*face;
 	size_t		n_face;
