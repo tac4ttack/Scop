@@ -3,6 +3,7 @@ https://www.khronos.org/registry/OpenGL-Refpages/gl4/
 
 OPEN GL la base!
 https://learnopengl.com
+https://learnopengl.com/In-Practice/Debugging -> could be useful
 
 GLSL & SHADERS
 http://antongerdelan.net/opengl/shaders.html
