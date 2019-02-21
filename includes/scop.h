@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/20 18:40:12 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:16:25 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 // # include <stdarg.h>
 
 
-
-
 // CUSTOM LIBS
 # include "libft.h"
 # include "GL/glew.h"
@@ -40,12 +38,22 @@
 # include <assert.h>	// required for assert()
 # include <fcntl.h>      // required for open()
 # include <unistd.h>    // required for read() and close()
+# include <string.h>	// required for strspn() used in mesh_line_check()
 
 # define LOG_FILENAME "scop.log"
+
 # define WIDTH 1024
 # define HEIGHT 768
+
 # define VERTEX_SHADER_PATH "./shaders/simple_vs.glsl"
 # define VERTEX_FRAGMENT_PATH "./shaders/simple_fs.glsl"
+
+# define CHARSET_V "v \t.-0123456789"
+# define CHARSET_VT "vt \t.-0123456789"
+# define CHARSET_VN "vn \t.-0123456789"
+# define CHARSET_VP "vp \t.-0123456789"
+# define CHARSET_F "f \t/-0123456789"
+# define CHARSET_L "l \t-0123456789"
 
 # ifdef DEBUG
 #  define DEBUG_SCOP					1
@@ -76,11 +84,28 @@ typedef struct	s_vec4
 
 typedef struct	s_mesh
 {
-	GLfloat		*vertex;
+	char		*object;
+	char		*group;
+	char		*mtllib;
+	char		*usemtl;
+	bool		shading;
+
+	GLfloat		*vertex;	// 4 float
 	size_t		n_vertex;
-	int			*face;
+
+	GLint		*face;		// variable selon mod
 	size_t		n_face;
-	short int	n_face_vertex;
+	short int	n_face_vertices;
+	short int	n_face_mod;	// 0 = Vn, 1 = Vn/VTn, 2 = Vn/VTn/VNn, 3 = Vn//VNn
+
+	GLfloat		*normal;	// 3 float
+	size_t		n_normal;
+
+	GLfloat		*texture;
+	size_t		n_texture;
+
+	GLfloat		*space;
+	size_t		n_space;
 }				t_mesh;
 
 typedef struct	s_scop
@@ -90,6 +115,7 @@ typedef struct	s_scop
 
 	GLuint		vbo;
 	GLuint		vao;
+	GLuint		ebo;
 
 	GLint		uniform_test; // for testing purpose!
 	int			uniform_test_value; // for testing purpose!
@@ -122,12 +148,16 @@ void			glfw_window_size_callback(GLFWwindow *win, \
 void			glfw_error_callback(const int error, const char *description);
 bool			glfw_launch(t_scop *env);
 
+void			mesh_clean(t_mesh *mesh);
 char			*mesh_file_load(t_scop *env, const char *target);
 t_mesh			*mesh_file_process(t_scop *env);
+bool			mesh_get_face_type(t_mesh *mesh, char *str);
+bool			mesh_line_check(char *str, char *charset);
 bool			mesh_line_process(t_mesh *mesh, char **split);
 bool			mesh_line_process_face(t_mesh *mesh, char *str);
 bool			mesh_line_process_vertex(t_mesh *mesh, char *str);
 void			mesh_print_data(t_mesh *mesh);
+void			mesh_print_face_type(t_mesh *mesh);
 
 bool			shader_build(t_scop *env);
 GLuint			shader_uniform_bind(t_scop *env);

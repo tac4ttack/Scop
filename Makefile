@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/20 13:56:43 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/21 16:29:05 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ SRC_FILES =  			buffer/buffer_create.c \
 						main.c \
 						mesh/mesh_file_load.c \
 						mesh/mesh_file_process.c \
+						mesh/mesh_get_face_type.c \
+						mesh/mesh_line_check.c \
 						mesh/mesh_line_process.c \
 						mesh/mesh_line_process_face.c \
 						mesh/mesh_line_process_vertex.c \
@@ -67,11 +69,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						utility/split_destroy.c \
 						utility/error.c \
 						utility/exit.c \
-						utility/flush.c \
-						# gl_log.c \
-						# playground.c \
-						# main.c \
-						shader_loader.c
+						utility/flush.c
 
 OS_TEST := $(shell uname)
 ifeq ($(OS_TEST), Darwin)
