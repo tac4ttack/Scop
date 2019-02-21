@@ -6,59 +6,71 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:54:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/19 11:05:04 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:10:04 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static int		mesh_file_get_size(const char *target)
+static bool		mesh_file_get_size(const char *target, size_t *target_size)
 {
 	struct stat	file_stat;
 
 	if (stat(target, &file_stat) != 0)
 		return (-1);
 	else
-		return ((size_t)file_stat.st_size);
+	{
+		if (S_ISDIR(file_stat.st_mode))
+			return (error_bool("[ERROR mesh_file_get_size()]\t" \
+			"Target is a directory!\n"));
+		else
+		{
+			*target_size = (size_t)file_stat.st_size;
+			return (true);
+		}
+	}
 }
 
-static char		*mesh_file_dump(const char *target, const size_t target_size)
+static char		*mesh_file_dump(const int fd, const size_t target_size)
 {
 	void		*data;
-	int			fd;
 	ssize_t		read_status;
 
-	if (target)
+	if (fd > 0)
 	{
 		if (!(data = ft_memalloc(target_size + 1)))
 			return (error("[ERROR mesh_dump_data()]\t" \
-							"Could not allocate memory for mesh data"));
-		if ((fd = open(target, O_RDONLY)) < 0)
+			"Could not allocate memory for mesh data"));
+		if ((read_status = read(fd, data, target_size)) != (long)target_size)
 		{
-			if (data)
-				free(data);
-			return (error("[ERROR mesh_dump_data()]\t" \
-							"Could not open target file"));
+			free(data);
+			return (error("[ERROR mesh_file_dump()]\tMesh file read failed\n"));
 		}
-		read_status = read(fd, data, target_size);
 		((char*)(data))[read_status] = 0;
 		close(fd);
+		scop_log("Mesh file successfully loaded!\n");
 		return (data);
 	}
-	return (error("[ERROR mesh_dump_data()]\tTarget is NULL"));
+	return (error("[ERROR mesh_dump_data()]\tFile Descriptor is invalid\n"));
 }
 
 char			*mesh_file_load(t_scop *env, const char *target)
 {
 	size_t		target_size;
+	int			fd;
 
 	target_size = 0;
+	fd = 0;
 	if (env && target)
 	{
-		if ((target_size = mesh_file_get_size(target)) == -1)
-			return (error("[ERROR mesh_load()]\t" \
-							"Could not get target file's size"));
-		return (mesh_file_dump(target, target_size));
+		scop_log("\nLoading mesh...\n");
+		if ((fd = open(target, O_RDONLY)) < 0)
+			return (error("[ERROR mesh_file_load()]\t" \
+			"Could not open target file\n"));
+		if (!(mesh_file_get_size(target, &target_size)))
+			return (error("[ERROR mesh_file_load()]\t" \
+			"Could not get target file's size\n"));
+		return (mesh_file_dump(fd, target_size));
 	}
 	return (NULL);
 }
