@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/20 18:25:28 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:53:37 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,12 @@ static bool init_glew(void)
 {
 		glewExperimental = GL_TRUE; // To improve support for newer OpenGL releases
 		if (glewInit() != GLEW_OK)	// start GLEW extension handler
-		{
-			scop_log_err("Failed to initialize GLEW\n");
-			return (error_bool("[ERROR init_glew()]\tGLEW init fail"));
-		}
+			return (!scop_log_err("Failed to initialize GLEW\n" \
+			"ERROR init_glew()]\tGLEW init fail\n"));
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
 		glDepthFunc(GL_LESS);	// depth-testing interprets a smaller value as "closer"
+		scop_log("Current system parameters are:\n");
 		scop_log_gl_params();
 		return (scop_log("Renderer: %s\n", glGetString(GL_RENDERER)) &
 			scop_log("OpenGL version supported %s\n", glGetString(GL_VERSION)));
@@ -62,6 +61,7 @@ t_scop		*init(const char *av)
 
 	if (av)
 	{
+		scop_log("\nSCOP initializing...\n");
 		if (!(env = ft_memalloc(sizeof(t_scop))))
 			return (error("[ERROR init()]\tCould not allocate memory"));
 		assert(scop_log_restart());		// start the GL logger
@@ -71,6 +71,7 @@ t_scop		*init(const char *av)
 			return (error("[ERROR init()]\tCould initialize GLFW"));
 		if (!(init_glew()))
 			return (error("[ERROR init()]\tCould initialize GLEW"));
+		scop_log("\nSCOP initialization done!\n");
 		return (env);
 	}
 	return (NULL);

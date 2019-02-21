@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/20 18:41:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/21 11:00:03 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,8 @@ bool	glfw_launch(t_scop *env)
 
 			glBindVertexArray(env->vao);
 
-			glDrawArrays(GL_TRIANGLES, 0, env->mesh->n_vertex);
-
-			// glBindVertexArray(vertex_array_object_A); // specify which VBO to use
-			// draw points 0-3 from the currently bound VAO with current in-use shader
-			// glDrawArrays(GL_LINE_LOOP, 0, 36);
-
-			// glUseProgram(shader_program_2);			  // specify which shader program to use
-			// glBindVertexArray(vertex_array_object_B); // specify which VBO to use
-			// glDrawArrays(GL_LINE_LOOP, 0, 6);
-
-
-
-			glfwPollEvents(); // update other events like input handling
+			glDrawArrays(GL_TRIANGLE_FAN, 0, env->mesh->n_vertex);
+ 			glfwPollEvents(); // update other events like input handling
 			glfwSwapBuffers(env->win); // put the stuff we've been drawing onto the display
 		}
 		return (true);
