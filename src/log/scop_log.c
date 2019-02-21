@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 11:46:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/18 16:20:26 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/21 13:06:06 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ bool		scop_log(const char *message, ...)
 	}
 	va_start(argptr, message);
 	vfprintf(file, message, argptr);
+	va_end(argptr);
+	va_start(argptr, message);
+	vprintf(message, argptr);
 	va_end(argptr);
 	fclose(file);
 	return (true);
