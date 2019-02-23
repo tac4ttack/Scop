@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/21 18:53:37 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/23 10:57:10 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool		init_glfw(t_scop *env)
 	if (env)
 	{
 		if (!glfwInit())
-			return (error("[ERROR init_glfw()]\t GLFW3 init fail"));
+			return (error("[ERROR init_glfw()]\tGLFW3 init fail\n"));
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // Will fetch the latest compatible version above 3.2 for post mavericks systems
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // On ne veut pas l'ancien OpenGL
@@ -29,23 +29,23 @@ static bool		init_glfw(t_scop *env)
 		}
 		if (!(env->win = glfwCreateWindow(WIDTH, HEIGHT, "Scop", NULL, NULL)))
 		{
-			scop_log_err("ERROR: could not open window with GLFW3\n");
 			glfwTerminate();
-			return (error("[ERROR init_glfw()]\tGLFW window creation fail"));
+			return (error_bool("[ERROR init_glfw()]\t" \
+			"GLFW3 window creation fail\n"));
 		}
 		glfwMakeContextCurrent(env->win); // Attach window and context
 		glfwSetWindowSizeCallback(env->win, glfw_window_size_callback); // Set up a callback for windows events
 		return (true);
 	}
-	return (NULL);
+	return (false);
 }
 
 static bool init_glew(void)
 {
 		glewExperimental = GL_TRUE; // To improve support for newer OpenGL releases
 		if (glewInit() != GLEW_OK)	// start GLEW extension handler
-			return (!scop_log_err("Failed to initialize GLEW\n" \
-			"ERROR init_glew()]\tGLEW init fail\n"));
+			return (!error_bool("[ERROR init_glew()]\t" \
+			"Failed to initialize GLEW\n"));
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
 		glDepthFunc(GL_LESS);	// depth-testing interprets a smaller value as "closer"

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/21 11:00:03 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/23 09:57:18 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	glfw_launch(t_scop *env)
 
 			glBindVertexArray(env->vao);
 
-			glDrawArrays(GL_TRIANGLE_FAN, 0, env->mesh->n_vertex);
+			glDrawArrays(GL_TRIANGLE_FAN, 0, env->mesh->n_vertex[1]);
  			glfwPollEvents(); // update other events like input handling
 			glfwSwapBuffers(env->win); // put the stuff we've been drawing onto the display
 		}

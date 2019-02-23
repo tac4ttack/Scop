@@ -6,42 +6,96 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/21 18:57:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/23 19:31:37 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+
+static bool mesh_line_preprocess(t_mesh *mesh, char **split)
+{
+	if (mesh && split)
+	{
+		while (*split)
+		{
+			(strncmp(*split, "v ", 2) == 0 ? mesh->n_vertex[0]++ : 0);
+			(strncmp(*split, "f ", 2) == 0 ? mesh->n_face[0]++ : 0);
+			(strncmp(*split, "vt ", 3) == 0 ? mesh->n_texture[0]++ : 0);
+			(strncmp(*split, "vn ", 3) == 0 ? mesh->n_normal[0]++ : 0);
+			(strncmp(*split, "vp ", 3) == 0 ? mesh->n_space[0]++ : 0);
+			(strncmp(*split, "l ", 2) == 0 ? mesh->n_line[0]++ : 0);
+			split++;
+		}
+		scop_log("Preprocessing results:\n%zu Vertices\n%zu Polygons\n%zu " \
+		"Vertex texture coordinate\n%zu Vertex normals\n%zu Space vertices\n" \
+		"%zu Polylines\n", \
+		mesh->n_vertex[0], mesh->n_face[0], mesh->n_texture[0], \
+		mesh->n_normal[0], mesh->n_space[0], mesh->n_line[0]);
+
+
+		// WIP
+		mesh->n_normal[1] = mesh->n_normal[0];
+		mesh->n_texture[1] = mesh->n_texture[0];
+		mesh->n_space[1] = mesh->n_space[0];
+		mesh->n_line[1] = mesh->n_line[0];
+
+
+		return (true);
+	}
+	return (false);
+}
+
+static bool mesh_line_process_checksum(t_mesh *mesh)
+{
+	if (mesh)
+	{
+		if (mesh->n_vertex[0] != mesh->n_vertex[1]
+			|| mesh->n_face[0] != mesh->n_face[1]
+			|| mesh->n_normal[0] != mesh->n_normal[1]
+			|| mesh->n_texture[0] != mesh->n_texture[1]
+			|| mesh->n_space[0] != mesh->n_space[1]
+			|| mesh->n_line[0] != mesh->n_line[1])
+			return (false);
+		return (true);
+	}
+	return (false);
+}
 
 bool	mesh_line_process(t_mesh *mesh, char **split)
 {
 	if (mesh && split)
 	{
 		scop_log("\nMESH DATA PARSING:\n");
+		if (!(mesh_line_preprocess(mesh, split)))
+		{
+			mesh_clean(mesh);
+			return (error_bool("[ERROR mesh_line_process()]\t" \
+			"Mesh file pre processing failed\n"));
+		}
 		while (*split)
 		{
 			if (strncmp(*split, "#", 1) == 0)
-				scop_log("Comment found ->\t%s\n", *split);
+				; // scop_log("Comment found ->\t%s\n", *split);
 			else if (strncmp(*split, "v ", 2) == 0)
 			{
 				if (!(mesh_line_check(*split, CHARSET_V)))
-				{
-					mesh_clean(mesh);
-					return (!scop_log_err("\nWrong character found in V line ->\t\"%s\"\n", *split));
-				}
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Wrong character found in V line ->\t\"%s\"\n", *split));
 				if (!(mesh_line_process_vertex(mesh, *split)))
-					return (error_bool("[ERROR mesh_line_process()]\t" \
-					"Vertex line processing failed\n"));
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Vertex line processing failed ->\t%s\n", *split));
 			}
 			else if (strncmp(*split, "f ", 2) == 0)
 			{
 				if (!(mesh_line_check(*split, CHARSET_F)))
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Wrong character found in F line ->\t\"%s\"\n", *split));
+				if (!(mesh_line_process_face(mesh, *split)))
 				{
 					mesh_clean(mesh);
-					return (!scop_log_err("\nWrong character found in F line ->\t\"%s\"\n", *split));
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Face element line processing failed ->\t%s\n", *split));
 				}
-				if (!(mesh_line_process_face(mesh, *split)))
-					return (error_bool("[ERROR mesh_line_process()]\t" \
-					"Face element line processing failed\n"));
 			}
 			else if ((strncmp(*split, "\n", 1) == 0)				// TEMP, parsing the rest of the obj data needs to be finished
 					|| (strncmp(*split, "o ", 2) == 0)
@@ -53,7 +107,8 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 					|| (strncmp(*split, "mtllib ", 7) == 0)
 					|| (strncmp(*split, "usemtl ", 7) == 0)
 					|| (strncmp(*split, "s ", 2) == 0))
-					scop_log("Useless line found skipping ->\t%s\n", *split);
+					// scop_log("Skipping line ->\t%s\n", *split);
+					;
 			else
 			{
 				mesh_clean(mesh);
@@ -72,6 +127,10 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 			// (strncmp(*split, "s ", 2) == 0 ? fprintf(stdout, "got a S ->\t%s\n", *split) : 0);
 
 		}
+		if (!(mesh_line_process_checksum(mesh)))
+			return (error_bool("[ERROR mesh_line_process()]\t" \
+				"Mesh file processing failed (number of vertices processed" \
+				" != number of vertices present in file).\n"));
 		return (true);
 	}
 	return (false);

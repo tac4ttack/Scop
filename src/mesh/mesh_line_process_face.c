@@ -6,74 +6,79 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 12:59:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/21 18:03:59 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/23 18:40:23 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool create_face_array(t_mesh *mesh)
+static bool	create_face_array(t_mesh *mesh, size_t size)
 {
-	short int size;
-
 	if (mesh)
 	{
-		(size = mesh->n_face_mod == 3 ? 2 : mesh->n_face_mod + 1);
-		if (!(mesh->face = ft_memalloc(sizeof(int) * mesh->n_face_vertices * 3)))
+		if (!(mesh->face = ft_memalloc(sizeof(int) * size \
+										* mesh->n_face[2] \
+										* mesh->n_face[0])))
 			return (error_bool("[ERROR create_face_array()]\t" \
-			"Mesh face array memory allocation failed"));
-		mesh->n_face = 1;
+			"Mesh face array memory allocation failed\n"));
 		return (true);
 	}
 	return (false);
 }
 
-// static bool	extend_face_array(t_mesh *src)
-// {
-// 	int		*new;
-
-// 	if (src)
-// 	{
-// 		if (!(new = ft_memalloc(sizeof(int) \
-// 					* (src->n_face + 1) * src->n_face_vertices * 3)))
-// 			return (error_bool("[ERROR extend_face_array()]\t" \
-// 			"New mesh face array memory allocation failed"));
-// 		if (!(new = ft_memcpy(new, src->face, (sizeof(int) \
-// 					* (src->n_face) * src->n_face_vertices))))
-// 			return (error_bool("[ERROR extend_face_array()]\t" \
-// 			"Old mesh face array data copy to new array failed"));
-// 		src->n_face++;
-// 		free(src->face);
-// 		src->face = new;
-// 		return (true);
-// 	}
-// 	return (false);
-// }
-
-
-
-bool			mesh_line_process_face(t_mesh *mesh, char *str)
+static char	*create_face_format(t_mesh *mesh)
 {
+	int		size;
+	char	*format;
+
+	if (mesh)
+	{
+		size = mesh->n_face[2];
+		format = ft_strdup("f");
+		if (mesh->n_face[3] == 0)
+			while (size-- > 0)
+				format = ft_strjoin_free(format, " %d", 1);
+		else if (mesh->n_face[3] == 1)
+			while (size-- > 0)
+				format = ft_strjoin_free(format, " %d/%d", 1);
+		else if (mesh->n_face[3] == 2)
+			while (size-- > 0)
+				format = ft_strjoin_free(format, " %d/%d/%d", 1);
+		else if (mesh->n_face[3] == 3)
+			while (size-- > 0)
+				format = ft_strjoin_free(format, " %d//%d", 1);
+		else
+			return (error("[ERROR create_face_format()]\t" \
+			"Mesh could not set up the face format for data reading.\n"));
+		return (format);
+	}
+	return (NULL);
+}
+
+bool		mesh_line_process_face(t_mesh *mesh, char *str)
+{
+	int		index;
+	char	**split;
+
 	if (mesh && str)
 	{
-		if (!mesh->face && mesh->n_face == 0) //
+		if (!mesh->face && mesh->n_face[0] > 0)
 		{
 			if (!(mesh_get_face_type(mesh, str)))
 				return (error_bool("[ERROR mesh_line_process_face()]\t" \
-				"Mesh face line parsing & analysis failed"));
-			if (!create_face_array(mesh))
+				"Mesh face line parsing & analysis failed\n"));
+			if (!create_face_array(mesh, mesh->n_face[4]))
 				return (error_bool("[ERROR mesh_line_process_face()]\t" \
-				"Mesh face array creation failed"));
+				"Mesh face array creation failed\n"));
+			if (!(mesh->face_format = create_face_format(mesh)))
+				return (error_bool("[ERROR mesh_line_process_face()]\t" \
+				"Mesh face format creation failed!\n"));
 		}
-		// else
-		// {
-		// 	if (!extend_face_array(mesh))
-		// 		return (error_bool("[ERROR mesh_line_process_face()]\t" \
-		// 		"Mesh face array extension failed"));
-		// }
-		// if (!(mesh_extract_face_data(mesh, ft_strsplit(str, ' '))))
-		// 	return (error_bool("[ERROR mesh_line_process_face()]\t" \
-		// 		"Mesh face line analysis failed"));
+		index = (mesh->n_face[1]++) * mesh->n_face[2] * mesh->n_face[4];
+		if (!(split = ft_strsplit(str, ' ')))
+			return (error_bool("[ERROR mesh_line_process_face()]\t" \
+			"Mesh could not split face line for processing its data.\n"));
+		return (mesh_process_face(mesh, split, index));
 		return (true);
 	}
 	return (false);

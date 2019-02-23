@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/21 16:29:05 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/23 15:09:43 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,11 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/mesh_line_check.c \
 						mesh/mesh_line_process.c \
 						mesh/mesh_line_process_face.c \
+						mesh/mesh_line_process_face_format.c \
 						mesh/mesh_line_process_vertex.c \
 						mesh/mesh_print_data.c \
+						mesh/mesh_print_data_face.c \
+						mesh/mesh_print_data_vertex.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
 						utility/split_destroy.c \

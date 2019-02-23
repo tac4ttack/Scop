@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:15:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/21 18:25:49 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/23 19:28:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static t_mesh *create_mesh(t_mesh *target)
 	return (target);
 }
 
-static void *line_processing_error(t_mesh **trash, char **split)
+static void *line_processing_error(t_mesh *mesh, char **split)
 {
-	if (trash)
-		ft_memdel((void**)&(*trash));
+	if (mesh)
+	{
+		mesh_clean(mesh);
+		ft_memdel((void**)&(mesh));
+	}
+
 	if (split)
 		split_destroy(split);
 	return (error("[ERROR mesh_file_process()]\t" \
@@ -45,6 +49,8 @@ void	mesh_clean(t_mesh *mesh)
 		(mesh->normal ? ft_memdel((void**)&mesh->normal) : 0);
 		(mesh->texture ? ft_memdel((void**)&mesh->texture) : 0);
 		(mesh->space ? ft_memdel((void**)&mesh->space) : 0);
+		(mesh->line ? ft_memdel((void**)&mesh->line) : 0);
+		(mesh->face_format ? ft_memdel((void**)&mesh->face_format) : 0);
 	}
 }
 
@@ -68,8 +74,9 @@ t_mesh *mesh_file_process(t_scop *env)
 			return (error("[ERROR mesh_file_process()]\t" \
 							"Mesh data creation failed"));
 		if (!mesh_line_process(mesh, split))
-			return (line_processing_error(&mesh, split));
-		(DEBUG_SCOP ? mesh_print_data(mesh) : 0);
+			return (line_processing_error(mesh, split));
+		// (DEBUG_SCOP ? mesh_print_data(mesh) : 0);
+		mesh_print_data(mesh);
 		split_destroy(split);
 		scop_log("Finished mesh processing with success!\n");
 		return (mesh);
