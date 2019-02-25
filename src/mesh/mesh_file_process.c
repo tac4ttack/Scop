@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:15:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/23 19:28:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:32:10 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static t_mesh *create_mesh(t_mesh *target)
+ static t_mesh *create_mesh(t_mesh *target)
 {
 	if (!(target = ft_memalloc(sizeof(t_mesh))))
 		return (error("[ERROR create_mesh()]\t" \
@@ -22,38 +22,14 @@ static t_mesh *create_mesh(t_mesh *target)
 	return (target);
 }
 
-static void *line_processing_error(t_mesh *mesh, char **split)
+static void *mesh_file_processing_error(t_mesh *mesh, char **split, char *msg)
 {
 	if (mesh)
-	{
 		mesh_clean(mesh);
-		ft_memdel((void**)&(mesh));
-	}
-
 	if (split)
 		split_destroy(split);
-	return (error("[ERROR mesh_file_process()]\t" \
-				"Mesh line processing failed"));
+	return (error(msg));
 }
-
-void	mesh_clean(t_mesh *mesh)
-{
-	if (mesh)
-	{
-		(mesh->object ? ft_memdel((void**)&mesh->object) : 0);
-		(mesh->group ? ft_memdel((void**)&mesh->group) : 0);
-		(mesh->mtllib ? ft_memdel((void**)&mesh->mtllib) : 0);
-		(mesh->usemtl ? ft_memdel((void**)&mesh->usemtl) : 0);
-		(mesh->vertex ? ft_memdel((void**)&mesh->vertex) : 0);
-		(mesh->face ? ft_memdel((void**)&mesh->face) : 0);
-		(mesh->normal ? ft_memdel((void**)&mesh->normal) : 0);
-		(mesh->texture ? ft_memdel((void**)&mesh->texture) : 0);
-		(mesh->space ? ft_memdel((void**)&mesh->space) : 0);
-		(mesh->line ? ft_memdel((void**)&mesh->line) : 0);
-		(mesh->face_format ? ft_memdel((void**)&mesh->face_format) : 0);
-	}
-}
-
 
 t_mesh *mesh_file_process(t_scop *env)
 {
@@ -71,10 +47,11 @@ t_mesh *mesh_file_process(t_scop *env)
 			return (error("[ERROR mesh_file_process()]\t" \
 							"Mesh data split failed"));
 		if (!(mesh = create_mesh(mesh)))
-			return (error("[ERROR mesh_file_process()]\t" \
-							"Mesh data creation failed"));
+			return (mesh_file_processing_error(mesh, split, \
+			"[ERROR mesh_file_process()]\tMesh data creation failed"));
 		if (!mesh_line_process(mesh, split))
-			return (line_processing_error(mesh, split));
+			return (mesh_file_processing_error(mesh, split, \
+			"[ERROR mesh_file_process()]\tMesh line processing failed"));
 		// (DEBUG_SCOP ? mesh_print_data(mesh) : 0);
 		mesh_print_data(mesh);
 		split_destroy(split);

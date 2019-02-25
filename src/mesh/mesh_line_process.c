@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/23 19:31:37 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:23:43 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,16 @@ static bool mesh_line_preprocess(t_mesh *mesh, char **split)
 			(strncmp(*split, "l ", 2) == 0 ? mesh->n_line[0]++ : 0);
 			split++;
 		}
+		if (mesh->n_vertex[0] < 3)
+			return (error_bool("[ERROR mesh_line_preprocess()]\t" \
+			"The mesh needs at lest 3 vertices!\n"));
 		scop_log("Preprocessing results:\n%zu Vertices\n%zu Polygons\n%zu " \
 		"Vertex texture coordinate\n%zu Vertex normals\n%zu Space vertices\n" \
 		"%zu Polylines\n", \
 		mesh->n_vertex[0], mesh->n_face[0], mesh->n_texture[0], \
 		mesh->n_normal[0], mesh->n_space[0], mesh->n_line[0]);
-
-
-		// WIP
-		mesh->n_normal[1] = mesh->n_normal[0];
-		mesh->n_texture[1] = mesh->n_texture[0];
-		mesh->n_space[1] = mesh->n_space[0];
-		mesh->n_line[1] = mesh->n_line[0];
-
-
+		//
+		//
 		return (true);
 	}
 	return (false);
@@ -70,7 +66,7 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 		{
 			mesh_clean(mesh);
 			return (error_bool("[ERROR mesh_line_process()]\t" \
-			"Mesh file pre processing failed\n"));
+			"Mesh file pre processing  failed\n"));
 		}
 		while (*split)
 		{
@@ -91,11 +87,8 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
 					"Wrong character found in F line ->\t\"%s\"\n", *split));
 				if (!(mesh_line_process_face(mesh, *split)))
-				{
-					mesh_clean(mesh);
 					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
 					"Face element line processing failed ->\t%s\n", *split));
-				}
 			}
 			else if ((strncmp(*split, "\n", 1) == 0)				// TEMP, parsing the rest of the obj data needs to be finished
 					|| (strncmp(*split, "o ", 2) == 0)

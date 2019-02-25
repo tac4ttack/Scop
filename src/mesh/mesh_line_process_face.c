@@ -6,17 +6,18 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 12:59:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/23 18:40:23 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:48:16 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool	create_face_array(t_mesh *mesh, size_t size)
+ bool	create_face_array(t_mesh *mesh)
 {
 	if (mesh)
 	{
-		if (!(mesh->face = ft_memalloc(sizeof(int) * size \
+		if (!(mesh->face = ft_memalloc(sizeof(int) \
+										* mesh->n_face[4] \
 										* mesh->n_face[2] \
 										* mesh->n_face[0])))
 			return (error_bool("[ERROR create_face_array()]\t" \
@@ -26,7 +27,7 @@ static bool	create_face_array(t_mesh *mesh, size_t size)
 	return (false);
 }
 
-static char	*create_face_format(t_mesh *mesh)
+ char	*create_face_format(t_mesh *mesh)
 {
 	int		size;
 	char	*format;
@@ -66,10 +67,10 @@ bool		mesh_line_process_face(t_mesh *mesh, char *str)
 		{
 			if (!(mesh_get_face_type(mesh, str)))
 				return (error_bool("[ERROR mesh_line_process_face()]\t" \
-				"Mesh face line parsing & analysis failed\n"));
-			if (!create_face_array(mesh, mesh->n_face[4]))
+				"Mesh face line parsing & analysis failed!\n"));
+			if (!create_face_array(mesh))
 				return (error_bool("[ERROR mesh_line_process_face()]\t" \
-				"Mesh face array creation failed\n"));
+				"Mesh face array creation failed!\n"));
 			if (!(mesh->face_format = create_face_format(mesh)))
 				return (error_bool("[ERROR mesh_line_process_face()]\t" \
 				"Mesh face format creation failed!\n"));
@@ -77,8 +78,13 @@ bool		mesh_line_process_face(t_mesh *mesh, char *str)
 		index = (mesh->n_face[1]++) * mesh->n_face[2] * mesh->n_face[4];
 		if (!(split = ft_strsplit(str, ' ')))
 			return (error_bool("[ERROR mesh_line_process_face()]\t" \
-			"Mesh could not split face line for processing its data.\n"));
-		return (mesh_process_face(mesh, split, index));
+			"Mesh could not split face line for processing its data!\n"));
+		if (!(mesh_process_face(mesh, split, index)))
+		{
+			split_destroy(split);
+			return (error_bool("[ERROR mesh_line_process_face()]\t" \
+			"Could not process face data!\n"));
+		}
 		return (true);
 	}
 	return (false);

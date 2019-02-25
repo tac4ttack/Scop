@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/23 10:57:10 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:37:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool init_glew(void)
 {
 		glewExperimental = GL_TRUE; // To improve support for newer OpenGL releases
 		if (glewInit() != GLEW_OK)	// start GLEW extension handler
-			return (!error_bool("[ERROR init_glew()]\t" \
+			return (error_bool("[ERROR init_glew()]\t" \
 			"Failed to initialize GLEW\n"));
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
@@ -68,9 +68,15 @@ t_scop		*init(const char *av)
 		scop_log("Starting GLFW\n%s\n", glfwGetVersionString());
 		glfwSetErrorCallback(glfw_error_callback); // register the error call-back function that we wrote, above
 		if (!(init_glfw(env)))
+		{
+			free(env);
 			return (error("[ERROR init()]\tCould initialize GLFW"));
+		}
 		if (!(init_glew()))
+		{
+			free(env);
 			return (error("[ERROR init()]\tCould initialize GLEW"));
+		}
 		scop_log("\nSCOP initialization done!\n");
 		return (env);
 	}

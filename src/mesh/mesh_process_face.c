@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mesh_line_process_face_format.c                    :+:      :+:    :+:   */
+/*   mesh_process_face.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 12:59:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/23 19:13:18 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 13:55:19 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,15 +154,12 @@ bool				mesh_process_face(t_mesh *mesh, \
 		else if (mesh->n_face[3] == 2)
 			return (process_face_v_vt_vn(mesh, (mesh->face_format + 2), \
 			split, index));
-		// else if (mesh->n_face[3] == 3)
-		// 	return (process_face_v_vn(mesh, (mesh->face_format + 2), \
-		// 	split, index));
+		else if (mesh->n_face[3] == 3)
+			return (process_face_v_vn(mesh, (mesh->face_format + 2), \
+			split, index));
 		else
-		{
-			split_destroy(split);
 			return (error_bool("[ERROR mesh_process_face()]\t" \
 			"Error processing face, format unknown!\n"));
-		}
 	}
 	return (false);
 }
