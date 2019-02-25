@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 14:16:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 16:04:24 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct	s_mesh
 	GLfloat		*vertex;
 	size_t		n_vertex[2];
 
-	GLint		*face;
+	GLuint		*face;
 	size_t		n_face[6];
 	char		*face_format;
 
@@ -196,7 +196,5 @@ void			mesh_print_data_vertex(t_mesh *mesh);
 bool			shader_build(t_scop *env);
 GLuint			shader_uniform_bind(t_scop *env);
 GLuint			shader_uniform_update(t_scop *env);
-
-
 
 #endif

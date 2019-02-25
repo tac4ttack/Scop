@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 12:23:43 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 16:48:01 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,27 @@ static bool mesh_line_process_checksum(t_mesh *mesh)
 {
 	if (mesh)
 	{
+		fprintf(stdout, "\nDEBUG LINE CHECKSUM:\n" \
+		"n_vertex[0] = %zu\t\tn_vertex[1] = %zu\n" \
+		"n_face[0] = %zu\t\tn_face[1] = %zu\n" \
+		"n_normal[0] = %zu\t\tn_normal[1] = %zu\n" \
+		"n_texture[0] = %zu\t\tn_texture[1] = %zu\n" \
+		"n_space[0] = %zu\t\tn_space[1] = %zu\n" \
+		"n_line[0] = %zu\t\tn_line[1] = %zu\n\n", \
+		mesh->n_vertex[0], mesh->n_vertex[1],
+			mesh->n_face[0], mesh->n_face[1],
+			mesh->n_normal[0], mesh->n_normal[1],
+			mesh->n_texture[0], mesh->n_texture[1],
+			mesh->n_space[0], mesh->n_space[1],
+			mesh->n_line[0], mesh->n_line[1]);
+
 		if (mesh->n_vertex[0] != mesh->n_vertex[1]
 			|| mesh->n_face[0] != mesh->n_face[1]
-			|| mesh->n_normal[0] != mesh->n_normal[1]
-			|| mesh->n_texture[0] != mesh->n_texture[1]
-			|| mesh->n_space[0] != mesh->n_space[1]
-			|| mesh->n_line[0] != mesh->n_line[1])
+			// || mesh->n_normal[0] != mesh->n_normal[1]
+			// || mesh->n_texture[0] != mesh->n_texture[1]
+			// || mesh->n_space[0] != mesh->n_space[1]
+			// || mesh->n_line[0] != mesh->n_line[1]
+			)
 			return (false);
 		return (true);
 	}

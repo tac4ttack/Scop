@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 12:59:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 13:55:19 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/25 16:51:19 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static bool			process_face_v(t_mesh *mesh, \
 		while (i < mesh->n_face[5] && *split)
 		{
 			ret += sscanf(*split, " %d", &mesh->face[index + i]);
+			/// RAJOUT GESTION INDICES NEGATIFS
 			i++;
 			format += 3;
 			split++;
@@ -62,6 +63,7 @@ static bool			process_face_v_vt(t_mesh *mesh, \
 		{
 			ret += sscanf(*split, " %d/%d", &mesh->face[index + i], \
 						&mesh->face[index + i + 1]);
+			/// RAJOUT GESTION INDICES NEGATIFS
 			i += 2;
 			format += 6;
 			split++;
@@ -94,6 +96,7 @@ static bool			process_face_v_vt_vn(t_mesh *mesh, \
 		{
 			ret += sscanf(*split, " %d/%d/%d", &mesh->face[index + i], \
 						&mesh->face[index + i + 1], &mesh->face[index + i + 2]);
+			/// RAJOUT GESTION INDICES NEGATIFS
 			i += 3;
 			format += 9;
 			split++;
@@ -107,7 +110,7 @@ static bool			process_face_v_vt_vn(t_mesh *mesh, \
 	return (false);
 }
 
- bool			process_face_v_vn(t_mesh *mesh, \
+static bool			process_face_v_vn(t_mesh *mesh, \
 										char *format, \
 										char **split, \
 										size_t index)
@@ -126,6 +129,7 @@ static bool			process_face_v_vt_vn(t_mesh *mesh, \
 		{
 			ret += sscanf(*split, " %d//%d", &mesh->face[index + i], \
 						&mesh->face[index + i + 1]);
+			/// RAJOUT GESTION INDICES NEGATIFS
 			i += 2;
 			format += 7;
 			split++;
