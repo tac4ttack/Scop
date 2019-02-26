@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:07:38 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/23 15:08:08 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 11:24:21 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ void		mesh_print_data_vertex(t_mesh *mesh)
 		scop_log("\nVertex data =\n-------------\n", NULL);
 		while (i < mesh->n_vertex[1])
 		{
-			scop_log("v[%d][%d\t%d\t%d\t%d]\t=\t%f\t%f\t%f\t%f\n", \
-					i, (i * 4), (i * 4) + 1, (i * 4) + 2, (i * 4) + 3, \
-					mesh->vertex[(i * 4)], mesh->vertex[(i * 4) + 1], \
-					mesh->vertex[(i * 4) + 2], mesh->vertex[(i * 4) + 3]);
+			scop_log("v[%d][%d|%d|%d|%d|%d|%d|%d|%d]" \
+					"\t=\t%f %f %f %f %f %f %f %f\n", \
+					i, (i * 8), (i * 8) + 1, (i * 8) + 2, (i * 8) + 3, \
+					i, (i * 8) + 4, (i * 8) + 5, (i * 8) + 6, (i * 8) + 7, \
+					mesh->vertex[(i * 8)], mesh->vertex[(i * 8) + 1], \
+					mesh->vertex[(i * 8) + 2], mesh->vertex[(i * 8) + 3], \
+					mesh->vertex[(i * 8) + 4], mesh->vertex[(i * 8) + 5],\
+					mesh->vertex[(i * 8) + 6], mesh->vertex[(i * 8) + 7]);
 			i++;
 		}
 	}
