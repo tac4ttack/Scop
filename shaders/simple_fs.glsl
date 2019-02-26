@@ -1,19 +1,15 @@
 #version 330 core
-out vec4 FragColor;
+out			vec4	FragColor;
+in			vec4	vertexColor;
+uniform		float	timeVal;
 void main()
 {
-		FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+	// FragColor = vertexColor;
+	FragColor = vec4(sin(timeVal) / vertexColor.x, \
+					cos(timeVal) / vertexColor.y, \
+					cos(timeVal) / vertexColor.z, \
+					vertexColor.w);
 }
 
-// #version 330 core
-// out vec3 color;
-// void main(){
-//   color = vec3(1,0,0);
-// }
 
-// #version 420
-// uniform vec4 inputColour;
-// out vec4 fragColour;
-// void main() {
-//   fragColour = inputColour;
-// }
+// glUniform4f(env->uniform_test, 0.0f, (sin(env->time_value) / 2.0f) + 0.5f, 0.0f, 1.0f);

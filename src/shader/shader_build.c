@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 19:26:16 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 15:48:43 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:50:12 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ bool					shader_build(t_scop *env)
 		scop_log("\nBuilding shaders...\n");
 		if (!(vertex = shader_load(VERTEX_SHADER_PATH, GL_VERTEX_SHADER)))
 			return (error_bool("[ERROR shader_build()]\t" \
-						"Failed to load and compile vertex shader"));
+						"Failed to load and compile vertex shader!\n"));
 		if (!(fragment = shader_load(VERTEX_FRAGMENT_PATH, GL_FRAGMENT_SHADER)))
 			return (error_bool("[ERROR shader_build()]\t" \
-						"Failed to load and compile fragment shader"));
+						"Failed to load and compile fragment shader!\n"));
 		if (!(env->shader_program = shader_compile(&vertex, &fragment)))
 			return (error_bool("[ERROR shader_build()]\t" \
-						"Failed to compile and build shader program"));
+						"Failed to compile and build shader program!\n"));
 		if (!(shader_uniform_bind(env)))
 			return (error_bool("[ERROR shader_build()]\t" \
 						"Failed to create uniforms for the shader program"));

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 16:48:01 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:49:46 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static bool mesh_line_preprocess(t_mesh *mesh, char **split)
 			return (error_bool("[ERROR mesh_line_preprocess()]\t" \
 			"The mesh needs at lest 3 vertices!\n"));
 		scop_log("Preprocessing results:\n%zu Vertices\n%zu Polygons\n%zu " \
-		"Vertex texture coordinate\n%zu Vertex normals\n%zu Space vertices\n" \
+		"Vertex texture coordinates\n%zu Vertex normals\n%zu Space vertices\n" \
 		"%zu Polylines\n", \
 		mesh->n_vertex[0], mesh->n_face[0], mesh->n_texture[0], \
 		mesh->n_normal[0], mesh->n_space[0], mesh->n_line[0]);
@@ -46,12 +46,12 @@ static bool mesh_line_process_checksum(t_mesh *mesh)
 	if (mesh)
 	{
 		fprintf(stdout, "\nDEBUG LINE CHECKSUM:\n" \
-		"n_vertex[0] = %zu\t\tn_vertex[1] = %zu\n" \
-		"n_face[0] = %zu\t\tn_face[1] = %zu\n" \
-		"n_normal[0] = %zu\t\tn_normal[1] = %zu\n" \
-		"n_texture[0] = %zu\t\tn_texture[1] = %zu\n" \
-		"n_space[0] = %zu\t\tn_space[1] = %zu\n" \
-		"n_line[0] = %zu\t\tn_line[1] = %zu\n\n", \
+		"n_vertex[0] = %zu\t\t\tn_vertex[1] = %zu\n" \
+		"n_face[0] = %zu\t\t\tn_face[1] = %zu\n" \
+		"n_normal[0] = %zu\t\t\tn_normal[1] = %zu\n" \
+		"n_texture[0] = %zu\t\t\tn_texture[1] = %zu\n" \
+		"n_space[0] = %zu\t\t\t\tn_space[1] = %zu\n" \
+		"n_line[0] = %zu\t\t\t\tn_line[1] = %zu\n\n", \
 		mesh->n_vertex[0], mesh->n_vertex[1],
 			mesh->n_face[0], mesh->n_face[1],
 			mesh->n_normal[0], mesh->n_normal[1],
@@ -61,8 +61,8 @@ static bool mesh_line_process_checksum(t_mesh *mesh)
 
 		if (mesh->n_vertex[0] != mesh->n_vertex[1]
 			|| mesh->n_face[0] != mesh->n_face[1]
-			// || mesh->n_normal[0] != mesh->n_normal[1]
-			// || mesh->n_texture[0] != mesh->n_texture[1]
+			|| mesh->n_normal[0] != mesh->n_normal[1]
+			|| mesh->n_texture[0] != mesh->n_texture[1]
 			// || mesh->n_space[0] != mesh->n_space[1]
 			// || mesh->n_line[0] != mesh->n_line[1]
 			)
@@ -81,7 +81,7 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 		{
 			mesh_clean(mesh);
 			return (error_bool("[ERROR mesh_line_process()]\t" \
-			"Mesh file pre processing  failed\n"));
+			"Mesh file pre processing failed!\n"));
 		}
 		while (*split)
 		{
@@ -104,6 +104,24 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 				if (!(mesh_line_process_face(mesh, *split)))
 					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
 					"Face element line processing failed ->\t%s\n", *split));
+			}
+			else if (strncmp(*split, "vt ", 3) == 0)
+			{
+				if (!(mesh_line_check(*split, CHARSET_VT)))
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Wrong character found in VT line ->\t\"%s\"\n", *split));
+				if (!(mesh_line_process_texture(mesh, *split)))
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Texture line processing failed ->\t%s\n", *split));
+			}
+			else if (strncmp(*split, "vn ", 3) == 0)
+			{
+				if (!(mesh_line_check(*split, CHARSET_VN)))
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Wrong character found in VN line ->\t\"%s\"\n", *split));
+				if (!(mesh_line_process_normal(mesh, *split)))
+					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					"Vertex normal line processing failed ->\t%s\n", *split));
 			}
 			else if ((strncmp(*split, "\n", 1) == 0)				// TEMP, parsing the rest of the obj data needs to be finished
 					|| (strncmp(*split, "o ", 2) == 0)
@@ -138,7 +156,7 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 		if (!(mesh_line_process_checksum(mesh)))
 			return (error_bool("[ERROR mesh_line_process()]\t" \
 				"Mesh file processing failed (number of vertices processed" \
-				" != number of vertices present in file).\n"));
+				" != number of vertices present in file)!\n"));
 		return (true);
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 16:04:24 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 14:37:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # include <fcntl.h>      // required for open()
 # include <unistd.h>    // required for read() and close()
 # include <string.h>	// required for strspn() used in mesh_line_check()
+# include <math.h>		// required for sin() etc
 
 # define LOG_FILENAME "scop.log"
 
@@ -54,6 +55,8 @@
 # define CHARSET_VP "vp \t.-0123456789"
 # define CHARSET_F "f \t/-0123456789"
 # define CHARSET_L "l \t-0123456789"
+
+# define ANTIALIASING 4
 
 # ifdef DEBUG
 #  define DEBUG_SCOP					1
@@ -145,11 +148,12 @@ typedef struct	s_scop
 	GLuint		vao;
 	GLuint		ebo;
 
-	GLint		uniform_test; // for testing purpose!
-	int			uniform_test_value; // for testing purpose!
-
 	t_mesh		*mesh;
 	char		*mesh_data;
+
+	GLint		uni_time_id;
+	float		uni_time_val;
+
 }				t_scop;
 
 bool			buffer_create(t_scop *env);
@@ -184,13 +188,16 @@ bool			mesh_line_check(char *str, char *charset);
 bool			mesh_line_process(t_mesh *mesh, char **split);
 bool			mesh_line_process_face(t_mesh *mesh, char *str);
 bool			mesh_process_face(t_mesh *mesh, \
-									// char *format,
 									char **split, \
 									size_t index);
+bool			mesh_line_process_normal(t_mesh *mesh, char *str);
+bool			mesh_line_process_texture(t_mesh *mesh, char *str);
 bool			mesh_line_process_vertex(t_mesh *mesh, char *str);
 void			mesh_print_data(t_mesh *mesh);
 void			mesh_print_data_face(t_mesh *mesh);
 void			mesh_print_data_face_type(t_mesh *mesh);
+void			mesh_print_data_normal(t_mesh *mesh);
+void			mesh_print_data_texture(t_mesh *mesh);
 void			mesh_print_data_vertex(t_mesh *mesh);
 
 bool			shader_build(t_scop *env);
