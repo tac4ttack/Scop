@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 15:52:20 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:01:44 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ static bool		init_glfw(t_scop *env)
 			return (error_bool("[ERROR init_glfw()]\t" \
 			"GLFW3 window creation fail!\n"));
 		}
+		// TEXTURES PART
+		// specify the texture wrapping
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		// if we use GL_CLAMP_TO_BORDER
+		float clamped_border_color[] = {1.0f, 1.0f, 0.0f, 1.0f };
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, clamped_border_color);
+		// specify the filtering method
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// nearest when unzoom
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	// linear when zoom
+
+
+
 		glfwMakeContextCurrent(env->win); // Attach window and context
 		glfwSetWindowSizeCallback(env->win, glfw_window_size_callback); // Set up a callback for windows events
 		return (true);

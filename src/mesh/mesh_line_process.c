@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 15:49:46 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:05:58 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static bool mesh_line_process_checksum(t_mesh *mesh)
 			|| mesh->n_face[0] != mesh->n_face[1]
 			|| mesh->n_normal[0] != mesh->n_normal[1]
 			|| mesh->n_texture[0] != mesh->n_texture[1]
-			// || mesh->n_space[0] != mesh->n_space[1]
-			// || mesh->n_line[0] != mesh->n_line[1]
+			|| mesh->n_space[0] != mesh->n_space[1]
+			|| mesh->n_line[0] != mesh->n_line[1]
 			)
 			return (false);
 		return (true);
@@ -126,15 +126,12 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 			else if ((strncmp(*split, "\n", 1) == 0)				// TEMP, parsing the rest of the obj data needs to be finished
 					|| (strncmp(*split, "o ", 2) == 0)
 					|| (strncmp(*split, "g ", 2) == 0)
-					|| (strncmp(*split, "vt ", 1) == 0)
-					|| (strncmp(*split, "vn ", 1) == 0)
 					|| (strncmp(*split, "vp ", 1) == 0)
 					|| (strncmp(*split, "l ", 1) == 0)
 					|| (strncmp(*split, "mtllib ", 7) == 0)
 					|| (strncmp(*split, "usemtl ", 7) == 0)
 					|| (strncmp(*split, "s ", 2) == 0))
-					// scop_log("Skipping line ->\t%s\n", *split);
-					;
+					scop_log("Skipping line ->\t%s\n", *split);
 			else
 			{
 				mesh_clean(mesh);

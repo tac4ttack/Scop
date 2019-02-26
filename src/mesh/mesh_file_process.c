@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:15:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 15:53:09 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 16:01:28 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_mesh *mesh_file_process(t_scop *env)
 			return (mesh_file_processing_error(mesh, split, \
 			"[ERROR mesh_file_process()]\tMesh line processing failed!\n"));
 		(DEBUG_SCOP ? mesh_print_data(mesh) : 0);
-		mesh_print_data_normal(mesh);
 		split_destroy(split);
 		scop_log("Finished mesh processing with success!\n");
 		return (mesh);

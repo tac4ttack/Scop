@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 15:54:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/26 16:36:09 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ static bool		create_normal_array(t_mesh *mesh)
 	"NULL mesh pointer!\n")));
 }
 
+static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
+{
+	float	vec[4];
+
+	if (mesh)
+	{
+		vec[0] = mesh->normal[index];
+		vec[1] = mesh->normal[index + 1];
+		vec[2] = mesh->normal[index + 2];
+		vec[3] = sqrt((vec[0] * vec[0]) \
+					+ (vec[1] * vec[1]) \
+					+ (vec[2] * vec[2]));
+		vec[0] /= vec[3];
+		vec[1] /= vec[3];
+		vec[2] /= vec[3];
+		return (true);
+	}
+	return ((error_bool("[ERROR normalize_vertex_normal()]\t" \
+	"NULL mesh pointer!\n")));
+}
+
 bool			mesh_line_process_normal(t_mesh *mesh, char *str)
 {
 	size_t		i[2];
@@ -42,6 +63,9 @@ bool			mesh_line_process_normal(t_mesh *mesh, char *str)
 		if (i[1] != 3)
 			return (error_bool("[ERROR mesh_line_process_normal()]\t" \
 			"Missing value in vertex normal definition line!\n"));
+		if (!normalize_vertex_normal(mesh, i[0]))
+			return ((error_bool("[ERROR mesh_line_process_normal()]\t" \
+			"Could not normalize vertex normal!\n")));
 		return (true);
 	}
 	return ((error_bool("[ERROR mesh_line_process_normal()]\t" \
