@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/27 11:38:21 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/27 18:33:49 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,30 +49,36 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
 SRC_FILES =  			buffer/buffer_create.c \
-						log/scop_log_gl_params.c \
-						log/scop_log_restart.c \
-						log/scop_log.c \
 						glfw/glfw_error_callback.c \
 						glfw/glfw_launch.c \
 						glfw/glfw_window_size_callback.c \
 						init.c \
+						log/scop_log_gl_params.c \
+						log/scop_log_restart.c \
+						log/scop_log.c \
 						main.c \
+						mesh/process/face/mesh_get_face_type.c \
+						mesh/process/face/mesh_process_face.c \
+						mesh/process/line/mesh_line_process.c \
+						mesh/process/line/mesh_line_process_check.c \
+						mesh/process/line/mesh_line_process_f.c \
+						mesh/process/line/mesh_line_process_v.c \
+						mesh/process/line/mesh_line_process_vn.c \
+						mesh/process/line/mesh_line_process_vp.c \
+						mesh/process/line/mesh_line_process_vt.c \
+						mesh/process/normal/mesh_process_normal.c \
+						mesh/process/space/mesh_process_space.c \
+						mesh/process/texture/mesh_process_texture.c \
+						mesh/process/vertex/mesh_process_vertex.c \
+						mesh/print/mesh_print_data.c \
+						mesh/print/mesh_print_data_face.c \
+						mesh/print/mesh_print_data_normal.c \
+						mesh/print/mesh_print_data_texture.c \
+						mesh/print/mesh_print_data_vertex.c \
 						mesh/mesh_clean.c \
 						mesh/mesh_file_load.c \
 						mesh/mesh_file_process.c \
-						mesh/mesh_get_face_type.c \
-						mesh/mesh_line_check.c \
-						mesh/mesh_line_process.c \
-						mesh/mesh_line_process_face.c \
-						mesh/mesh_line_process_normal.c \
-						mesh/mesh_line_process_texture.c \
-						mesh/mesh_line_process_vertex.c \
-						mesh/mesh_print_data.c \
-						mesh/mesh_print_data_face.c \
-						mesh/mesh_print_data_normal.c \
-						mesh/mesh_print_data_texture.c \
-						mesh/mesh_print_data_vertex.c \
-						mesh/mesh_process_face.c \
+						mesh/mesh_pack_vao_data.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
 						tga/tga_error.c \
@@ -108,6 +114,15 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/log
 	@mkdir $(OBJ_PATH)/glfw
 	@mkdir $(OBJ_PATH)/mesh
+	@mkdir $(OBJ_PATH)/mesh/line
+	@mkdir $(OBJ_PATH)/mesh/print
+	@mkdir $(OBJ_PATH)/mesh/process
+	@mkdir $(OBJ_PATH)/mesh/process/face
+	@mkdir $(OBJ_PATH)/mesh/process/line
+	@mkdir $(OBJ_PATH)/mesh/process/normal
+	@mkdir $(OBJ_PATH)/mesh/process/space
+	@mkdir $(OBJ_PATH)/mesh/process/texture
+	@mkdir $(OBJ_PATH)/mesh/process/vertex
 	@mkdir $(OBJ_PATH)/shader
 	@mkdir $(OBJ_PATH)/tga
 	@mkdir $(OBJ_PATH)/utility

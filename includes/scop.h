@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 12:38:01 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 18:54:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <assert.h>	// required for assert()
 # include <fcntl.h>      // required for open()
 # include <unistd.h>    // required for read() and close()
-# include <string.h>	// required for strspn() used in mesh_line_check()
+# include <string.h>	// required for strspn() used in mesh_line_process_check()
 # include <math.h>		// required for sin() etc
 
 # define LOG_FILENAME			"scop.log"
@@ -128,9 +128,6 @@ typedef struct					s_mesh
 
 	GLfloat						*space;
 	size_t						n_space[2];
-
-	GLint						*line;
-	size_t						n_line[2];
 }								t_mesh;
 
 typedef struct					s_texture
@@ -178,6 +175,10 @@ bool							scop_log_err(const char *message, ...);
 void							scop_log_gl_params(void);
 bool							scop_log_restart(void);
 
+
+/*
+** GLFW functions
+*/
 void							glfw_window_size_callback(GLFWwindow *win, \
 														const int width, \
 														const int height);
@@ -185,23 +186,35 @@ void							glfw_error_callback(const int error, \
 													const char *description);
 bool							glfw_launch(t_scop *env);
 
+
+/*
+** Mesh functions
+*/
 void							mesh_clean(t_mesh *mesh);
-char							*mesh_file_load(t_scop *env, \
-												const char *target);
+char							*mesh_file_load(t_scop *env, char *target);
 t_mesh							*mesh_file_process(t_scop *env);
 bool							mesh_get_face_type(t_mesh *mesh, char *str);
-bool							mesh_line_check(char *str, char *charset);
 bool							mesh_line_process(t_mesh *mesh, char **split);
-bool							mesh_line_process_face(t_mesh *mesh, char *str);
-bool							mesh_process_face(t_mesh *mesh, \
+bool							mesh_line_process_check(char *str, \
+														char *charset);
+
+bool							mesh_line_process_f(t_mesh *mesh, char *str);
+bool							mesh_line_process_v(t_mesh *mesh, char *str);
+bool							mesh_line_process_vn(t_mesh *mesh, char *str);
+bool							mesh_line_process_vp(t_mesh *mesh, char *str);
+bool							mesh_line_process_vt(t_mesh *mesh, char *str);
+
+bool							mesh_pack_vao_data(t_mesh *mesh);
+
+bool							mesh_process_face(t_mesh *mesh, char *str);
+bool							mesh_process_face_data(t_mesh *mesh, \
 													char **split, \
 													size_t index);
-bool							mesh_line_process_normal(t_mesh *mesh, \
-														char *str);
-bool							mesh_line_process_texture(t_mesh *mesh, \
-														char *str);
-bool							mesh_line_process_vertex(t_mesh *mesh, \
-														char *str);
+bool							mesh_process_normal(t_mesh *mesh, char *str);
+bool							mesh_process_space(t_mesh *mesh, char *str);
+bool							mesh_process_texture(t_mesh *mesh, char *str);
+bool							mesh_process_vertex(t_mesh *mesh, char *str);
+
 void							mesh_print_data(t_mesh *mesh);
 void							mesh_print_data_face(t_mesh *mesh);
 void							mesh_print_data_face_type(t_mesh *mesh);
@@ -209,6 +222,9 @@ void							mesh_print_data_normal(t_mesh *mesh);
 void							mesh_print_data_texture(t_mesh *mesh);
 void							mesh_print_data_vertex(t_mesh *mesh);
 
+/*
+** Shader functions
+*/
 bool							shader_build(t_scop *env);
 GLuint							shader_uniform_bind(t_scop *env);
 GLuint							shader_uniform_update(t_scop *env);

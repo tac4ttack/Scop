@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:15:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 13:08:46 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 18:52:45 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,6 @@ static void *mesh_file_processing_error(t_mesh *mesh, char **split, char *msg)
 	return (error(msg));
 }
 
-// function to move to its own file
-bool	mesh_pack_vertex_data(t_mesh *mesh)
-{
-	size_t i;
-
-	if (mesh)
-	{
-		i = 0;
-		if (!(mesh->final_vao = ft_memalloc(sizeof(GLfloat) * 17 \
-											* mesh->n_vertex[1])))
-			return (error_bool("[ERROR mesh_pack_vertex_data]\tCould not" \
-			" allocate memory for packing vertices data!\n"));
-		while ()
-		return (true);
-	}
-	return (error_bool("[ERROR mesh_pack_vertex_data]\tNULL mesh pointer!\n"));
-}
-
 t_mesh *mesh_file_process(t_scop *env)
 {
 	t_mesh	*mesh;
@@ -70,7 +52,10 @@ t_mesh *mesh_file_process(t_scop *env)
 		if (!mesh_line_process(mesh, split))
 			return (mesh_file_processing_error(mesh, split, \
 			"[ERROR mesh_file_process]\tMesh line processing failed!\n"));
-		(DEBUG_SCOP ? mesh_print_data(mesh) : 0);
+		//(DEBUG_SCOP ? mesh_print_data(mesh) : 0); //
+		if (!mesh_pack_vao_data(mesh))
+			return (mesh_file_processing_error(mesh, split, \
+			"[ERROR mesh_file_process]\tVAO data packing failed!\n"));
 		split_destroy(split);
 		scop_log("Finished mesh processing with success!\n");
 		return (mesh);

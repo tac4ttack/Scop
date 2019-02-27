@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:54:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 12:45:01 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 17:09:52 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char		*mesh_file_dump(const int fd, const size_t target_size)
 	return (error("[ERROR mesh_dump_data]\tFile Descriptor is invalid!\n"));
 }
 
-char			*mesh_file_load(t_scop *env, const char *target)
+char			*mesh_file_load(t_scop *env, char *target)
 {
 	size_t		target_size;
 	int			fd;
