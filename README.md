@@ -8,5 +8,5 @@ Ce mini-projet est une première incursion dans l’utilisation d’OpenGL.
 
 ## Prerequites:
 - MacOSX
-- OpenGL 4.3 compatible GPU
+- OpenGL 4.0 compatible GPU
 - CMake

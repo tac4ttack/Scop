@@ -6,317 +6,211 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/06 16:54:42 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:38:01 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCOP_H
 # define SCOP_H
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <math.h>
-# include <sys/time.h>
-# include <fcntl.h>
-
+/*
+**	Custom libs
+*/
 # include "libft.h"
 # include "GL/glew.h"
 # include "GLFW/glfw3.h"
+# include "tga.h"
+
+/*
+**	Standard libs
+*/
+# include <sys/stat.h>	// required for stat()
+# include <stdbool.h>	// required for bool type
+# include <time.h>		// required for time()
+# include <stdio.h>		// required for FILE printf etc
+# include <stdarg.h>	// required for va_arg
+# include <assert.h>	// required for assert()
+# include <fcntl.h>      // required for open()
+# include <unistd.h>    // required for read() and close()
+# include <string.h>	// required for strspn() used in mesh_line_check()
+# include <math.h>		// required for sin() etc
+
+# define LOG_FILENAME			"scop.log"
+
+# define DEFAULT_TEXTURE		"./ressources/textures/default.tga"
+
+# define WIDTH					1024
+# define HEIGHT					768
+
+# define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
+# define VERTEX_FRAGMENT_PATH 	"./shaders/simple_fs.glsl"
+
+# define CHARSET_V				"v \t.-0123456789"
+# define CHARSET_VT				"vt \t.-0123456789"
+# define CHARSET_VN				"vn \t.-0123456789"
+# define CHARSET_VP				"vp \t.-0123456789"
+# define CHARSET_F				 "f \t/-0123456789"
+# define CHARSET_L 				"l \t-0123456789"
+
+# define ANTIALIASING			4
 
 # ifdef DEBUG
-#  define DEBUGGING					1
+#  define DEBUG_SCOP			1
 # else
-#  define DEBUGGING					0
+#  define DEBUG_SCOP			0
 # endif
 
-void temp_error(char *str);
-GLuint shader_loader(const char **files, int length);
+# ifdef MACOSX
+#  define MAC					1
+# else
+#  define MAC					0
+# endif
 
-// # define DESTROYNOTIFY			17
-// # define KEYPRESSMASK			(1L<<0)
-// # define KEYRELEASEMASK			(1L<<1)
-// # define KEYPRESS				2
-// # define KEYRELEASE				3
+/*
+**	MESH DATA:
+**	object		->	object name
+**	group		->	object's group name
+**	mtllib		->	mtllib specified file
+**	usemtl		->	material file specified
+**	shading		->	s line boolean
+**	vertex		->	vertices array, defined with 4 components
+**	n_vertex	->	number of vertices, [0] is preprocessing count,
+**					[1] is for checksum and filling
+**	face		->	face elements array
+**	n_face		->	face elements settings:
+**					[0] preprocessing count,
+**					[1] checksum control,
+**					[2] number of vertices per face element,
+**					[3] type of face element definition can take 4 values:
+**						0 = Vn | 1 = Vn/VTn | 2 = Vn/VTn/VNn | 3 = Vn//VNn
+**					[4] number of values per vertex according to the face format
+**					[5] total number to read for a face element definition
+**	normal		->	vertices normal array
+**	n_normal	->	number of vertices normals:
+**					[0] is preprocessing count,
+**					[1] is for checksum and filling
+**	texture		->	vertices texture coord array
+**	n_texture	->	number of vertices texture coord:
+**					[0] is preprocessing count,
+**					[1] is for checksum and filling
+**	space		->	space vertices array
+**	n_space		->	number of space vertices:
+**					[0] is preprocessing count,
+**					[1] is for checksum and filling
+**	linel		->	polyline definition array
+**	n_line		->	number of polylines:
+**					[0] is preprocessing count,
+**					[1] is for checksum and filling
+*/
 
-// # define DEG2RAD				(M_PI / 180)
-// # define RAD2DEG				(180 / M_PI)
+typedef struct					s_mesh
+{
+	char						*object;
+	char						*group;
+	char						*mtllib;
+	char						*usemtl;
+	bool						shading;
 
-// # define WIDTH					e->scene->win_w
-// # define HEIGHT					e->scene->win_h
-// # define DEPTH					e->scene->depth
+	GLfloat						*final_vao;
 
-// # define KRT					e->kernel_rt
-// # define NCAM					e->scene->n_cams
-// # define NCON					e->scene->n_cones
-// # define NCYL					e->scene->n_cylinders
-// # define NLIG					e->scene->n_lights
-// # define NPLA					e->scene->n_planes
-// # define NSPH					e->scene->n_spheres
-// # define ACTIVEOBJ				e->target_obj
-// # define CAM					e->cameras
-// # define CONES					e->cones
-// # define CYLIND					e->cylinders
-// # define LIGHT					e->lights
-// # define PLANE					e->planes
-// # define SPHERE					e->spheres
-// # define ACTIVECAM				e->cameras[e->scene->active_cam]
+	GLfloat						*vertex;
+	size_t						n_vertex[2];
 
-// # define XMLSUB					e->xml->sub_node
-// # define XML					e->xml
-// # define SCN					e->scene
+	GLuint						*face;
+	size_t						n_face[6];
+	char						*face_format;
 
-// # define OPTION_WAVE			(1 << 1)
-// # define OPTION_SEPIA			(1 << 2)
-// # define OPTION_BW				(1 << 3)
+	GLfloat						*normal;
+	size_t						n_normal[2];
 
-// typedef struct			s_fps
-// {
-// 	struct timeval		step2;
-// 	struct timeval		step;
-// 	struct timeval		cur;
-// 	float				delta_time;
-// 	float				u_time;
-// 	unsigned int		fps;
-// 	unsigned int		ret_fps;
-// }						t_fps;
+	GLfloat						*texture;
+	size_t						n_texture[2];
 
-// typedef struct			s_p2i
-// {
-// 	int					x;
-// 	int					y;
-// }						t_p2i;
+	GLfloat						*space;
+	size_t						n_space[2];
 
-// typedef struct			s_hit
-// {
-// 	float				dist;
-// 	int					type;
-// 	int					id;
-// 	cl_float3			pos;
-// 	cl_float3			normale;
-// }						t_hit;
+	GLint						*line;
+	size_t						n_line[2];
+}								t_mesh;
 
-// typedef struct			s_cam
-// {
-// 	cl_float3			pos;
-// 	cl_float3			dir;
-// 	cl_float			fov;
-// 	cl_float			pitch;
-// 	cl_float			yaw;
-// 	cl_float			roll;
-// }						t_cam;
+typedef struct					s_texture
+{
+	GLuint						id;
+	GLuint						*pixels;
+	size_t						size[2];
+}								t_texture;
 
-// typedef struct			s_cone
-// {
-// 	cl_float3			pos;
-// 	cl_float3			dir;
-// 	cl_float			angle;
-// 	cl_int				color;
-// 	cl_float3			diff;
-// 	cl_float3			spec;
-// 	cl_float			reflex;
-// }						t_cone;
+typedef struct					s_scop
+{
+	GLFWwindow					*win;
+	GLuint						shader_program;
 
-// typedef struct			s_cylinder
-// {
-// 	cl_float3			pos;
-// 	cl_float3			dir;
-// 	cl_float3			base_dir;
-// 	cl_float			radius;
-// 	cl_int				color;
-// 	cl_float			height;
-// 	cl_float3			diff;
-// 	cl_float3			spec;
-// 	cl_float			pitch;
-// 	cl_float			yaw;
-// 	cl_float			roll;
-// 	cl_float			reflex;
-// }						t_cylinder;
+	t_texture					*texture;
+	size_t						n_texture;
 
-// typedef struct			s_light
-// {
-// 	cl_int				type;
-// 	cl_float3			pos;
-// 	cl_float3			dir;
-// 	cl_int				shrink;
-// 	cl_float			brightness;
-// 	cl_int				color;
-// }						t_light;
+	GLuint						vbo;
+	GLuint						vao;
+	GLuint						ebo;
 
-// typedef struct			s_plane
-// {
-// 	cl_float3			pos;
-// 	cl_float3			normale;
-// 	cl_int				color;
-// 	cl_float3			diff;
-// 	cl_float3			spec;
-// 	cl_float			reflex;
-// }						t_plane;
+	t_mesh						*mesh;
+	char						*mesh_data;
 
-// typedef struct			s_sphere
-// {
-// 	cl_float3			pos;
-// 	cl_float3			dir;
-// 	cl_float			radius;
-// 	cl_int				color;
-// 	cl_float3			diff;
-// 	cl_float3			spec;
-// 	cl_float			reflex;
-// }						t_sphere;
+	GLint						uni_time_id;
+	float						uni_time_val;
 
-// typedef struct			s_param
-// {
-// 	int					n_cams;
-// 	int					n_cones;
-// 	int					n_cylinders;
-// 	int					n_lights;
-// 	int					n_planes;
-// 	int					n_spheres;
-// 	int					active_cam;
-// 	int					win_w;
-// 	int					win_h;
-// 	cl_float3			mvt;
-// 	cl_float3			ambient;
-// 	int					mou_x;
-// 	int					mou_y;
-// 	int					depth;
-// }						t_param;
+}								t_scop;
 
-// typedef struct			s_node
-// {
-// 	int					id;
-// 	int					type;
-// 	cl_float			fov;
-// 	cl_float3			dir;
-// 	cl_float3			pos;
-// 	cl_float3			normale;
-// 	cl_float			radius;
-// 	cl_float			angle;
-// 	cl_int				color;
-// 	cl_int				light;
-// 	cl_int				shrink;
-// 	cl_float			brightness;
-// 	cl_float			height;
-// 	cl_float3			diff;
-// 	cl_float3			spec;
-// 	cl_float			reflex;
-// 	struct s_node		*next;
-// }						t_node;
+bool							buffer_create(t_scop *env);
 
-// typedef	struct			s_xml
-// {
-// 	char				*scene;
-// 	int					scene_fd;
-// 	char				**nodes;
-// 	char				**sub_node;
-// 	t_node				*node_lst;
-// 	char				is_comm;
-// 	char				in_scene;
-// 	int					n_nodes;
-// 	int					n_sub;
-// 	int					lbra;
-// 	int					rbra;
-// 	int					slas;
-// 	int					dquo;
-// 	int					excl;
-// }						t_xml;
+void							*error(const char *msg);
+bool							error_bool(const char *msg);
 
-// typedef struct			s_frame
-// {
-// 	void				*ptr;
-// 	char				*pix;
-// 	int					x;
-// 	int					y;
-// 	int					w;
-// 	int					h;
-// 	int					row;
-// 	int					bpp;
-// 	int					endian;
-// }						t_frame;
+void							exit_ok(void *trash);
+void							exit_fail(const char *msg, void *trash);
 
-// typedef	struct			s_tor
-// {
-// 	cl_float3			prim;
-// 	unsigned int		hit_type;
-// 	unsigned int		hit_id;
-// 	unsigned int		color;
-// 	char				check_g;
-// 	char				check_d;
-// }						t_tor;
+void							flush(t_scop *trash);
+void							split_destroy(char **split);
 
-// typedef struct			s_scene
-// {
-// 	t_cam				*cameras;
-// 	t_cone				*cones;
-// 	t_cylinder			*cylinders;
-// 	t_light				*lights;
-// 	t_plane				*planes;
-// 	t_sphere			*spheres;
-// 	unsigned int		n_cams;
-// 	unsigned int		n_cones;
-// 	unsigned int		n_cylinders;
-// 	unsigned int		n_lights;
-// 	unsigned int		n_planes;
-// 	unsigned int		n_spheres;
-// 	unsigned int		active_cam;
-// 	unsigned int		win_w;
-// 	unsigned int		win_h;
-// 	cl_float3			ambient;
-// 	int					mou_x;
-// 	int					mou_y;
-// 	int					depth;
-// 	float				u_time;
-// 	int					flag;
-// 	int					tor_count;
-// }						t_scene;
+t_scop							*init(const char *av);
 
-// typedef	struct			s_env
-// {
-// 	void				*mlx;
-// 	void				*win;
-// 	t_frame				*frame;
-// 	t_key				keys;
-// 	int					win_w;
-// 	int					win_h;
-// 	int					sce_w;
-// 	int					sce_h;
-// 	int					cen_x;
-// 	int					cen_y;
-// 	int					debug;
-// 	t_xml				*xml;
-// 	char				*kernel_src;
-// 	cl_int				err;
-// 	cl_device_id		device_id;
-// 	cl_context			context;
-// 	cl_command_queue	raytrace_queue;
-// 	cl_program			program;
-// 	cl_kernel			kernel_rt;
-// 	cl_mem				frame_buffer;
-// 	cl_mem				target_obj_buf;
-// 	t_hit				target_obj;
-// 	int					gpu;
-// 	size_t				global;
-// 	size_t				local;
-// 	unsigned int		count;
+bool							scop_log(const char *message, ...);
+bool							scop_log_err(const char *message, ...);
+void							scop_log_gl_params(void);
+bool							scop_log_restart(void);
 
-// 	t_cam				*cameras;
-// 	cl_mem				cameras_mem;
-// 	t_cone				*cones;
-// 	cl_mem				cones_mem;
-// 	t_cylinder			*cylinders;
-// 	cl_mem				cylinders_mem;
-// 	t_light				*lights;
-// 	cl_mem				lights_mem;
-// 	t_plane				*planes;
-// 	cl_mem				planes_mem;
-// 	t_sphere			*spheres;
-// 	cl_mem				spheres_mem;
+void							glfw_window_size_callback(GLFWwindow *win, \
+														const int width, \
+														const int height);
+void							glfw_error_callback(const int error, \
+													const char *description);
+bool							glfw_launch(t_scop *env);
 
-// 	t_scene				*scene;
-// 	cl_mem				scene_mem;
-// 	t_fps				fps;
+void							mesh_clean(t_mesh *mesh);
+char							*mesh_file_load(t_scop *env, \
+												const char *target);
+t_mesh							*mesh_file_process(t_scop *env);
+bool							mesh_get_face_type(t_mesh *mesh, char *str);
+bool							mesh_line_check(char *str, char *charset);
+bool							mesh_line_process(t_mesh *mesh, char **split);
+bool							mesh_line_process_face(t_mesh *mesh, char *str);
+bool							mesh_process_face(t_mesh *mesh, \
+													char **split, \
+													size_t index);
+bool							mesh_line_process_normal(t_mesh *mesh, \
+														char *str);
+bool							mesh_line_process_texture(t_mesh *mesh, \
+														char *str);
+bool							mesh_line_process_vertex(t_mesh *mesh, \
+														char *str);
+void							mesh_print_data(t_mesh *mesh);
+void							mesh_print_data_face(t_mesh *mesh);
+void							mesh_print_data_face_type(t_mesh *mesh);
+void							mesh_print_data_normal(t_mesh *mesh);
+void							mesh_print_data_texture(t_mesh *mesh);
+void							mesh_print_data_vertex(t_mesh *mesh);
 
-// 	char				run;
-// 	int					node_count;
-// }						t_env;
+bool							shader_build(t_scop *env);
+GLuint							shader_uniform_bind(t_scop *env);
+GLuint							shader_uniform_update(t_scop *env);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/06 16:53:15 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/27 11:38:21 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ OFLAGS := 				-O3
 SCOP_INCLUDE =			-I $(SCOP_INCLUDES_PATH)
 SCOP_INCLUDES_PATH =	./includes
 SCOP_INCLUDES =			$(addprefix $(SCOP_INCLUDES_PATH)/,$(SCOP_INCLUDES_FILES))
-SCOP_INCLUDES_FILES =	scop.h
+SCOP_INCLUDES_FILES =	scop.h \
+						tga.h
 
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
@@ -41,18 +42,53 @@ GLFW_LIB_FILE =			$(shell ls $(GLFW_BUILD_PATH)/src/libglfw3.a)
 
 FRAMEWORKS =			-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
-# GTK_CFLAGS =			$(shell pkg-config --cflags gtk+-3.0)
-# GTK_CUDALIBS =			$(shell pkg-config --libs-only-L --libs-only-l gtk+-3.0)
-
 OBJ =					$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 OBJ_PATH =				./obj
 OBJ_NAME =				$(SRC_FILES:.c=.o)
 
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
-SRC_FILES =  			error.c \
+SRC_FILES =  			buffer/buffer_create.c \
+						log/scop_log_gl_params.c \
+						log/scop_log_restart.c \
+						log/scop_log.c \
+						glfw/glfw_error_callback.c \
+						glfw/glfw_launch.c \
+						glfw/glfw_window_size_callback.c \
+						init.c \
 						main.c \
-						shader_loader.c
+						mesh/mesh_clean.c \
+						mesh/mesh_file_load.c \
+						mesh/mesh_file_process.c \
+						mesh/mesh_get_face_type.c \
+						mesh/mesh_line_check.c \
+						mesh/mesh_line_process.c \
+						mesh/mesh_line_process_face.c \
+						mesh/mesh_line_process_normal.c \
+						mesh/mesh_line_process_texture.c \
+						mesh/mesh_line_process_vertex.c \
+						mesh/mesh_print_data.c \
+						mesh/mesh_print_data_face.c \
+						mesh/mesh_print_data_normal.c \
+						mesh/mesh_print_data_texture.c \
+						mesh/mesh_print_data_vertex.c \
+						mesh/mesh_process_face.c \
+						shader/shader_build.c \
+						shader/shader_uniform.c \
+						tga/tga_error.c \
+						tga/tga_load_file.c \
+						tga/tga_process_file.c \
+						tga/tga_process_pixels.c \
+						tga/tga_transform.c \
+						utility/split_destroy.c \
+						utility/error.c \
+						utility/exit.c \
+						utility/flush.c
+
+OS_TEST := $(shell uname)
+ifeq ($(OS_TEST), Darwin)
+MACOSX = -DMACOSX
+endif
 
 default: all
 
@@ -63,11 +99,18 @@ $(NAME): $(SRC) $(SCOP_INCLUDES) $(OBJ_PATH) $(OBJ)
 	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS)
+	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
 
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
 	@mkdir $(OBJ_PATH)
+	@mkdir $(OBJ_PATH)/buffer
+	@mkdir $(OBJ_PATH)/log
+	@mkdir $(OBJ_PATH)/glfw
+	@mkdir $(OBJ_PATH)/mesh
+	@mkdir $(OBJ_PATH)/shader
+	@mkdir $(OBJ_PATH)/tga
+	@mkdir $(OBJ_PATH)/utility
 
 clean:
 	@echo "$(GREEN)Cleaning...$(EOC)"
@@ -127,9 +170,11 @@ glfwclean:
 
 re: fclean default
 
-debug: clean cleanlibft debuglibft debug_flag
+debug: clean cleanlibft debuglibft debug_flag all
+debug_asan: clean cleanlibft debug_asan_flag debug
 debug_flag:
 	$(eval DEBUG_MACRO = -DDEBUG -g)
+debug_asan_flag:
 	$(eval ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer)
 
 debuglibft:
