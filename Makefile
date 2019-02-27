@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/26 14:36:20 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/27 11:38:21 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ OFLAGS := 				-O3
 SCOP_INCLUDE =			-I $(SCOP_INCLUDES_PATH)
 SCOP_INCLUDES_PATH =	./includes
 SCOP_INCLUDES =			$(addprefix $(SCOP_INCLUDES_PATH)/,$(SCOP_INCLUDES_FILES))
-SCOP_INCLUDES_FILES =	scop.h
+SCOP_INCLUDES_FILES =	scop.h \
+						tga.h
 
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
@@ -74,6 +75,11 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/mesh_process_face.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
+						tga/tga_error.c \
+						tga/tga_load_file.c \
+						tga/tga_process_file.c \
+						tga/tga_process_pixels.c \
+						tga/tga_transform.c \
 						utility/split_destroy.c \
 						utility/error.c \
 						utility/exit.c \
@@ -103,6 +109,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/glfw
 	@mkdir $(OBJ_PATH)/mesh
 	@mkdir $(OBJ_PATH)/shader
+	@mkdir $(OBJ_PATH)/tga
 	@mkdir $(OBJ_PATH)/utility
 
 clean:

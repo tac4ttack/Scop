@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 17:05:58 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:41:51 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool mesh_line_preprocess(t_mesh *mesh, char **split)
 			split++;
 		}
 		if (mesh->n_vertex[0] < 3)
-			return (error_bool("[ERROR mesh_line_preprocess()]\t" \
+			return (error_bool("[ERROR mesh_line_preprocess]\t" \
 			"The mesh needs at lest 3 vertices!\n"));
 		scop_log("Preprocessing results:\n%zu Vertices\n%zu Polygons\n%zu " \
 		"Vertex texture coordinates\n%zu Vertex normals\n%zu Space vertices\n" \
@@ -80,7 +80,7 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 		if (!(mesh_line_preprocess(mesh, split)))
 		{
 			mesh_clean(mesh);
-			return (error_bool("[ERROR mesh_line_process()]\t" \
+			return (error_bool("[ERROR mesh_line_process]\t" \
 			"Mesh file pre processing failed!\n"));
 		}
 		while (*split)
@@ -90,37 +90,37 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 			else if (strncmp(*split, "v ", 2) == 0)
 			{
 				if (!(mesh_line_check(*split, CHARSET_V)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Wrong character found in V line ->\t\"%s\"\n", *split));
 				if (!(mesh_line_process_vertex(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Vertex line processing failed ->\t%s\n", *split));
 			}
 			else if (strncmp(*split, "f ", 2) == 0)
 			{
 				if (!(mesh_line_check(*split, CHARSET_F)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Wrong character found in F line ->\t\"%s\"\n", *split));
 				if (!(mesh_line_process_face(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Face element line processing failed ->\t%s\n", *split));
 			}
 			else if (strncmp(*split, "vt ", 3) == 0)
 			{
 				if (!(mesh_line_check(*split, CHARSET_VT)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Wrong character found in VT line ->\t\"%s\"\n", *split));
 				if (!(mesh_line_process_texture(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Texture line processing failed ->\t%s\n", *split));
 			}
 			else if (strncmp(*split, "vn ", 3) == 0)
 			{
 				if (!(mesh_line_check(*split, CHARSET_VN)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Wrong character found in VN line ->\t\"%s\"\n", *split));
 				if (!(mesh_line_process_normal(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process()]\t" \
+					return (!scop_log_err("[ERROR mesh_line_process]\t" \
 					"Vertex normal line processing failed ->\t%s\n", *split));
 			}
 			else if ((strncmp(*split, "\n", 1) == 0)				// TEMP, parsing the rest of the obj data needs to be finished
@@ -135,7 +135,7 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 			else
 			{
 				mesh_clean(mesh);
-				return (error_bool("[ERROR mesh_line_process()]\t" \
+				return (error_bool("[ERROR mesh_line_process]\t" \
 				"Mesh file format is invalid!\n"));
 			}
 			split++;
@@ -151,7 +151,7 @@ bool	mesh_line_process(t_mesh *mesh, char **split)
 
 		}
 		if (!(mesh_line_process_checksum(mesh)))
-			return (error_bool("[ERROR mesh_line_process()]\t" \
+			return (error_bool("[ERROR mesh_line_process]\t" \
 				"Mesh file processing failed (number of vertices processed" \
 				" != number of vertices present in file)!\n"));
 		return (true);

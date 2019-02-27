@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:07:49 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 12:31:14 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:46:36 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	flush(t_scop *trash)
 		}
 		if (trash->mesh)
 			mesh_clean(trash->mesh);
+		if (trash->texture)
+			;	// call to texture clean function!
+
+
 		// {
 		// 	if (trash->mesh->vertex)
 		// 	{

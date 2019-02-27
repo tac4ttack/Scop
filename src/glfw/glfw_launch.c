@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 15:43:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:42:08 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ bool	glfw_launch(t_scop *env)
 			glBindVertexArray(env->vao);
 			if (env->mesh->face && env->mesh->n_face[1] >= 1)
 			{
+				// glDrawElements(GL_TRIANGLES, 3,	GL_UNSIGNED_INT, 0);
 				glDrawElements(GL_TRIANGLES, \
 				env->mesh->n_vertex[1] * env->mesh->n_face[5], \
 				GL_UNSIGNED_INT, 0);
@@ -58,7 +59,7 @@ bool	glfw_launch(t_scop *env)
 			else
 			{
 				glfwSetWindowShouldClose(env->win, 1);
-				return (error_bool("[ERROR glfw_launch()]\t" \
+				return (error_bool("[ERROR glfw_launch]\t" \
 				"Nothing to draw! Vertices or elements arrays are empty!\n"));
 			}
 			glfwPollEvents(); // update other events like input handling
@@ -67,5 +68,5 @@ bool	glfw_launch(t_scop *env)
 		glfw_clean(env);
 		return (true);
 	}
-	return (error_bool("[ERROR glfw_launch()]\tNULL Scop pointer!\n"));
+	return (error_bool("[ERROR glfw_launch]\tNULL Scop pointer!\n"));
 }

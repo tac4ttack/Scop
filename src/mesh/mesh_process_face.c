@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 12:59:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/25 16:51:19 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:41:51 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool			process_face_v(t_mesh *mesh, \
 		}
 		split_destroy(bak);
 		if (ret != (int)mesh->n_face[5])
-			return (error_bool("[ERROR process_face_v()]\t" \
+			return (error_bool("[ERROR process_face_v]\t" \
 			"Error processing Vn face!\n"));
 		return (true);
 	}
@@ -70,7 +70,7 @@ static bool			process_face_v_vt(t_mesh *mesh, \
 		}
 		split_destroy(bak);
 		if (ret != (int)mesh->n_face[5])
-			return (error_bool("[ERROR process_face_v_vt()]\t" \
+			return (error_bool("[ERROR process_face_v_vt]\t" \
 			"Error processing Vn/VTn face!\n"));
 		return (true);
 	}
@@ -103,7 +103,7 @@ static bool			process_face_v_vt_vn(t_mesh *mesh, \
 		}
 		split_destroy(bak);
 		if (ret != (int)mesh->n_face[5])
-			return (error_bool("[ERROR process_face_v_vt_vn()]\t" \
+			return (error_bool("[ERROR process_face_v_vt_vn]\t" \
 			"Error processing Vn/VTn/VNn face!\n"));
 		return (true);
 	}
@@ -136,7 +136,7 @@ static bool			process_face_v_vn(t_mesh *mesh, \
 		}
 		split_destroy(bak);
 		if (ret != (int)mesh->n_face[5])
-			return (error_bool("[ERROR mesh_process_face_v_vn()]\t" \
+			return (error_bool("[ERROR mesh_process_face_v_vn]\t" \
 			"Error processing Vn//VNn face!\n"));
 		return (true);
 	}
@@ -162,7 +162,7 @@ bool				mesh_process_face(t_mesh *mesh, \
 			return (process_face_v_vn(mesh, (mesh->face_format + 2), \
 			split, index));
 		else
-			return (error_bool("[ERROR mesh_process_face()]\t" \
+			return (error_bool("[ERROR mesh_process_face]\t" \
 			"Error processing face, format unknown!\n"));
 	}
 	return (false);

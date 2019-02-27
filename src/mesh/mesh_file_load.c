@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:54:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 15:52:47 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:45:01 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool		mesh_file_get_size(const char *target, size_t *target_size)
 	else
 	{
 		if (S_ISDIR(file_stat.st_mode))
-			return (error_bool("[ERROR mesh_file_get_size()]\t" \
+			return (error_bool("[ERROR mesh_file_get_size]\t" \
 			"Target is a directory!\n"));
 		else
 		{
@@ -39,19 +39,19 @@ static char		*mesh_file_dump(const int fd, const size_t target_size)
 	if (fd > 0)
 	{
 		if (!(data = ft_memalloc(target_size + 1)))
-			return (error("[ERROR mesh_dump_data()]\t" \
+			return (error("[ERROR mesh_dump_data]\t" \
 			"Could not allocate memory for mesh data!\n"));
 		if ((read_status = read(fd, data, target_size)) != (long)target_size)
 		{
 			free(data);
-			return (error("[ERROR mesh_file_dump()]\tMesh file read failed!\n"));
+			return (error("[ERROR mesh_file_dump]\tMesh file read failed!\n"));
 		}
 		((char*)(data))[read_status] = 0;
 		close(fd);
 		scop_log("Mesh file successfully loaded!\n");
 		return (data);
 	}
-	return (error("[ERROR mesh_dump_data()]\tFile Descriptor is invalid!\n"));
+	return (error("[ERROR mesh_dump_data]\tFile Descriptor is invalid!\n"));
 }
 
 char			*mesh_file_load(t_scop *env, const char *target)
@@ -65,10 +65,10 @@ char			*mesh_file_load(t_scop *env, const char *target)
 	{
 		scop_log("\nLoading mesh...\n");
 		if ((fd = open(target, O_RDONLY)) < 0)
-			return (error("[ERROR mesh_file_load()]\t" \
+			return (error("[ERROR mesh_file_load]\t" \
 			"Could not open target file!\n"));
 		if (!(mesh_file_get_size(target, &target_size)))
-			return (error("[ERROR mesh_file_load()]\t" \
+			return (error("[ERROR mesh_file_load]\t" \
 			"Could not get target file's size!\n"));
 		return (mesh_file_dump(fd, target_size));
 	}
