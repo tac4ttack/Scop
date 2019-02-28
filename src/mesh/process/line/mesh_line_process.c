@@ -6,23 +6,54 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 18:26:42 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 11:51:12 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool mesh_line_preprocess(t_mesh *mesh, char **split)
+static bool	validate_face_element(t_mesh *mesh, char *str)
+{
+	int		i;
+	char	**face_split[2];
+
+	if (mesh && str)
+	{
+		i = -1;
+		if (!(face_split[0] = ft_strsplit(str, ' ')))
+			return (error_bool("[ERROR validate_face_element]\t" \
+			"Split for validating face element failed!\n"));
+		face_split[1] = face_split[0];
+		while (*face_split[0] && i++ < 5)
+			face_split[0]++;
+		split_destroy(face_split[1]);
+		if (i > 4)
+			return (!(scop_log_err("[ERROR validate_face_element]\t" \
+			"Face element is not a triangle or a quad! ->\t %s\n", str)));
+		else if (i == 4)
+			mesh->n_face[0] += 2;
+		else
+			mesh->n_face[0] += 1;
+		return (true);
+	}
+	return (error_bool("[ERROR validate_face_element]\t" \
+	"NULL mesh or string pointer!\n"));
+}
+
+static bool	mesh_line_preprocess(t_mesh *mesh, char **split)
 {
 	if (mesh && split)
 	{
 		while (*split)
 		{
 			(strncmp(*split, "v ", 2) == 0 ? mesh->n_vertex[0]++ : 0);
-			(strncmp(*split, "f ", 2) == 0 ? mesh->n_face[0]++ : 0);
 			(strncmp(*split, "vt ", 3) == 0 ? mesh->n_texture[0]++ : 0);
 			(strncmp(*split, "vn ", 3) == 0 ? mesh->n_normal[0]++ : 0);
 			(strncmp(*split, "vp ", 3) == 0 ? mesh->n_space[0]++ : 0);
+			if (strncmp(*split, "f ", 2) == 0)
+				if (!(validate_face_element(mesh, *split)))
+					return (error_bool("[ERROR mesh_line_preprocess]\t" \
+					"Face elements must be triangles or quads only!\n"));
 			split++;
 		}
 		if (mesh->n_vertex[0] < 3)
@@ -38,7 +69,7 @@ static bool mesh_line_preprocess(t_mesh *mesh, char **split)
 	"NULL mesh or split pointer!\n"));
 }
 
-static bool mesh_line_process_checksum(t_mesh *mesh)
+static bool	mesh_line_process_checksum(t_mesh *mesh)
 {
 	if (mesh)
 	{
@@ -48,9 +79,9 @@ static bool mesh_line_process_checksum(t_mesh *mesh)
 		"n_space[0] = %zu\t\t\tn_space[1] = %zu\n\n", mesh->n_vertex[0], \
 		mesh->n_vertex[1], mesh->n_face[0], mesh->n_face[1], \
 		mesh->n_normal[0], mesh->n_normal[1], mesh->n_texture[0], \
-		mesh->n_texture[1],	mesh->n_space[0], mesh->n_space[1]);
+		mesh->n_texture[1], mesh->n_space[0], mesh->n_space[1]);
 		if (mesh->n_vertex[0] != mesh->n_vertex[1]
-			|| mesh->n_face[0] != mesh->n_face[1]	//carefule with the future triangulation
+			|| mesh->n_face[0] != mesh->n_face[1]
 			|| mesh->n_normal[0] != mesh->n_normal[1]
 			|| mesh->n_texture[0] != mesh->n_texture[1]
 			|| mesh->n_space[0] != mesh->n_space[1])
@@ -95,175 +126,16 @@ bool		mesh_line_process(t_mesh *mesh, char **split)
 		failure = false;
 		scop_log("\nMESH DATA PARSING:\n");
 		if (!(mesh_line_preprocess(mesh, split)))
-		{
-			mesh_clean(mesh);
 			return (error_bool("[ERROR mesh_line_process]\t" \
 			"Mesh file pre processing failed!\n"));
-		}
 		while (*split && !(failure = mesh_line_process_dispatch(mesh, *split)))
 		{
 			if (failure)
-			{
-				mesh_clean(mesh);
 				return (scop_log_err("[ERROR mesh_line_process]\t" \
 				"Mesh file format is invalid! -> \"%s\"\n"));
-			}
 			split++;
 		}
 		return (mesh_line_process_checksum(mesh));
 	}
 	return (error_bool("[ERROR mesh_line_process]\tNULL param pointer!\n"));
 }
-
-
-
-// backup 2
-/*
-bool	mesh_line_process(t_mesh *mesh, char **split)
-{
-	if (mesh && split)
-	{
-		scop_log("\nMESH DATA PARSING:\n");
-		if (!(mesh_line_preprocess(mesh, split)))
-		{
-			mesh_clean(mesh);
-			return (error_bool("[ERROR mesh_line_process]\t" \
-			"Mesh file pre processing failed!\n"));
-		}
-		while (*split)
-		{
-			if (strncmp(*split, "#", 1) == 0)
-				scop_log("Comment found ->\t%s\n", *split);
-			else if (strncmp(*split, "v ", 2) == 0)
-			{
-				if (mesh_line_process_vertex(mesh, *split))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"V line parsing failed -> |%s|\n"));
-			}
-			else if (strncmp(*split, "f ", 2) == 0)
-			{
-				if (mesh_line_process_face(mesh, *split))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"V line parsing failed -> |%s|\n"));
-			}
-			else if (strncmp(*split, "vt ", 3) == 0)
-			{
-				if (!(mesh_line_process_check(*split, CHARSET_VT)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Wrong character found in VT line ->\t\"%s\"\n", *split));
-				if (!(mesh_line_process_texture(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Texture line processing failed ->\t%s\n", *split));
-			}
-			else if (strncmp(*split, "vn ", 3) == 0)
-			{
-				if (!(mesh_line_process_check(*split, CHARSET_VN)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Wrong character found in VN line ->\t\"%s\"\n", *split));
-				if (!(mesh_line_process_normal(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Vertex normal line processing failed ->\t%s\n", *split));
-			}
-			else if ((strncmp(*split, "\n", 1) == 0)				// TEMP, parsing the rest of the obj data needs to be finished
-					|| (strncmp(*split, "o ", 2) == 0)
-					|| (strncmp(*split, "g ", 2) == 0)
-					|| (strncmp(*split, "vp ", 1) == 0)
-					|| (strncmp(*split, "l ", 1) == 0)
-					|| (strncmp(*split, "mtllib ", 7) == 0)
-					|| (strncmp(*split, "usemtl ", 7) == 0)
-					|| (strncmp(*split, "s ", 2) == 0))
-					scop_log("Skipping line ->\t%s\n", *split);
-			else
-			{
-				mesh_clean(mesh);
-				return (error_bool("[ERROR mesh_line_process]\t" \
-				"Mesh file format is invalid!\n"));
-			}
-			split++;
-		}
-		if (!(mesh_line_process_checksum(mesh)))
-			return (error_bool("[ERROR mesh_line_process]\t" \
-				"Mesh file processing failed (number of vertices processed" \
-				" != number of vertices present in file)!\n"));
-		return (true);
-	}
-	return (error_bool("[ERROR mesh_line_process]\tNULL param pointer!\n"));
-}*/
-
-// backup de la grosse fonction
-/*bool	mesh_line_process(t_mesh *mesh, char **split)
-{
-	if (mesh && split)
-	{
-		scop_log("\nMESH DATA PARSING:\n");
-		if (!(mesh_line_preprocess(mesh, split)))
-		{
-			mesh_clean(mesh);
-			return (error_bool("[ERROR mesh_line_process]\t" \
-			"Mesh file pre processing failed!\n"));
-		}
-		while (*split)
-		{
-			if (strncmp(*split, "#", 1) == 0)
-				scop_log("Comment found ->\t%s\n", *split);
-			else if (strncmp(*split, "v ", 2) == 0)
-			{
-				if (!(mesh_line_process_check(*split, CHARSET_V)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Wrong character found in V line ->\t\"%s\"\n", *split));
-				if (!(mesh_line_process_vertex(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Vertex line processing failed ->\t%s\n", *split));
-			}
-			else if (strncmp(*split, "f ", 2) == 0)
-			{
-				if (!(mesh_line_process_check(*split, CHARSET_F)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Wrong character found in F line ->\t\"%s\"\n", *split));
-				if (!(mesh_line_process_face(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Face element line processing failed ->\t%s\n", *split));
-			}
-			else if (strncmp(*split, "vt ", 3) == 0)
-			{
-				if (!(mesh_line_process_check(*split, CHARSET_VT)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Wrong character found in VT line ->\t\"%s\"\n", *split));
-				if (!(mesh_line_process_texture(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Texture line processing failed ->\t%s\n", *split));
-			}
-			else if (strncmp(*split, "vn ", 3) == 0)
-			{
-				if (!(mesh_line_process_check(*split, CHARSET_VN)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Wrong character found in VN line ->\t\"%s\"\n", *split));
-				if (!(mesh_line_process_normal(mesh, *split)))
-					return (!scop_log_err("[ERROR mesh_line_process]\t" \
-					"Vertex normal line processing failed ->\t%s\n", *split));
-			}
-			else if ((strncmp(*split, "\n", 1) == 0)				// TEMP, parsing the rest of the obj data needs to be finished
-					|| (strncmp(*split, "o ", 2) == 0)
-					|| (strncmp(*split, "g ", 2) == 0)
-					|| (strncmp(*split, "vp ", 1) == 0)
-					|| (strncmp(*split, "l ", 1) == 0)
-					|| (strncmp(*split, "mtllib ", 7) == 0)
-					|| (strncmp(*split, "usemtl ", 7) == 0)
-					|| (strncmp(*split, "s ", 2) == 0))
-					scop_log("Skipping line ->\t%s\n", *split);
-			else
-			{
-				mesh_clean(mesh);
-				return (error_bool("[ERROR mesh_line_process]\t" \
-				"Mesh file format is invalid!\n"));
-			}
-			split++;
-		}
-		if (!(mesh_line_process_checksum(mesh)))
-			return (error_bool("[ERROR mesh_line_process]\t" \
-				"Mesh file processing failed (number of vertices processed" \
-				" != number of vertices present in file)!\n"));
-		return (true);
-	}
-	return (error_bool("[ERROR mesh_line_process]\tNULL param pointer!\n"));
-}*/
