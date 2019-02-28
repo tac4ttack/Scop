@@ -6,11 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:07:49 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 11:46:36 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:14:42 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+
+
 
 void	flush(t_scop *trash)
 {
@@ -24,8 +26,15 @@ void	flush(t_scop *trash)
 		if (trash->mesh)
 			mesh_clean(trash->mesh);
 		if (trash->texture)
-			;	// call to texture clean function!
-
+		{
+			if (trash->texture->pixels)
+			{
+				ft_putendl("\nmemdel env->texture->pixels");
+				ft_memdel((void**)&trash->texture->pixels);
+			}
+			ft_putendl("\nmemdel env->texture");
+			ft_memdel((void**)&trash->texture);
+		}
 
 		// {
 		// 	if (trash->mesh->vertex)
