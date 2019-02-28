@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 13:56:15 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 18:31:03 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:58:13 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static bool	create_vt_array(t_mesh *mesh)
 			"Mesh texture coordinates array memory allocation failed!\n"));
 		return (true);
 	}
-	return ((error_bool("[ERROR create_vt_array]\t" \
-	"NULL mesh pointer!\n")));
+	return (error_bool("[ERROR create_vt_array]\t" \
+	"NULL mesh pointer!\n"));
 }
 
 bool		mesh_process_texture(t_mesh *mesh, char *str)
@@ -44,6 +44,6 @@ bool		mesh_process_texture(t_mesh *mesh, char *str)
 			"Texture coordinate line format is invalid!\n"));
 		return (true);
 	}
-	return ((error_bool("[ERROR mesh_process_texture]\t" \
-	"NULL mesh or string pointer!\n")));
+	return (error_bool("[ERROR mesh_process_texture]\t" \
+	"NULL mesh or string pointer!\n"));
 }

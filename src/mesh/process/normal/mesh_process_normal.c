@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 18:28:36 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:58:14 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static bool		create_vn_array(t_mesh *mesh)
 	{
 		if (!(mesh->normal = ft_memalloc(sizeof(float) \
 											* 3 * mesh->n_normal[0])))
-			return ((error_bool("[ERROR create_vn_array]\t" \
-			"Mesh normal array memory allocation failed!\n")));
+			return (error_bool("[ERROR create_vn_array]\t" \
+			"Mesh normal array memory allocation failed!\n"));
 		return (true);
 	}
-	return ((error_bool("[ERROR create_vn_array]\t" \
-	"NULL mesh pointer!\n")));
+	return (error_bool("[ERROR create_vn_array]\t" \
+	"NULL mesh pointer!\n"));
 }
 
 static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
@@ -43,8 +43,8 @@ static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
 		vec[2] /= vec[3];
 		return (true);
 	}
-	return ((error_bool("[ERROR normalize_vertex_normal]\t" \
-	"NULL mesh pointer!\n")));
+	return (error_bool("[ERROR normalize_vertex_normal]\t" \
+	"NULL mesh pointer!\n"));
 }
 
 bool			mesh_process_normal(t_mesh *mesh, char *str)
@@ -64,10 +64,10 @@ bool			mesh_process_normal(t_mesh *mesh, char *str)
 			return (error_bool("[ERROR mesh_process_normal]\t" \
 			"Wrong format in vertex normal definition line!\n"));
 		if (!normalize_vertex_normal(mesh, i[0]))
-			return ((error_bool("[ERROR mesh_process_normal]\t" \
-			"Could not normalize vertex normal!\n")));
+			return (error_bool("[ERROR mesh_process_normal]\t" \
+			"Could not normalize vertex normal!\n"));
 		return (true);
 	}
-	return ((error_bool("[ERROR mesh_process_normal]\t" \
-	"NULL mesh or string pointer!\n")));
+	return (error_bool("[ERROR mesh_process_normal]\t" \
+	"NULL mesh or string pointer!\n"));
 }
