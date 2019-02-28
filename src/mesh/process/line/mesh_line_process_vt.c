@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:12:03 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 18:12:11 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:45:04 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	mesh_line_process_vt(t_mesh *mesh, char *str)
 		if (!(mesh_process_texture(mesh, str)))
 			return (!scop_log_err("[ERROR mesh_line_process_vt]\t" \
 			"Texture line processing failed ->\t%s\n", str));
+		return (true);
 	}
 	return (error_bool("[ERROR mesh_line_process_vt]\t" \
 	"NULL mesh or string pointer!\n"));
