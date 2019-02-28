@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/27 18:33:49 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/28 15:01:51 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,10 +86,10 @@ SRC_FILES =  			buffer/buffer_create.c \
 						tga/tga_process_file.c \
 						tga/tga_process_pixels.c \
 						tga/tga_transform.c \
-						utility/split_destroy.c \
 						utility/error.c \
 						utility/exit.c \
-						utility/flush.c
+						utility/flush.c \
+						utility/split.c
 
 OS_TEST := $(shell uname)
 ifeq ($(OS_TEST), Darwin)

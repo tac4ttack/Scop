@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 18:54:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:03:57 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,9 @@ void							exit_ok(void *trash);
 void							exit_fail(const char *msg, void *trash);
 
 void							flush(t_scop *trash);
+
 void							split_destroy(char **split);
+size_t							split_len(char **split);
 
 t_scop							*init(const char *av);
 
