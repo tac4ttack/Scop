@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 12:42:20 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:35:13 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static bool	init_textures(t_scop *env)
 		if (!(env->texture = ft_memalloc(sizeof(t_texture))))
 			return (error_bool("[ERROR init_textures]\t" \
 			"Can\'t allocate memory for textures!\n"));
-		if (!(tga_load_file(DEFAULT_TEXTURE, \
-							&env->texture[0].size[0], \
-							&env->texture[0].size[1])))
+		if (!(env->texture->pixels = tga_load_file(DEFAULT_TEXTURE, \
+												&env->texture[0].size[0], \
+												&env->texture[0].size[1])))
 			return (error_bool("[ERROR init_textures]\t" \
 			"Could not load the default Doge texture!\n"));
 		env->n_texture = 1;
