@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/28 15:01:51 by fmessina         ###   ########.fr        #
+#    Updated: 2019/02/28 17:51:21 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,11 @@ SRC_FILES =  			buffer/buffer_create.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
 						main.c \
-						mesh/process/face/mesh_get_face_type.c \
 						mesh/process/face/mesh_process_face.c \
+						mesh/process/face/mesh_process_face_data.c \
+						mesh/process/face/mesh_process_face_get_type.c \
+						mesh/process/face/mesh_process_face_quad.c \
+						mesh/process/face/mesh_process_face_triangle.c \
 						mesh/process/line/mesh_line_process.c \
 						mesh/process/line/mesh_line_process_check.c \
 						mesh/process/line/mesh_line_process_f.c \

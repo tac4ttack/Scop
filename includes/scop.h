@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 15:03:57 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:54:06 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct					s_mesh
 	GLfloat						*vertex;
 	size_t						n_vertex[2];
 
-	GLuint						*face;
+	GLint						*face;
 	size_t						n_face[6];
 	char						*face_format;
 
@@ -209,9 +209,17 @@ bool							mesh_line_process_vt(t_mesh *mesh, char *str);
 bool							mesh_pack_vao_data(t_mesh *mesh);
 
 bool							mesh_process_face(t_mesh *mesh, char *str);
-bool							mesh_process_face_data(t_mesh *mesh, \
-													char **split, \
-													size_t index);
+bool							mesh_process_face_data_dispatch(t_mesh *mesh, \
+																char *str, \
+																int mod, \
+																int index);
+bool							mesh_process_face_quad(t_mesh *mesh, \
+														char **split, \
+														int index);
+bool							mesh_process_face_triangle(t_mesh *mesh, \
+														char **split, \
+														int index);
+int								mesh_process_face_type_get(char *sample);
 bool							mesh_process_normal(t_mesh *mesh, char *str);
 bool							mesh_process_space(t_mesh *mesh, char *str);
 bool							mesh_process_texture(t_mesh *mesh, char *str);
