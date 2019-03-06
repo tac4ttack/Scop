@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:42:33 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 17:50:58 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 10:44:05 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 bool		mesh_process_face_triangle(t_mesh *mesh, char **split, int index)
 {
+	int		i;
 	int		mod;
 	bool	fail;
 
 	if (mesh && split && !(fail = false))
 	{
+		i = 0;
 		if ((mod = mesh_process_face_type_get(*split)) == -1)
 			return (error_bool("[ERROR mesh_process_face_triangle]\t" \
 			"Face element type recognized!\n"));
-		while (*split)
+		while (i++ < 3)
 		{
 			if (mod != mesh_process_face_type_get(*split))
 				return (error_bool("[ERROR mesh_process_face_triangle]\t"
@@ -32,7 +34,6 @@ bool		mesh_process_face_triangle(t_mesh *mesh, char **split, int index)
 				return (error_bool("[ERROR mesh_process_face_triangle]\t"
 				"Failed to retrieve face element data!\n"));
 			index += 3;
-			split++;
 		}
 		return (true);
 	}
