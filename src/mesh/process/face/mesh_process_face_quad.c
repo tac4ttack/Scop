@@ -6,24 +6,33 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:08:01 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 18:38:47 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 10:44:40 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
+
+
 bool		mesh_process_face_quad(t_mesh *mesh, char **split, int index)
 {
-	int		mod;
-	GLint	triangles[2][3];
+	char	*new[2][3];
 
 	if (mesh && split)
 	{
-		fprintf(stdout, "index = %d\nsplit = %s\n", index, *split);
-		if ((mod = mesh_process_face_type_get(*split)) == -1)
+		new[0][0] = split[0];
+		new[0][1] = split[1];
+		new[0][2] = split[2];
+		new[1][0] = split[0];
+		new[1][1] = split[2];
+		new[1][2] = split[3];
+		if (!(mesh_process_face_triangle(mesh, new[0], index)))
 			return (error_bool("[ERROR mesh_process_face_quad]\t" \
-			"Face element type not recognized!\n"));
-		fprintf(stdout, "DEBUG FACE MOD = %d\n", mod);
+			"Failed to retrieve data from first new triangle!\n"));
+		index = (++mesh->n_face[1] - 1) * 9;
+		if (!(mesh_process_face_triangle(mesh, new[1], index)))
+			return (error_bool("[ERROR mesh_process_face_quad]\t" \
+			"Failed to retrieve data from second new triangle!\n"));
 		return (true);
 	}
 	return (error_bool("[ERROR mesh_process_face_quad]\t" \
