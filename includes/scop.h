@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 17:54:06 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 12:19:26 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,6 @@
 **	n_face		->	face elements settings:
 **					[0] preprocessing count,
 **					[1] checksum control,
-**					[2] number of vertices per face element,
-**					[3] type of face element definition can take 4 values:
-**						0 = Vn | 1 = Vn/VTn | 2 = Vn/VTn/VNn | 3 = Vn//VNn
-**					[4] number of values per vertex according to the face format
-**					[5] total number to read for a face element definition
 **	normal		->	vertices normal array
 **	n_normal	->	number of vertices normals:
 **					[0] is preprocessing count,
@@ -117,7 +112,7 @@ typedef struct					s_mesh
 	size_t						n_vertex[2];
 
 	GLint						*face;
-	size_t						n_face[6];
+	size_t						n_face[2];
 	char						*face_format;
 
 	GLfloat						*normal;
@@ -227,8 +222,8 @@ bool							mesh_process_vertex(t_mesh *mesh, char *str);
 
 void							mesh_print_data(t_mesh *mesh);
 void							mesh_print_data_face(t_mesh *mesh);
-void							mesh_print_data_face_type(t_mesh *mesh);
 void							mesh_print_data_normal(t_mesh *mesh);
+void							mesh_print_data_packed_vao(t_mesh *mesh);
 void							mesh_print_data_texture(t_mesh *mesh);
 void							mesh_print_data_vertex(t_mesh *mesh);
 
