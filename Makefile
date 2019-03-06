@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/06 12:18:35 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/06 14:17:47 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,19 +70,22 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/process/line/mesh_line_process_vp.c \
 						mesh/process/line/mesh_line_process_vt.c \
 						mesh/process/normal/mesh_process_normal.c \
+						mesh/prepack/mesh_prepack.c \
+						mesh/prepack/mesh_prepack_ebo_data.c \
+						mesh/prepack/mesh_prepack_vao_data.c \
 						mesh/process/space/mesh_process_space.c \
 						mesh/process/texture/mesh_process_texture.c \
 						mesh/process/vertex/mesh_process_vertex.c \
 						mesh/print/mesh_print_data.c \
 						mesh/print/mesh_print_data_face.c \
 						mesh/print/mesh_print_data_normal.c \
-						mesh/print/mesh_print_data_packed_vao.c \
+						mesh/print/mesh_print_data_prepack_vao.c \
+						mesh/print/mesh_print_data_prepack_ebo.c \
 						mesh/print/mesh_print_data_texture.c \
 						mesh/print/mesh_print_data_vertex.c \
 						mesh/mesh_clean.c \
 						mesh/mesh_file_load.c \
 						mesh/mesh_file_process.c \
-						mesh/mesh_pack_vao_data.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
 						tga/tga_error.c \
@@ -120,6 +123,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/mesh
 	@mkdir $(OBJ_PATH)/mesh/line
 	@mkdir $(OBJ_PATH)/mesh/print
+	@mkdir $(OBJ_PATH)/mesh/prepack
 	@mkdir $(OBJ_PATH)/mesh/process
 	@mkdir $(OBJ_PATH)/mesh/process/face
 	@mkdir $(OBJ_PATH)/mesh/process/line

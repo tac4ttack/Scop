@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 14:05:26 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 12:26:21 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:09:01 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int ac, char **av)
 			exit_fail("Could not load targeted mesh file :(", env);
 		if (!(env->mesh = mesh_file_process(env)))
 			exit_fail("Invalid OBJ format for targeted mesh file :(", env);
-		if (!(mesh_pack_vao_data(env->mesh)))
+		if (!(mesh_prepack(env->mesh)))
 			exit_fail("Failed to pack data for OpenGL :(", env);
 		(DEBUG_SCOP ? mesh_print_data(env->mesh) : 0);
 		if (!(shader_build(env)))

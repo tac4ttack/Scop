@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 12:19:26 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:14:46 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ typedef struct					s_mesh
 	char						*usemtl;
 	bool						shading;
 
-	GLfloat						*final_vao;
+	GLfloat						*prepack_vao;
+	GLint						*prepack_ebo;
 
 	GLfloat						*vertex;
 	size_t						n_vertex[2];
@@ -201,7 +202,9 @@ bool							mesh_line_process_vn(t_mesh *mesh, char *str);
 bool							mesh_line_process_vp(t_mesh *mesh, char *str);
 bool							mesh_line_process_vt(t_mesh *mesh, char *str);
 
-bool							mesh_pack_vao_data(t_mesh *mesh);
+bool							mesh_prepack(t_mesh *mesh);
+bool							mesh_prepack_ebo_data(t_mesh *mesh);
+bool							mesh_prepack_vao_data(t_mesh *mesh);
 
 bool							mesh_process_face(t_mesh *mesh, char *str);
 bool							mesh_process_face_data_dispatch(t_mesh *mesh, \
@@ -223,6 +226,7 @@ bool							mesh_process_vertex(t_mesh *mesh, char *str);
 void							mesh_print_data(t_mesh *mesh);
 void							mesh_print_data_face(t_mesh *mesh);
 void							mesh_print_data_normal(t_mesh *mesh);
+void							mesh_print_data_packed_ebo(t_mesh *mesh);
 void							mesh_print_data_packed_vao(t_mesh *mesh);
 void							mesh_print_data_texture(t_mesh *mesh);
 void							mesh_print_data_vertex(t_mesh *mesh);
