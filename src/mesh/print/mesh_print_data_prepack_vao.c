@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:17:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 14:05:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:50:01 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void		mesh_print_data_packed_vao(t_mesh *mesh)
 
 	if (mesh && mesh->prepack_vao && !(i = 0))
 	{
-		scop_log("\nVertex VAO data =\n-------------\nvao[n]\t=\t[VXn VYn VZn" \
-		" VWn]  [VRn VGn VBn VAn]  [VTUn VTVn VTWn]  [VNIn VNJn VNKn]  [VPUn " \
-		"VPVn VPWn]\n", NULL);
+		scop_log("\nVertex VAO data =\n-----------------\nvao[n]\t=\t[VXn VYn" \
+		" VZn VWn]  [VRn VGn VBn VAn]  [VTUn VTVn VTWn]  [VNIn VNJn VNKn]  " \
+		"[VPUn VPVn VPWn]\n", NULL);
 		while (i < mesh->n_vertex[0])
 		{
 			scop_log("vao[%d]\t=\t%f %f %f %f  %f %f %f %f  %f %f %f  "\

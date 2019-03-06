@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:17:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 14:25:40 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:50:04 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		mesh_print_data_packed_ebo(t_mesh *mesh)
 
 	if (mesh && mesh->prepack_ebo && !(i = 0))
 	{
-		scop_log("\nFace element EBO data =\n----------------------\n", NULL);
+		scop_log("\nFace element EBO data =\n-----------------------\n", NULL);
 		while (i < mesh->n_face[0])
 		{
 			scop_log("ebo[%d]\t=\t%d %d %d\n", i, \
