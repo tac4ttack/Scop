@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 12:42:08 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 12:30:02 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	glfw_launch(t_scop *env)
 			{
 				// glDrawElements(GL_TRIANGLES, 3,	GL_UNSIGNED_INT, 0);
 				glDrawElements(GL_TRIANGLES, \
-				env->mesh->n_vertex[1] * env->mesh->n_face[5], \
+				env->mesh->n_vertex[1] * 3, \
 				GL_UNSIGNED_INT, 0);
 			}
 			else if (env->mesh->vertex && env->mesh->n_vertex[1] >= 3)
