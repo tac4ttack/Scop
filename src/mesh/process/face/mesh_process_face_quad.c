@@ -6,13 +6,11 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:08:01 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 10:44:40 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 11:03:19 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
-
-
 
 bool		mesh_process_face_quad(t_mesh *mesh, char **split, int index)
 {
