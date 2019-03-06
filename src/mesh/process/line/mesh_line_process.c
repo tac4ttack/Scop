@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 11:16:04 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 12:28:14 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ static bool	mesh_line_preprocess(t_mesh *mesh, char **split)
 					"Face elements must be triangles or quads only!\n"));
 			split++;
 		}
+
+		// DEBUG TO REMOVE
+		mesh->n_space[0] = 0;
+		mesh->n_space[1] = 0;
+
 		if (mesh->n_vertex[0] < 3)
 			return (error_bool("[ERROR mesh_line_preprocess]\t" \
 			"The mesh needs at lest 3 vertices!\n"));
