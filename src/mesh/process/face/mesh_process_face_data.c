@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:53:33 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 18:06:25 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 12:12:32 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static bool	mesh_process_face_data_v_vt_vn(t_mesh *mesh, char *str, int index)
 		if (ret != 3)
 			return (error_bool("[ERROR mesh_process_face_data_v]\t" \
 			"Could not retrieve Vn/VTn/VNn face element data!\n"));
-
 		return (true);
 	}
 	return (error_bool("[ERROR mesh_process_face_data_v_vt_vn]\t" \
