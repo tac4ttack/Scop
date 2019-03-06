@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:09:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 12:07:59 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 12:20:35 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		mesh_print_data_face(t_mesh *mesh)
 
 	if (mesh && mesh->face && !(i = 0))
 	{
-		scop_log("\nFace data =\n-------------\n", NULL);
+		scop_log("\nFace data =\n-----------\n", NULL);
 		while (i < mesh->n_face[1])
 		{
 			scop_log("f[%zu]\t=\t%d/%d/%d %d/%d/%d %d/%d/%d\n", i,

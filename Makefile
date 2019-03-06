@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/28 17:51:21 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/06 12:18:35 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/print/mesh_print_data.c \
 						mesh/print/mesh_print_data_face.c \
 						mesh/print/mesh_print_data_normal.c \
+						mesh/print/mesh_print_data_packed_vao.c \
 						mesh/print/mesh_print_data_texture.c \
 						mesh/print/mesh_print_data_vertex.c \
 						mesh/mesh_clean.c \
