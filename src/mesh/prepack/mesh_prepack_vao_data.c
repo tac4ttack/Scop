@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 18:34:57 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 19:07:27 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,26 @@ static bool	prepack_push_vertex_data(t_mesh *mesh, int v, int vt, int vn)
 {
 	if (mesh)
 	{
-		if (mesh->texture && vt > 0 && (size_t)vt < mesh->n_texture[0])
+		fprintf(stdout, "\ndebug push vertex\nv = %d | vt = %d | vn = %d\n",
+		v, vt, vn);
+		v *= 17;
+		vt *= 3;
+		vn *= 3;
+
+		if (mesh->texture && vt >= 0 && (size_t)vt < mesh->n_texture[0] * 3)
 		{
+			fprintf(stdout, "\nt[x] = %f\nt[y] = %f\nt[z] = %f\n",
+			mesh->texture[vt], mesh->texture[vt + 1], mesh->texture[vt + 2]);
+
 			mesh->prepack_vao[v + 8] = mesh->texture[vt];
 			mesh->prepack_vao[v + 9] = mesh->texture[vt + 1];
 			mesh->prepack_vao[v + 10] = mesh->texture[vt + 2];
 		}
-		if (mesh->normal && vn > 0 && (size_t)vn < mesh->n_normal[0])
+		if (mesh->normal && vn >= 0 && (size_t)vn < mesh->n_normal[0] * 3)
 		{
+			fprintf(stdout, "n[x] = %f\nn[y] = %f\nn[z] = %f\n",
+			mesh->normal[vn], mesh->normal[vn+1], mesh->normal[vn+2]);
+
 			mesh->prepack_vao[v + 11] = mesh->normal[vn];
 			mesh->prepack_vao[v + 12] = mesh->normal[vn + 1];
 			mesh->prepack_vao[v + 13] = mesh->normal[vn + 2];
