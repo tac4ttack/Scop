@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 16:11:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 09:56:50 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool	validate_face_element(t_mesh *mesh, char *str)
+static bool	mesh_line_process_validate_face(t_mesh *mesh, char *str)
 {
 	size_t	len;
 	char	**face_split;
@@ -20,12 +20,12 @@ static bool	validate_face_element(t_mesh *mesh, char *str)
 	if (mesh && str)
 	{
 		if (!(face_split = ft_strsplit(str, ' ')))
-			return (error_bool("[ERROR validate_face_element]\t" \
+			return (error_bool("[ERROR mesh_line_process_validate_face]\t" \
 			"Split for validating face element failed!\n"));
 		len = split_len(face_split);
 		split_destroy(face_split);
 		if (len < 4 || len > 5)
-			return (!(scop_log_err("[ERROR validate_face_element]\t" \
+			return (!(scop_log_err("[ERROR mesh_line_process_validate_face]\t" \
 			"Face element is not a triangle or a quad! ->\t %s\n", str)));
 		else if (len == 5)
 			mesh->n_face[0] += 2;
@@ -33,7 +33,7 @@ static bool	validate_face_element(t_mesh *mesh, char *str)
 			mesh->n_face[0] += 1;
 		return (true);
 	}
-	return (error_bool("[ERROR validate_face_element]\t" \
+	return (error_bool("[ERROR mesh_line_process_validate_face]\t" \
 	"NULL mesh or string pointer!\n"));
 }
 
@@ -48,7 +48,7 @@ static bool	mesh_line_preprocess(t_mesh *mesh, char **split)
 			(strncmp(*split, "vn ", 3) == 0 ? mesh->n_normal[0]++ : 0);
 			(strncmp(*split, "vp ", 3) == 0 ? mesh->n_space[0]++ : 0);
 			if (strncmp(*split, "f ", 2) == 0)
-				if (!(validate_face_element(mesh, *split)))
+				if (!(mesh_line_process_validate_face(mesh, *split)))
 					return (error_bool("[ERROR mesh_line_preprocess]\t" \
 					"Face elements must be triangles or quads only!\n"));
 			split++;
