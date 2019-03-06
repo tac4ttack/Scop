@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:07:38 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 11:24:21 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 11:59:43 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ void		mesh_print_data_vertex(t_mesh *mesh)
 {
 	size_t	i;
 
-	if (mesh->vertex)
+	if (mesh && mesh->vertex && !(i = 0))
 	{
-		i = 0;
 		scop_log("\nVertex data =\n-------------\n", NULL);
 		while (i < mesh->n_vertex[1])
 		{
