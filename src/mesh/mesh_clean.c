@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 12:21:33 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 12:17:18 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:26:14 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	mesh_clean(t_mesh *mesh)
 		(mesh->texture ? ft_memdel((void**)&mesh->texture) : 0);
 		(mesh->space ? ft_memdel((void**)&mesh->space) : 0);
 		(mesh->face_format ? ft_memdel((void**)&mesh->face_format) : 0);
-		(mesh->final_vao ? ft_memdel((void**)&mesh->final_vao) : 0);
+		(mesh->prepack_vao ? ft_memdel((void**)&mesh->prepack_vao) : 0);
+		(mesh->prepack_ebo ? ft_memdel((void**)&mesh->prepack_ebo) : 0);
 		(mesh ? ft_memdel((void**)&mesh) : 0);
 	}
 }
