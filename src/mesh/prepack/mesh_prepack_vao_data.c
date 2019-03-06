@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 14:20:35 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:50:28 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool		mesh_prepack_vao_data(t_mesh *mesh)
 
 	if (mesh && !(i = 0))
 	{
-		scop_log("Packing data for a big VAO :) ...\n", NULL);
+		scop_log("Packing data for a big VAO...\n", NULL);
 		if (!(mesh->prepack_vao = ft_memalloc(sizeof(GLfloat) \
 											* mesh->n_vertex[0] * 17)))
 			return (error_bool("[ERROR mesh_pack_vao_data]\t" \
