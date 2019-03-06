@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 12:28:14 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:27:58 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,16 @@ static bool	mesh_line_process_checksum(t_mesh *mesh)
 {
 	if (mesh)
 	{
-	//	NEEDS TO BE REFORMATED!!
-		scop_log("\nMESH DATA CHECKSUM:\nn_vertex[0] = %zu\t\t\tn_vertex[1] " \
-		"= %zu\nn_face[0] = %zu\t\t\tn_face[1] = %zu\nn_normal[0] = %zu\t\t\t" \
-		"n_normal[1] = %zu\nn_texture[0] = %zu\t\tn_texture[1] = %zu\n" \
-		"n_space[0] = %zu\t\t\tn_space[1] = %zu\n\n", mesh->n_vertex[0], \
-		mesh->n_vertex[1], mesh->n_face[0], mesh->n_face[1], \
-		mesh->n_normal[0], mesh->n_normal[1], mesh->n_texture[0], \
-		mesh->n_texture[1], mesh->n_space[0], mesh->n_space[1]);
+		scop_log("\nMESH DATA CHECKSUM:\n"\
+		"%zu vertices read\t\t\t->\t%zu vertices processed\n" \
+		"%zu face(s) read\t\t\t->\t%zu face(s) processed\n" \
+		"%zu normal(s) read\t\t->\t%zu normal(s) processed\n" \
+		"%zu textures coords read\t\t->\t%zu textures coords processed\n" \
+		"%zu vertices spaces read\t\t->\t%zu vertices spaces processed\n\n", \
+		mesh->n_vertex[0], mesh->n_vertex[1], mesh->n_face[0], \
+		mesh->n_face[1], mesh->n_normal[0], mesh->n_normal[1], \
+		mesh->n_texture[0], mesh->n_texture[1], mesh->n_space[0], \
+		mesh->n_space[1]);
 		if (mesh->n_vertex[0] != mesh->n_vertex[1]
 			|| mesh->n_face[0] != mesh->n_face[1]
 			|| mesh->n_normal[0] != mesh->n_normal[1]
