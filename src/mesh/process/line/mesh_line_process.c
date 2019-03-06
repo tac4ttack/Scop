@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 09:56:50 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 11:16:04 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static bool	mesh_line_preprocess(t_mesh *mesh, char **split)
 			(strncmp(*split, "v ", 2) == 0 ? mesh->n_vertex[0]++ : 0);
 			(strncmp(*split, "vt ", 3) == 0 ? mesh->n_texture[0]++ : 0);
 			(strncmp(*split, "vn ", 3) == 0 ? mesh->n_normal[0]++ : 0);
-			(strncmp(*split, "vp ", 3) == 0 ? mesh->n_space[0]++ : 0);
+			// (strncmp(*split, "vp ", 3) == 0 ? mesh->n_space[0]++ : 0);
 			if (strncmp(*split, "f ", 2) == 0)
 				if (!(mesh_line_process_validate_face(mesh, *split)))
 					return (error_bool("[ERROR mesh_line_preprocess]\t" \
@@ -70,6 +70,7 @@ static bool	mesh_line_process_checksum(t_mesh *mesh)
 {
 	if (mesh)
 	{
+	//	NEEDS TO BE REFORMATED!!
 		scop_log("\nMESH DATA CHECKSUM:\nn_vertex[0] = %zu\t\t\tn_vertex[1] " \
 		"= %zu\nn_face[0] = %zu\t\t\tn_face[1] = %zu\nn_normal[0] = %zu\t\t\t" \
 		"n_normal[1] = %zu\nn_texture[0] = %zu\t\tn_texture[1] = %zu\n" \
@@ -105,8 +106,8 @@ static bool	mesh_line_process_dispatch(t_mesh *mesh, char *str)
 			failure = mesh_line_process_vt(mesh, str);
 		else if (strncmp(str, "vn ", 3) == 0)
 			failure = mesh_line_process_vn(mesh, str);
-		else if (strncmp(str, "vp ", 3) == 0)
-			failure = mesh_line_process_vp(mesh, str);
+		// else if (strncmp(str, "vp ", 3) == 0)
+		// 	failure = mesh_line_process_vp(mesh, str);
 		else
 			failure = true;
 		return (failure);
