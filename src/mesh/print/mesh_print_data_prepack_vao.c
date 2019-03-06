@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:17:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 15:50:01 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 18:15:54 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void		mesh_print_data_packed_vao(t_mesh *mesh)
 	if (mesh && mesh->prepack_vao && !(i = 0))
 	{
 		scop_log("\nVertex VAO data =\n-----------------\nvao[n]\t=\t[VXn VYn" \
-		" VZn VWn]  [VRn VGn VBn VAn]  [VTUn VTVn VTWn]  [VNIn VNJn VNKn]  " \
-		"[VPUn VPVn VPWn]\n", NULL);
+		" VZn VWn] | [VRn VGn VBn VAn] | [VTUn VTVn VTWn] | [VNIn VNJn VNKn] " \
+		" [VPUn VPVn VPWn]\n", NULL);
 		while (i < mesh->n_vertex[0])
 		{
-			scop_log("vao[%d]\t=\t%f %f %f %f  %f %f %f %f  %f %f %f  "\
-			"%f %f %f  %f %f %f\n", i, mesh->prepack_vao[(i * 17)], \
+			scop_log("vao[%d]\t=\t%f %f %f %f | %f %f %f %f | %f %f %f | "\
+			"%f %f %f | %f %f %f\n", i, mesh->prepack_vao[(i * 17)], \
 			mesh->prepack_vao[(i * 17) + 1], mesh->prepack_vao[(i * 17) + 2], \
 			mesh->prepack_vao[(i * 17) + 3], mesh->prepack_vao[(i * 17) + 4], \
 			mesh->prepack_vao[(i * 17) + 5], mesh->prepack_vao[(i * 17) + 6], \
