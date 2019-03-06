@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 17:58:14 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:31:34 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
 	"NULL mesh pointer!\n"));
 }
 
+// WIP si pas de normal alors la calculer?????
 bool			mesh_process_normal(t_mesh *mesh, char *str)
 {
 	size_t		i[2];
