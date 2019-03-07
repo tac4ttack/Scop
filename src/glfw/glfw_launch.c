@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/07 12:02:58 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 12:23:00 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ bool	glfw_launch(t_scop *env)
 			env->uni_time_val = glfwGetTime();	// update our time
 			glUseProgram(env->shader_program); // specify wich shader to use
 			shader_uniform_update(env);	// update our uniforms
+
+			// here loop to load all textures
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, env->texture[0].id);
+
 			glBindVertexArray(env->vao);
 			if (env->mesh->face && env->mesh->n_face[1] >= 1)
 			{

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 18:35:13 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 19:37:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,17 @@ static bool	init_textures(t_scop *env)
 	return (error_bool("[ERROR init_textures]\tNULL scop pointer!\n"));
 }
 
+void		debug_init_matrix(t_scop *env)
+{
+	if (env)
+	{
+		mat4_set_identity(&env->uni_mat_tra_val);
+		mat4_set_identity(&env->uni_mat_rot_val);
+		mat4_set_identity(&env->uni_mat_sca_val);
+	}
+}
+
+
 t_scop		*init(const char *av)
 {
 	t_scop	*env;
@@ -101,6 +112,10 @@ t_scop		*init(const char *av)
 			return (error("[ERROR init]\tCould initialize GLEW!\n"));
 		}
 		scop_log("\nSCOP initialization done!\n");
+
+
+		// DEBUG MATRIX TESTING
+		debug_init_matrix(env);
 		return (env);
 	}
 	return (NULL);

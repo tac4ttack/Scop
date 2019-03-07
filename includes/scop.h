@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/07 15:32:14 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 19:31:29 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,13 @@ typedef struct					s_scop
 
 	GLint						uni_time_id;
 	float						uni_time_val;
+	GLint						uni_mat_tra_id;
+	t_mat4						uni_mat_tra_val;
+	GLint						uni_mat_rot_id;
+	t_mat4						uni_mat_rot_val;
+	GLint						uni_mat_sca_id;
+	t_mat4						uni_mat_sca_val;
+
 }								t_scop;
 
 bool							buffer_create(t_scop *env);

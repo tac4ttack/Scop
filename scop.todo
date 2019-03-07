@@ -1,3 +1,6 @@
+MAKEFILE:
+    ☐ do not recompile with modified header???
+
 OBJ PARSING:
      ✔ parse V @done (2/28/2019, 5:56:19 PM)
      ✔ parse F @done (3/6/2019, 11:10:04 AM)
@@ -13,12 +16,14 @@ OBJ PARSING:
 VAO PACKING:
     ✔ pack vertex position @done (3/6/2019, 6:20:24 PM)
     ✔ pack vertex hue @done (3/6/2019, 6:20:22 PM)
-    ☐ pack texture coord
-    ☐ pack vertex normal
-    ☐ pack vertex space
+    ✔ pack texture coord @done (3/7/2019, 12:07:57 PM)
+    ✔ pack vertex normal @done (3/7/2019, 12:07:58 PM)
+    ✔ pack vertex space @done (3/7/2019, 12:07:59 PM)
 
 VARIOUS:
     ☐ totally remove the space VP support
+
+
 
 LEAKS:
     ✔ u got one leak of always 1044480 bytes (it was the default texture!) @done (2/28/2019, 6:35:34 PM)

@@ -7,9 +7,13 @@ layout (location = 4) in	vec3	aSpaceParam;
 
 out							vec4	vertexColor;
 out							vec2	texCoord;
+
+uniform						mat4	mTranslation;
+uniform						mat4	mRotation;
+uniform						mat4	mScale;
 void main()
 {
-	gl_Position = aPosition;
+	gl_Position = aPosition;// * translation * rotation * scale;
 	vertexColor = aHue;
 	texCoord = aTexCoord.xy;
 }
