@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 16:19:14 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 12:13:51 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static bool	buffer_create_texture(t_scop *env)
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// nearest when unzoom
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	// linear when zoom
 			// tester avec GL_RGBA?
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, env->texture[i].size[0], \
-						env->texture[i].size[1], 0, GL_RGB, GL_UNSIGNED_BYTE, \
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, env->texture[i].size[0], \
+						env->texture[i].size[1], 0, GL_BGRA, GL_UNSIGNED_BYTE, \
 						env->texture[i].pixels);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			i++;

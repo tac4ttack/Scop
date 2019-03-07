@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 12:30:02 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 12:02:58 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,16 @@ bool	glfw_launch(t_scop *env)
 			env->uni_time_val = glfwGetTime();	// update our time
 			glUseProgram(env->shader_program); // specify wich shader to use
 			shader_uniform_update(env);	// update our uniforms
+			glBindTexture(GL_TEXTURE_2D, env->texture[0].id);
 			glBindVertexArray(env->vao);
 			if (env->mesh->face && env->mesh->n_face[1] >= 1)
 			{
-				// glDrawElements(GL_TRIANGLES, 3,	GL_UNSIGNED_INT, 0);
 				glDrawElements(GL_TRIANGLES, \
-				env->mesh->n_vertex[1] * 3, \
+				env->mesh->n_face[0] * 3, \
 				GL_UNSIGNED_INT, 0);
 			}
 			else if (env->mesh->vertex && env->mesh->n_vertex[1] >= 3)
-			{
 				glDrawArrays(GL_TRIANGLES, 0, env->mesh->n_vertex[1]);
-			}
 			else
 			{
 				glfwSetWindowShouldClose(env->win, 1);
