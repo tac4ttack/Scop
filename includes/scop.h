@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 14:14:46 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:32:14 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 **	Custom libs
 */
 # include "libft.h"
+# include "libftmath.h"
 # include "GL/glew.h"
 # include "GLFW/glfw3.h"
 # include "tga.h"
@@ -150,7 +151,6 @@ typedef struct					s_scop
 
 	GLint						uni_time_id;
 	float						uni_time_val;
-
 }								t_scop;
 
 bool							buffer_create(t_scop *env);

@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/06 14:17:47 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/07 15:31:50 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ SCOP_INCLUDES_FILES =	scop.h \
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
 LIBFT_LINK :=			-L $(LIBFT_PATH) -lft
+
+LIBFTMATH_PATH :=		./lib/libftmath
+LIBFTMATH_INCLUDE :=	-I $(LIBFTMATH_PATH)/includes
+LIBFTMATH_LINK :=		-L $(LIBFTMATH_PATH) -lftmath
 
 LIBMATH_LINK :=			-lm
 
@@ -105,14 +109,14 @@ endif
 
 default: all
 
-all: libft glew glfw $(NAME)
+all: libft libftmath glew glfw $(NAME)
 
 $(NAME): $(SRC) $(SCOP_INCLUDES) $(OBJ_PATH) $(OBJ)
 	@echo "\n$(GREEN)Compiling $(NAME) for MacOSX $(OS_NAME)$(EOC)"
-	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
+	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBFTMATH_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
+	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(LIBFTMATH_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
 
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
@@ -142,14 +146,12 @@ clean:
 
 fclean: clean
 	@echo "$(GREEN)Full cleaning...$(EOC)"
-	@echo "$(GREEN)Deleting $(NAME) executable and config file$(EOC)"
-	@rm -rf $(NAME) ./config.json
+	@echo "$(GREEN)Deleting $(NAME) executable$(EOC)"
+	@rm -rf $(NAME)
 
-fcleanmega: fcleanlibft fclean glewclean glfwclean
+fcleanmega: fcleanlibft fcleanlibftmath fclean glewclean glfwclean
 
 libft:
-	@echo $(SCOP_INCLUDES)
-
 	@echo "$(GREEN)Compiling$(EOC) $(YELL)Libft$(EOC) $(GREEN)library$(EOC)"
 	@make -C $(LIBFT_PATH)/ all
 
@@ -160,6 +162,18 @@ cleanlibft:
 fcleanlibft: cleanlibft
 	@echo "$(GREEN)Cleaning$(EOC) $(YELL)Libft$(EOC) $(GREEN)library's folders and deleting binary$(EOC)"
 	@make -C $(LIBFT_PATH)/ fclean
+
+libftmath:
+	@echo "$(GREEN)Compiling$(EOC) $(YELL)LibftMath$(EOC) $(GREEN)library$(EOC)"
+	@make -C $(LIBFTMATH_PATH)/ all
+
+cleanlibftmath:
+	@echo "$(GREEN)Cleaning$(EOC) $(YELL)LibftMath$(EOC) $(GREEN)library's folders$(EOC)"
+	@make -C $(LIBFTMATH_PATH)/ clean
+
+fcleanlibftmath: cleanlibftmath
+	@echo "$(GREEN)Cleaning$(EOC) $(YELL)LibftMath$(EOC) $(GREEN)library's folders and deleting binary$(EOC)"
+	@make -C $(LIBFTMATH_PATH)/ fclean
 
 glew:
 	@echo "\n$(GREEN)Compiling$(EOC) $(YELL)GLEW$(EOC) $(GREEN)library$(EOC)"
