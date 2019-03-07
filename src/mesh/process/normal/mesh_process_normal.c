@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 16:31:34 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 11:43:37 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
 		vec[3] = sqrt((vec[0] * vec[0]) \
 					+ (vec[1] * vec[1]) \
 					+ (vec[2] * vec[2]));
-		vec[0] /= vec[3];
-		vec[1] /= vec[3];
-		vec[2] /= vec[3];
+		mesh->normal[index] = vec[0] / vec[3];
+		mesh->normal[index + 1] = vec[1] / vec[3];
+		mesh->normal[index + 2] = vec[2] / vec[3];
 		return (true);
 	}
 	return (error_bool("[ERROR normalize_vertex_normal]\t" \
