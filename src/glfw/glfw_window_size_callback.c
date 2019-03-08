@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 11:40:21 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/20 12:49:37 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/08 13:38:02 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	glfw_window_size_callback(GLFWwindow *win, \
 		{
 			// add a print of a glGet(GL_VIEWPORT, param)
 			scop_log("\nWindow size has changed!\tnew width = " \
-					"%d\tnew height = %d\n", width, height);
-			fprintf(stdout, "\nWindow size has changed!\tnew width = " \
 					"%d\tnew height = %d\n", width, height);
 		}
 	}

@@ -8,12 +8,10 @@ layout (location = 4) in	vec3	aSpaceParam;
 out							vec4	vertexColor;
 out							vec2	texCoord;
 
-uniform						mat4	mTranslation;
-uniform						mat4	mRotation;
-uniform						mat4	mScale;
+uniform						mat4	mTransformation;
 void main()
 {
-	gl_Position = aPosition;// * translation * rotation * scale;
+	gl_Position = aPosition * mTransformation;
 	vertexColor = aHue;
 	texCoord = aTexCoord.xy;
 }

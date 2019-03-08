@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/07 19:37:41 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:02:28 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ static bool		init_glfw(t_scop *env)
 			"GLFW3 window creation fail!\n"));
 		}
 		glfwMakeContextCurrent(env->win); // Attach window and context
+		glfwSetWindowUserPointer(env->win, (void*)env); // makes our env ptr available
+		glfwSetInputMode(env->win, GLFW_STICKY_KEYS, 1);
 		glfwSetWindowSizeCallback(env->win, glfw_window_size_callback); // Set up a callback for windows events
+		glfwSetKeyCallback(env->win, glfw_key_callback);
+
 		return (true);
 	}
 	return (error_bool("[ERROR init_glfw]\tNULL scop pointer!\n"));
@@ -80,9 +84,7 @@ void		debug_init_matrix(t_scop *env)
 {
 	if (env)
 	{
-		mat4_set_identity(&env->uni_mat_tra_val);
-		mat4_set_identity(&env->uni_mat_rot_val);
-		mat4_set_identity(&env->uni_mat_sca_val);
+		mat4_set_identity(&env->uni_transform_val);
 	}
 }
 

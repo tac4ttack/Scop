@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/07 19:31:29 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:03:18 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,13 +151,8 @@ typedef struct					s_scop
 
 	GLint						uni_time_id;
 	float						uni_time_val;
-	GLint						uni_mat_tra_id;
-	t_mat4						uni_mat_tra_val;
-	GLint						uni_mat_rot_id;
-	t_mat4						uni_mat_rot_val;
-	GLint						uni_mat_sca_id;
-	t_mat4						uni_mat_sca_val;
-
+	GLint						uni_transform_id;
+	t_mat4						uni_transform_val;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);
@@ -184,12 +179,17 @@ bool							scop_log_restart(void);
 /*
 ** GLFW functions
 */
+void							glfw_error_callback(const int error, \
+													const char *description);
+void							glfw_key_callback(GLFWwindow* window, \
+													int key, \
+													int scancode, \
+													int action, \
+													int mods);
+bool							glfw_launch(t_scop *env);
 void							glfw_window_size_callback(GLFWwindow *win, \
 														const int width, \
 														const int height);
-void							glfw_error_callback(const int error, \
-													const char *description);
-bool							glfw_launch(t_scop *env);
 
 
 /*

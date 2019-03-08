@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/07 12:23:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/08 15:28:47 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,12 @@ static void glfw_clean(t_scop *env)
 	}
 }
 
-static void glfw_input_handling(t_scop *env)
-{
-	if (env)
-	{
-		if (GLFW_PRESS == glfwGetKey(env->win, GLFW_KEY_ESCAPE))
-			glfwSetWindowShouldClose(env->win, 1);
-	}
-}
-
 bool	glfw_launch(t_scop *env)
 {
 	if (env)
 	{
 		while (!glfwWindowShouldClose(env->win))
 		{
-			glfw_input_handling(env);	// first we process all the inputs
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// wipe the drawing surface clear
 			// _update_fps_counter(env->win);
