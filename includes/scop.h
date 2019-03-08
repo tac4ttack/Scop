@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/08 16:03:18 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/08 18:28:27 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@
 
 # define WIDTH					1024
 # define HEIGHT					768
+# define FOV					60.0
+# define NEAR					0.001
+# define FAR					1.0
 
 # define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
 # define VERTEX_FRAGMENT_PATH 	"./shaders/simple_fs.glsl"
@@ -151,8 +154,13 @@ typedef struct					s_scop
 
 	GLint						uni_time_id;
 	float						uni_time_val;
-	GLint						uni_transform_id;
-	t_mat4						uni_transform_val;
+
+	GLint						uni_model_id;
+	t_mat4						uni_model_val;
+	GLint						uni_view_id;
+	t_mat4						uni_view_val;
+	GLint						uni_projection_id;
+	t_mat4						uni_projection_val;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);

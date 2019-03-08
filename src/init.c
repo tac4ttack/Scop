@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/08 16:02:28 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/08 18:27:40 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static bool		init_glfw(t_scop *env)
 		{
 			scop_log("You are on MacOSX!\n");// Required under MacOSX
 			glfwWindowHint(GLFW_SAMPLES, ANTIALIASING); // Nx antialiasing
-			// glEnable(GL_MULTISAMPLE);
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);	// Pour rendre MacOS heureux, ne devrait pas être nécessaire mais il l'est
 		}
 		if (!(env->win = glfwCreateWindow(WIDTH, HEIGHT, "Scop", NULL, NULL)))
@@ -38,7 +37,7 @@ static bool		init_glfw(t_scop *env)
 		}
 		glfwMakeContextCurrent(env->win); // Attach window and context
 		glfwSetWindowUserPointer(env->win, (void*)env); // makes our env ptr available
-		glfwSetInputMode(env->win, GLFW_STICKY_KEYS, 1);
+		// glfwSetInputMode(env->win, GLFW_STICKY_KEYS, 1);
 		glfwSetWindowSizeCallback(env->win, glfw_window_size_callback); // Set up a callback for windows events
 		glfwSetKeyCallback(env->win, glfw_key_callback);
 
@@ -84,7 +83,40 @@ void		debug_init_matrix(t_scop *env)
 {
 	if (env)
 	{
-		mat4_set_identity(&env->uni_transform_val);
+		mat4_set_identity(&env->uni_model_val);
+		// rotate sightly
+		mat_rotate(&env->uni_model_val, 10, 'x');
+		mat_rotate(&env->uni_model_val, 35, 'y');
+
+		mat4_set_identity(&env->uni_view_val);
+		// put the camera sightly in the back
+		mat_translate(&env->uni_view_val, vec3f(0.0f, 0.0f, -3.0f));
+
+		// lr tb nf
+		float r, l, t, b, n, f;
+		l = 0.0f;
+		r = WIDTH;
+		b = 0.0f;
+		t = HEIGHT;
+		n = NEAR;
+		f = FAR;
+
+		mat4_set(&env->uni_projection_val, 0.0);
+		env->uni_projection_val.m[0] = 2.0f / (r - l);
+		env->uni_projection_val.m[5] = 2.0f / (t - b);
+		env->uni_projection_val.m[10] = -2.0f / (f -n);
+		env->uni_projection_val.m[12] = -(r + l) / (r - l);
+		env->uni_projection_val.m[13] = -(t + b) / (t - b);
+		env->uni_projection_val.m[14] = -(f + n) / (f - n);
+		env->uni_projection_val.m[15] = 1.0f;
+		// env->uni_projection_val.m[0] = (2.0 / r-l);
+		// env->uni_projection_val.m[3] = -(r+l / r-l);
+		// env->uni_projection_val.m[5] = (2.0 / t-b);
+		// env->uni_projection_val.m[7] = -(b+t / t-b);
+		// env->uni_projection_val.m[10] = (-2.0 / f-n);
+		// env->uni_projection_val.m[11] = -(f+n / f-n);
+		// env->uni_projection_val.m[15] = 1.0;
+
 	}
 }
 
