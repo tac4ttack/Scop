@@ -23,7 +23,11 @@ VAO PACKING:
 VARIOUS:
     ☐ totally remove the space VP support
 
+MATRIX:
+    ✔ prototype a transform matrix @done (3/8/2019, 4:38:58 PM)
 
+KEYBOARD INPUT:
+    ☐ support multi input!
 
 LEAKS:
     ✔ u got one leak of always 1044480 bytes (it was the default texture!) @done (2/28/2019, 6:35:34 PM)
