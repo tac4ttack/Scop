@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:36:51 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/08 17:33:36 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 14:38:04 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,45 @@
 
 static void	translate(t_scop *env, int key)
 {
+	t_mat4 trans = mat4_set_identity();
+
 	if (env)
 	{
 		if (key == GLFW_KEY_KP_8)
-			mat_translate(&env->uni_model_val, vec3f(0.0, 0.01, 0.0));
+			trans = mat4_set_translation(vec3f(0.0, 0.01, 0.0));
 		else if (key == GLFW_KEY_KP_5)
-			mat_translate(&env->uni_model_val, vec3f(0.0, -0.01, 0.0));
+			trans = mat4_set_translation(vec3f(0.0, -0.01, 0.0));
 		else if (key == GLFW_KEY_KP_4)
-			mat_translate(&env->uni_model_val, vec3f(-0.01, 0.0, 0.0));
+			trans = mat4_set_translation(vec3f(-0.01, 0.00, 0.0));
 		else if (key == GLFW_KEY_KP_6)
-			mat_translate(&env->uni_model_val, vec3f(0.01, 0.0, 0.0));
+			trans = mat4_set_translation(vec3f(0.01, 0.00, 0.0));
 		else if (key == GLFW_KEY_KP_7)
-			mat_translate(&env->uni_model_val, vec3f(0.0, 0.0, -0.01));
+			trans = mat4_set_translation(vec3f(0.0, 0.00, -0.01));
 		else if (key == GLFW_KEY_KP_9)
-			mat_translate(&env->uni_model_val, vec3f(0.0, 0.0, 0.01));
+			trans = mat4_set_translation(vec3f(0.0, 0.00, 0.01));
+		env->uni_model_val = mat4_mul(env->uni_model_val, trans);
 	}
 }
 
 static void	rotate(t_scop *env, int key)
 {
+	t_mat4 trans = mat4_set_identity();
+
 	if (env)
 	{
 		if (key == GLFW_KEY_HOME)
-			mat_rotate(&env->uni_model_val, -1, 'x');
+			trans = mat4_set_rotation(-0.1, vec3f(1.0, 0.0, 0.0));
 		else if (key == GLFW_KEY_END)
-			mat_rotate(&env->uni_model_val, 1, 'x');
+			trans = mat4_set_rotation(0.1, vec3f(1.0, 0.0, 0.0));
 		else if (key == GLFW_KEY_DELETE)
-			mat_rotate(&env->uni_model_val, -1, 'y');
+			trans = mat4_set_rotation(-0.1, vec3f(0.0, 1.0, 0.0));
 		else if (key == GLFW_KEY_PAGE_DOWN)
-			mat_rotate(&env->uni_model_val, 1, 'y');
+			trans = mat4_set_rotation(0.1, vec3f(0.0, 1.0, 0.0));
 		else if (key == GLFW_KEY_F13)
-			mat_rotate(&env->uni_model_val, -1, 'z');
+			trans = mat4_set_rotation(-0.1, vec3f(0.0, 0.0, 1.0));
 		else if (key == GLFW_KEY_F15)
-			mat_rotate(&env->uni_model_val, 1, 'z');
+			trans = mat4_set_rotation(0.1, vec3f(0.0, 0.0, 1.0));
+		env->uni_model_val = mat4_mul(env->uni_model_val, trans);
 	}
 }
 
@@ -57,6 +63,12 @@ void		glfw_key_callback(GLFWwindow* window, \
 						int mods)
 {
 	t_scop	*env;
+	int		param[4];
+
+	param[0] = key;
+	param[1] = scancode;
+	param[2] = action;
+	param[3] = mods;
 
 	env = glfwGetWindowUserPointer(window);
 	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_ESCAPE))
@@ -65,14 +77,12 @@ void		glfw_key_callback(GLFWwindow* window, \
 	if (glfwGetKey(window, GLFW_KEY_KP_4) || glfwGetKey(window, GLFW_KEY_KP_5) \
 		|| glfwGetKey(window, GLFW_KEY_KP_6) || glfwGetKey(window, GLFW_KEY_KP_7) \
 		|| glfwGetKey(window, GLFW_KEY_KP_8) || glfwGetKey(window, GLFW_KEY_KP_9))
-		translate(env, key);
+		translate(env, param[0]);
 
 	if (glfwGetKey(window, GLFW_KEY_F13) || glfwGetKey(window, GLFW_KEY_F15) \
 		|| glfwGetKey(window, GLFW_KEY_HOME) || glfwGetKey(window, GLFW_KEY_DELETE) \
 		|| glfwGetKey(window, GLFW_KEY_END) || glfwGetKey(window, GLFW_KEY_PAGE_DOWN))
-		rotate(env, key);
+		rotate(env, param[0]);
 
-	fprintf(stdout, "KEYPRESSED!\n" \
-	"key = %d | scancode = %d | action = %d | mods = %d\n",
-	key, scancode, action, mods);
+	// fprintf(stdout, "KEYPRESSED!\nkey = %d | scancode = %d | action = %d | mods = %d\n", key, scancode, action, mods);
 }
