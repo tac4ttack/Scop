@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 16:36:03 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:35:37 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,15 @@ typedef struct					s_texture
 	size_t						size[2];
 }								t_texture;
 
+typedef struct					s_text
+{
+	GLuint						Text2DVertexBufferID;
+	GLuint						Text2DUVBufferID;
+	GLuint						Text2DTextureID;
+	GLuint						text_shader_program;
+	GLuint						Text2DUniformID;
+}								t_text;
+
 typedef struct					s_scop
 {
 	GLFWwindow					*win;
@@ -144,6 +153,8 @@ typedef struct					s_scop
 
 	t_texture					*texture;
 	size_t						n_texture;
+
+	t_text						*text;
 
 	GLuint						vbo;
 	GLuint						vao;

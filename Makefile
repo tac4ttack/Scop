@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/09 15:52:26 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/09 17:49:13 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,9 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/mesh_file_process.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
+						text/text_clean.c \
+						text/text_init.c \
+						text/text_print.c \
 						tga/tga_error.c \
 						tga/tga_load_file.c \
 						tga/tga_process_file.c \
@@ -138,6 +141,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/mesh/process/texture
 	@mkdir $(OBJ_PATH)/mesh/process/vertex
 	@mkdir $(OBJ_PATH)/shader
+	@mkdir $(OBJ_PATH)/text
 	@mkdir $(OBJ_PATH)/tga
 	@mkdir $(OBJ_PATH)/utility
 
