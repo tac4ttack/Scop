@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 16:41:57 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 16:52:47 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static bool init_glew(t_scop *env)
 		if (glewInit() != GLEW_OK)	// start GLEW extension handler
 			return (error_bool("[ERROR init_glew\t" \
 			"Failed to initialize GLEW!\n"));
-		glViewport(0, 0, env->win_res[0], env->win_res[1]);
+		glViewport(0, (env->win_res[1] - env->win_res[0]) / 2.0, \
+					env->win_res[0], env->win_res[0]);
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
 		glDepthFunc(GL_LESS);	// depth-testing interprets a smaller value as "closer"
 		scop_log("Current system parameters are:\n");
