@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 15:53:24 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 16:36:03 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 
 # define WIDTH					1024
 # define HEIGHT					768
-# define FOV					90.0
+# define FOV					45.0
 # define NEAR					0.1
 # define FAR					100.0
 

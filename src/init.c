@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/08 18:27:40 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 16:41:57 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static bool		init_glfw(t_scop *env)
 	if (env)
 	{
 		scop_log("Starting GLFW\n%s\n", glfwGetVersionString());
+		env->win_res[0] = WIDTH;
+		env->win_res[1] = HEIGHT;
+		env->win_res[2] = env->win_res[0] / env->win_res[1];
 		if (!glfwInit())
 			return (error("[ERROR init_glfw]\tGLFW3 init fail!\n"));
 		glfwSetErrorCallback(glfw_error_callback); // register the error call-back function that we wrote, above
@@ -29,7 +32,7 @@ static bool		init_glfw(t_scop *env)
 			glfwWindowHint(GLFW_SAMPLES, ANTIALIASING); // Nx antialiasing
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);	// Pour rendre MacOS heureux, ne devrait pas être nécessaire mais il l'est
 		}
-		if (!(env->win = glfwCreateWindow(WIDTH, HEIGHT, "Scop", NULL, NULL)))
+		if (!(env->win = glfwCreateWindow(env->win_res[0], env->win_res[1], "Scop", NULL, NULL)))
 		{
 			glfwTerminate();
 			return (error_bool("[ERROR init_glfw]\t" \
@@ -46,13 +49,13 @@ static bool		init_glfw(t_scop *env)
 	return (error_bool("[ERROR init_glfw]\tNULL scop pointer!\n"));
 }
 
-static bool init_glew(void)
+static bool init_glew(t_scop *env)
 {
 		glewExperimental = GL_TRUE; // To improve support for newer OpenGL releases
 		if (glewInit() != GLEW_OK)	// start GLEW extension handler
 			return (error_bool("[ERROR init_glew\t" \
 			"Failed to initialize GLEW!\n"));
-		glViewport(0, 0, WIDTH, HEIGHT);
+		glViewport(0, 0, env->win_res[0], env->win_res[1]);
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
 		glDepthFunc(GL_LESS);	// depth-testing interprets a smaller value as "closer"
 		scop_log("Current system parameters are:\n");
@@ -83,40 +86,18 @@ void		debug_init_matrix(t_scop *env)
 {
 	if (env)
 	{
-		mat4_set_identity(&env->uni_model_val);
-		// rotate sightly
-		mat_rotate(&env->uni_model_val, 10, 'x');
-		mat_rotate(&env->uni_model_val, 35, 'y');
+		env->uni_model_val = mat4_set_identity();
+		env->uni_model_val = mat4_mul(env->uni_model_val, \
+		 					mat4_set_translation(vec3f(-0.5f, -0.5f, -1.5f)));
 
-		mat4_set_identity(&env->uni_view_val);
+
+		env->uni_view_val = mat4_set_identity();
 		// put the camera sightly in the back
-		mat_translate(&env->uni_view_val, vec3f(0.0f, 0.0f, -3.0f));
+		env->uni_view_val = mat4_mul(env->uni_view_val, \
+							mat4_set_translation(vec3f(0.0f, 0.0f, -3.0f)));
 
-		// lr tb nf
-		float r, l, t, b, n, f;
-		l = 0.0f;
-		r = WIDTH;
-		b = 0.0f;
-		t = HEIGHT;
-		n = NEAR;
-		f = FAR;
-
-		mat4_set(&env->uni_projection_val, 0.0);
-		env->uni_projection_val.m[0] = 2.0f / (r - l);
-		env->uni_projection_val.m[5] = 2.0f / (t - b);
-		env->uni_projection_val.m[10] = -2.0f / (f -n);
-		env->uni_projection_val.m[12] = -(r + l) / (r - l);
-		env->uni_projection_val.m[13] = -(t + b) / (t - b);
-		env->uni_projection_val.m[14] = -(f + n) / (f - n);
-		env->uni_projection_val.m[15] = 1.0f;
-		// env->uni_projection_val.m[0] = (2.0 / r-l);
-		// env->uni_projection_val.m[3] = -(r+l / r-l);
-		// env->uni_projection_val.m[5] = (2.0 / t-b);
-		// env->uni_projection_val.m[7] = -(b+t / t-b);
-		// env->uni_projection_val.m[10] = (-2.0 / f-n);
-		// env->uni_projection_val.m[11] = -(f+n / f-n);
-		// env->uni_projection_val.m[15] = 1.0;
-
+		env->uni_projection_val = mat4_set(0.0);
+		env->uni_projection_val = mat4_set_perspective(FOV, env->win_res[2], NEAR, FAR);
 	}
 }
 
@@ -140,7 +121,7 @@ t_scop		*init(const char *av)
 			free(env);
 			return (error("[ERROR init]\tCould initialize GLFW!\n"));
 		}
-		if (!(init_glew()))
+		if (!(init_glew(env)))
 		{
 			free(env);
 			return (error("[ERROR init]\tCould initialize GLEW!\n"));

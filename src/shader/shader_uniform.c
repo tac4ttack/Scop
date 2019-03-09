@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:12:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/08 17:37:03 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 16:15:56 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ GLuint	shader_uniform_update(t_scop *env)
 	{
 		glUniform1f(env->uni_time_id, env->uni_time_val);
 		glUniformMatrix4fv(env->uni_model_id, 1, \
-							GL_FALSE, &env->uni_model_val.m[0]);
+							GL_TRUE, &env->uni_model_val.m[0]);
 		glUniformMatrix4fv(env->uni_view_id, 1, \
 							GL_FALSE, &env->uni_view_val.m[0]);
 		glUniformMatrix4fv(env->uni_projection_id, 1, \
