@@ -18,3 +18,6 @@ http://tfc.duke.free.fr/coding/tga_specs.pdf
 
 Wavefront OBJ format Specification
 http://www.martinreddy.net/gfx/3d/OBJ.spec
+
+KEYBOARD AND MOUSE
+http://www.opengl-tutorial.org/fr/beginners-tutorials/tutorial-6-keyboard-and-mouse/
