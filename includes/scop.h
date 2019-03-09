@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/08 18:28:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 15:53:24 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@
 
 # define WIDTH					1024
 # define HEIGHT					768
-# define FOV					60.0
-# define NEAR					0.001
-# define FAR					1.0
+# define FOV					90.0
+# define NEAR					0.1
+# define FAR					100.0
 
 # define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
 # define VERTEX_FRAGMENT_PATH 	"./shaders/simple_fs.glsl"
@@ -118,7 +118,6 @@ typedef struct					s_mesh
 
 	GLint						*face;
 	size_t						n_face[2];
-	char						*face_format;
 
 	GLfloat						*normal;
 	size_t						n_normal[2];
@@ -140,6 +139,7 @@ typedef struct					s_texture
 typedef struct					s_scop
 {
 	GLFWwindow					*win;
+	GLsizei						win_res[3];
 	GLuint						shader_program;
 
 	t_texture					*texture;
