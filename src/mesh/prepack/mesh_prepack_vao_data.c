@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/07 11:45:44 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 15:41:04 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static bool	prepack_push_vertex_data(t_mesh *mesh, int v, int vt, int vn)
 		v *= 17;
 		vt *= 3;
 		vn *= 3;
-
 		if (mesh->texture && vt >= 0 && (size_t)vt < mesh->n_texture[0] * 3)
 		{
 			mesh->prepack_vao[v + 8] = mesh->texture[vt];
