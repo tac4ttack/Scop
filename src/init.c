@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 16:52:47 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:19:21 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,15 @@ static bool init_glew(t_scop *env)
 			"Failed to initialize GLEW!\n"));
 		glViewport(0, (env->win_res[1] - env->win_res[0]) / 2.0, \
 					env->win_res[0], env->win_res[0]);
+
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
 		glDepthFunc(GL_LESS);	// depth-testing interprets a smaller value as "closer"
+
+		glDisable(GL_CULL_FACE);
+
+		glEnable(GL_BLEND);
+		// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		scop_log("Current system parameters are:\n");
 		scop_log_gl_params();
 		return (scop_log("Renderer: %s\n", glGetString(GL_RENDERER)) &
@@ -90,7 +97,6 @@ void		debug_init_matrix(t_scop *env)
 		env->uni_model_val = mat4_set_identity();
 		env->uni_model_val = mat4_mul(env->uni_model_val, \
 		 					mat4_set_translation(vec3f(-0.5f, -0.5f, -1.5f)));
-
 
 		env->uni_view_val = mat4_set_identity();
 		// put the camera sightly in the back
