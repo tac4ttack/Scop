@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 17:19:21 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 13:15:52 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,24 +90,33 @@ static bool	init_textures(t_scop *env)
 	return (error_bool("[ERROR init_textures]\tNULL scop pointer!\n"));
 }
 
-void		debug_init_matrix(t_scop *env)
+static bool	init_uni_matrix(t_scop *env)
 {
 	if (env)
 	{
-		env->uni_model_val = mat4_set_identity();
-		env->uni_model_val = mat4_mul(env->uni_model_val, \
-		 					mat4_set_translation(vec3f(-0.5f, -0.5f, -1.5f)));
-
-		env->uni_view_val = mat4_set_identity();
-		// put the camera sightly in the back
-		env->uni_view_val = mat4_mul(env->uni_view_val, \
-							mat4_set_translation(vec3f(0.0f, 0.0f, -3.0f)));
-
-		env->uni_projection_val = mat4_set(0.0);
-		env->uni_projection_val = mat4_set_perspective(FOV, env->win_res[2], NEAR, FAR);
+		if (!(env->uni = ft_memalloc(sizeof(t_uni))))
+			return (error_bool("[ERROR init_uni_matrix]\tCan\'t " \
+			"allocate memory for OpenGL uniforms!\n"));
+		if (!(env->mat = ft_memalloc(sizeof(t_mat))))
+			return (error_bool("[ERROR init_uni_matrix]\tCan\'t " \
+			"allocate memory for matrix!\n"));
+		env->mat->translation = mat4_set_identity();
+		env->mat->translation = mat4_mul(env->mat->translation, \
+							mat4_set_translation(vec3f(-0.5, -0.5, -1.25)));
+		env->mat->rotation = mat4_set_identity();
+		env->mat->rotation = mat4_mul(env->mat->rotation, \
+							mat4_set_rotation(30.0f, vec3f(0.3, 1.0, 0.0)));
+		env->mat->scale = mat4_set_identity();
+		env->mat->view = mat4_set_identity();
+		env->mat->view = mat4_mul(env->mat->view, \
+						mat4_set_translation(vec3f(0.0f, 0.0f, -3.0f)));
+		env->mat->projection = mat4_set(0.0);
+		env->mat->projection = mat4_set_perspective(FOV, env->win_res[2], \
+													NEAR, FAR);
+		return (true);
 	}
+	return (error_bool("[ERROR init_uni_matrix]\tNULL scop pointer!\n"));
 }
-
 
 t_scop		*init(const char *av)
 {
@@ -123,21 +132,12 @@ t_scop		*init(const char *av)
 		if (!init_textures(env))
 			return (error("[ERROR init]\t" \
 			"Could not initialize Scop default Doge texture!\n"));
-		if (!(init_glfw(env)))
+		if (!(init_glfw(env)) || !(init_glew(env)) || !(init_uni_matrix(env)))
 		{
 			free(env);
-			return (error("[ERROR init]\tCould initialize GLFW!\n"));
-		}
-		if (!(init_glew(env)))
-		{
-			free(env);
-			return (error("[ERROR init]\tCould initialize GLEW!\n"));
+			return (error("[ERROR init]\tCould initialize OpenGL!\n"));
 		}
 		scop_log("\nSCOP initialization done!\n");
-
-
-		// DEBUG MATRIX TESTING
-		debug_init_matrix(env);
 		return (env);
 	}
 	return (NULL);

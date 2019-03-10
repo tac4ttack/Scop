@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/08 17:17:22 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 13:19:19 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	glfw_launch(t_scop *env)
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// wipe the drawing surface clear
 			// _update_fps_counter(env->win);
-			env->uni_time_val = glfwGetTime();	// update our time
+			env->uni->time = glfwGetTime();	// update our time
 			glUseProgram(env->shader_program); // specify wich shader to use
 			shader_uniform_update(env);	// update our uniforms
 

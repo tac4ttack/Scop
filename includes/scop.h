@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 17:35:37 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 13:19:31 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,33 +145,41 @@ typedef struct					s_text
 	GLuint						Text2DUniformID;
 }								t_text;
 
+typedef struct 					s_uni
+{
+	GLint						time_id;
+	float						time;
+	GLint						translation_id;
+	GLint						rotation_id;
+	GLint						scale_id;
+	GLint						view_id;
+	GLint						projection_id;
+}								t_uni;
+
+typedef struct					s_mat
+{
+	t_mat4						translation;
+	t_mat4						rotation;
+	t_mat4						scale;
+	t_mat4						view;
+	t_mat4						projection;
+}								t_mat;
+
 typedef struct					s_scop
 {
 	GLFWwindow					*win;
 	GLsizei						win_res[3];
 	GLuint						shader_program;
-
-	t_texture					*texture;
-	size_t						n_texture;
-
-	t_text						*text;
-
 	GLuint						vbo;
 	GLuint						vao;
 	GLuint						ebo;
-
 	t_mesh						*mesh;
 	char						*mesh_data;
-
-	GLint						uni_time_id;
-	float						uni_time_val;
-
-	GLint						uni_model_id;
-	t_mat4						uni_model_val;
-	GLint						uni_view_id;
-	t_mat4						uni_view_val;
-	GLint						uni_projection_id;
-	t_mat4						uni_projection_val;
+	t_uni						*uni;
+	t_mat						*mat;
+	t_text						*text;
+	t_texture					*texture;
+	size_t						n_texture;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);

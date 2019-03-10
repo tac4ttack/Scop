@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:36:51 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 14:38:04 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 13:18:07 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ static void	translate(t_scop *env, int key)
 	if (env)
 	{
 		if (key == GLFW_KEY_KP_8)
-			trans = mat4_set_translation(vec3f(0.0, 0.01, 0.0));
+			trans = mat4_set_translation(vec3f(0.0, 0.1, 0.0));
 		else if (key == GLFW_KEY_KP_5)
-			trans = mat4_set_translation(vec3f(0.0, -0.01, 0.0));
+			trans = mat4_set_translation(vec3f(0.0, -0.1, 0.0));
 		else if (key == GLFW_KEY_KP_4)
-			trans = mat4_set_translation(vec3f(-0.01, 0.00, 0.0));
+			trans = mat4_set_translation(vec3f(-0.1, 0.00, 0.0));
 		else if (key == GLFW_KEY_KP_6)
-			trans = mat4_set_translation(vec3f(0.01, 0.00, 0.0));
+			trans = mat4_set_translation(vec3f(0.1, 0.00, 0.0));
 		else if (key == GLFW_KEY_KP_7)
-			trans = mat4_set_translation(vec3f(0.0, 0.00, -0.01));
+			trans = mat4_set_translation(vec3f(0.0, 0.00, -0.1));
 		else if (key == GLFW_KEY_KP_9)
-			trans = mat4_set_translation(vec3f(0.0, 0.00, 0.01));
-		env->uni_model_val = mat4_mul(env->uni_model_val, trans);
+			trans = mat4_set_translation(vec3f(0.0, 0.00, 0.1));
+		env->mat->translation = mat4_mul(env->mat->translation, trans);
 	}
 }
 
@@ -41,18 +41,18 @@ static void	rotate(t_scop *env, int key)
 	if (env)
 	{
 		if (key == GLFW_KEY_HOME)
-			trans = mat4_set_rotation(-0.1, vec3f(1.0, 0.0, 0.0));
+			trans = mat4_set_rotation(-1.0, vec3f(1.0, 0.0, 0.0));
 		else if (key == GLFW_KEY_END)
-			trans = mat4_set_rotation(0.1, vec3f(1.0, 0.0, 0.0));
+			trans = mat4_set_rotation(1.0, vec3f(1.0, 0.0, 0.0));
 		else if (key == GLFW_KEY_DELETE)
-			trans = mat4_set_rotation(-0.1, vec3f(0.0, 1.0, 0.0));
+			trans = mat4_set_rotation(-1.0, vec3f(0.0, 1.0, 0.0));
 		else if (key == GLFW_KEY_PAGE_DOWN)
-			trans = mat4_set_rotation(0.1, vec3f(0.0, 1.0, 0.0));
+			trans = mat4_set_rotation(1.0, vec3f(0.0, 1.0, 0.0));
 		else if (key == GLFW_KEY_F13)
-			trans = mat4_set_rotation(-0.1, vec3f(0.0, 0.0, 1.0));
+			trans = mat4_set_rotation(-1.0, vec3f(0.0, 0.0, 1.0));
 		else if (key == GLFW_KEY_F15)
-			trans = mat4_set_rotation(0.1, vec3f(0.0, 0.0, 1.0));
-		env->uni_model_val = mat4_mul(env->uni_model_val, trans);
+			trans = mat4_set_rotation(1.0, vec3f(0.0, 0.0, 1.0));
+		env->mat->rotation = mat4_mul(env->mat->rotation, trans);
 	}
 }
 
