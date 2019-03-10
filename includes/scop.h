@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 13:19:31 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:13:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,23 @@ typedef struct					s_mat
 	t_mat4						projection;
 }								t_mat;
 
+typedef struct 					s_cam
+{
+	t_vec3f						pos;
+	t_vec3f						target;
+	t_vec3f						dir;
+
+	t_vec3f						up;
+	t_vec3f						right;
+
+	t_vec3f						front;
+
+
+	t_vec3f						look_at;
+	GLfloat						cam_mod[3];
+}								t_cam;
+
+
 typedef struct					s_scop
 {
 	GLFWwindow					*win;
@@ -175,6 +192,7 @@ typedef struct					s_scop
 	GLuint						ebo;
 	t_mesh						*mesh;
 	char						*mesh_data;
+	t_cam						*cam;
 	t_uni						*uni;
 	t_mat						*mat;
 	t_text						*text;
