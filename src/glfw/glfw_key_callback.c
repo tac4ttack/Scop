@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:36:51 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 13:18:07 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 13:30:19 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	translate(t_scop *env, int key)
 {
-	t_mat4 trans = mat4_set_identity();
+	t_mat4 trans;
 
+	trans = mat4_set_identity();
 	if (env)
 	{
 		if (key == GLFW_KEY_KP_8)
@@ -36,8 +37,9 @@ static void	translate(t_scop *env, int key)
 
 static void	rotate(t_scop *env, int key)
 {
-	t_mat4 trans = mat4_set_identity();
+	t_mat4 trans;
 
+	trans = mat4_set_identity();
 	if (env)
 	{
 		if (key == GLFW_KEY_HOME)
@@ -53,6 +55,21 @@ static void	rotate(t_scop *env, int key)
 		else if (key == GLFW_KEY_F15)
 			trans = mat4_set_rotation(1.0, vec3f(0.0, 0.0, 1.0));
 		env->mat->rotation = mat4_mul(env->mat->rotation, trans);
+	}
+}
+
+static void	scale(t_scop *env, int key)
+{
+	t_mat4	trans;
+
+	trans = mat4_set_identity();
+	if (env)
+	{
+		if (key == GLFW_KEY_KP_ADD)
+			trans = mat4_set_scale(vec3f(1.1f, 1.1f, 1.1f));
+		else if (key == GLFW_KEY_KP_SUBTRACT)
+			trans = mat4_set_scale(vec3f(0.9f, 0.9f, 0.9f));
+		env->mat->scale = mat4_mul(env->mat->scale, trans);
 	}
 }
 
@@ -83,6 +100,10 @@ void		glfw_key_callback(GLFWwindow* window, \
 		|| glfwGetKey(window, GLFW_KEY_HOME) || glfwGetKey(window, GLFW_KEY_DELETE) \
 		|| glfwGetKey(window, GLFW_KEY_END) || glfwGetKey(window, GLFW_KEY_PAGE_DOWN))
 		rotate(env, param[0]);
+
+	if (glfwGetKey(window, GLFW_KEY_KP_ADD) \
+		|| glfwGetKey(window, GLFW_KEY_KP_SUBTRACT))
+		scale(env, param[0]);
 
 	// fprintf(stdout, "KEYPRESSED!\nkey = %d | scancode = %d | action = %d | mods = %d\n", key, scancode, action, mods);
 }
