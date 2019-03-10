@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 13:19:19 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 18:02:42 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ static void glfw_clean(t_scop *env)
 	}
 }
 
+static	void	update_time(t_scop *env)
+{
+	GLfloat		current;
+
+	current = glfwGetTime();
+	if (env)
+	{
+		env->time_delta = current - env->time_last;
+		env->time_last = current;
+		env->cam->speed = 2.5f * env->time_delta;
+	}
+}
+
 bool	glfw_launch(t_scop *env)
 {
 	if (env)
@@ -30,8 +43,9 @@ bool	glfw_launch(t_scop *env)
 		{
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// wipe the drawing surface clear
-			// _update_fps_counter(env->win);
-			env->uni->time = glfwGetTime();	// update our time
+
+			update_time(env);
+
 			glUseProgram(env->shader_program); // specify wich shader to use
 			shader_uniform_update(env);	// update our uniforms
 
