@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:36:51 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 14:46:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 18:18:35 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,39 @@ static bool		cam_mode(t_scop *env, int key)
 	return (false);
 }
 
+static bool	cam_translate(t_scop *env, int key)
+{
+	if (env)
+	{
+		if (key == GLFW_KEY_R)
+			env->cam->pos = vec3f(0.0f, 0.0f, 0.0f);
+		else if (key == GLFW_KEY_W)
+			env->cam->pos = vec3f_add(env->cam->pos, \
+							vec3f_mul_scalar(env->cam->front, env->cam->speed));
+		else if (key == GLFW_KEY_S)
+			env->cam->pos = vec3f_sub(env->cam->pos, \
+							vec3f_mul_scalar(env->cam->front, env->cam->speed));
+		else if (key == GLFW_KEY_A)
+			env->cam->pos = vec3f_sub(env->cam->pos, vec3f_mul_scalar( \
+				vec3f_normalize(vec3f_cross(env->cam->front, env->cam->up)), \
+				env->cam->speed));
+		else if (key == GLFW_KEY_D)
+			env->cam->pos = vec3f_add(env->cam->pos, vec3f_mul_scalar( \
+				vec3f_normalize(vec3f_cross(env->cam->front, env->cam->up)), \
+				env->cam->speed));
+		else if (key == GLFW_KEY_SPACE)
+			;
+
+		else if (key == GLFW_KEY_C)
+			;
+
+		env->mat->view = mat4_set_lookat(env->cam->pos, \
+					vec3f_add(env->cam->pos, env->cam->front), env->cam->up);
+		return (true);
+	}
+	return (false);
+}
+
 void		glfw_key_callback(GLFWwindow* window, \
 						int key, \
 						int scancode, \
@@ -165,5 +198,11 @@ void		glfw_key_callback(GLFWwindow* window, \
 		|| glfwGetKey(window, GLFW_KEY_LEFT_BRACKET) || glfwGetKey(window, GLFW_KEY_RIGHT_BRACKET))
 		cam_mode(env, param[0]);
 
-	// fprintf(stdout, "KEYPRESSED!\nkey = %d | scancode = %d | action = %d | mods = %d\n", key, scancode, action, mods);
+	if (glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_A)
+		|| glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_D)
+		|| glfwGetKey(window, GLFW_KEY_R) || glfwGetKey(window, GLFW_KEY_C)
+		|| glfwGetKey(window, GLFW_KEY_SPACE))
+		cam_translate(env, param[0]);
+
+	fprintf(stdout, "KEYPRESSED!\nkey = %d | scancode = %d | action = %d | mods = %d\n", key, scancode, action, mods);
 }

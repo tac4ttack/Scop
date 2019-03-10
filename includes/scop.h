@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 15:13:41 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 17:35:33 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,7 @@ typedef struct					s_text
 
 typedef struct 					s_uni
 {
-	GLint						time_id;
-	float						time;
+	// GLint						time_id;
 	GLint						translation_id;
 	GLint						rotation_id;
 	GLint						scale_id;
@@ -167,18 +166,12 @@ typedef struct					s_mat
 
 typedef struct 					s_cam
 {
-	t_vec3f						pos;
-	t_vec3f						target;
-	t_vec3f						dir;
-
-	t_vec3f						up;
-	t_vec3f						right;
-
-	t_vec3f						front;
-
-
-	t_vec3f						look_at;
 	GLfloat						cam_mod[3];
+	t_vec3f						pos;
+	t_vec3f						front;
+	t_vec3f						up;
+
+	GLfloat						speed;
 }								t_cam;
 
 
@@ -198,6 +191,8 @@ typedef struct					s_scop
 	t_text						*text;
 	t_texture					*texture;
 	size_t						n_texture;
+	GLfloat						time_delta;
+	GLfloat						time_last;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);

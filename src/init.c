@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 16:18:29 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/10 17:36:01 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ static bool	init_uni_matrix(t_scop *env)
 		env->cam->cam_mod[0] = FOV;
 		env->cam->cam_mod[1] = NEAR;
 		env->cam->cam_mod[2] = FAR;
+		env->cam->speed = 0.05f;
+
 		env->cam->pos = vec3f(0.0f, 0.0f, 3.0f);
-		env->cam->target = vec3f(0.0f, 0.0f, 0.0f);
-		env->cam->dir = vec3f_normalize(vec3f_sub(env->cam->pos, env->cam->target));
-		env->cam->right = vec3f_normalize(vec3f_cross(vec3f(0.0f, 1.0f, 0.0f), env->cam->dir));
-		env->cam->up = vec3f_cross(env->cam->dir, env->cam->right);
+		env->cam->front = vec3f(0.0f, 0.0f, -1.0f);
+		env->cam->up = vec3f(0.0f, 1.0f, 0.0f);
 
 		if (!(env->mat = ft_memalloc(sizeof(t_mat))))
 			return (error_bool("[ERROR init_uni_matrix]\tCan\'t " \
@@ -116,12 +116,16 @@ static bool	init_uni_matrix(t_scop *env)
 		env->mat->translation = mat4_set_identity();
 		env->mat->translation = mat4_mul(env->mat->translation, \
 							mat4_set_translation(vec3f(-0.5, -0.5, -1.25)));
+
 		env->mat->rotation = mat4_set_identity();
 		env->mat->rotation = mat4_mul(env->mat->rotation, \
-							mat4_set_rotation(30.0f, vec3f(0.3, 1.0, 0.0)));
+							mat4_set_rotation(42.0f, vec3f(1.0, 1.0, 0.0)));
+
 		env->mat->scale = mat4_set_identity();
 
-		env->mat->view = mat4_set_lookat(env->cam->pos, env->cam->target, env->cam->up);
+		env->mat->view = mat4_set_lookat(env->cam->pos, \
+					vec3f_add(env->cam->pos, env->cam->front), env->cam->up);
+
 
 		env->mat->projection = mat4_set(0.0);
 		env->mat->projection = mat4_set_perspective(env->cam->cam_mod[0], \
