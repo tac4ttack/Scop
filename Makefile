@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/09 17:49:13 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/11 16:26:18 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						glfw/glfw_error_callback.c \
 						glfw/glfw_key_callback.c \
 						glfw/glfw_launch.c \
+						glfw/glfw_mouse_callback.c \
 						glfw/glfw_window_size_callback.c \
 						init.c \
 						log/scop_log_gl_params.c \
