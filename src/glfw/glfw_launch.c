@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/11 14:24:59 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/11 18:36:35 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static void glfw_clean(t_scop *env)
 		glDeleteVertexArrays(1, &env->vao);
 		glDeleteBuffers(1, &env->vbo);
 		glDeleteBuffers(1, &env->ebo);
+		// add texture deletion
+		// add shader deletion?
+		// add shader uniform deletion?
 	}
 }
 
@@ -30,7 +33,6 @@ static	void	update_time(t_scop *env)
 	if (env)
 	{
 		env->time_frames++;
-		env->cam->speed = 2.5f * (current - env->time_last);
 		if (current - env->time_last >= 1.0f)
 		{
 			sprintf(env->win_title, "Scop - [%f ms/frame | %d fps]", \
@@ -38,6 +40,7 @@ static	void	update_time(t_scop *env)
 			glfwSetWindowTitle(env->win, env->win_title);
 			env->time_frames = 0;
 			env->time_last += 1.0f;
+			env->cam->speed = 2.5f * (current - env->time_last);
 		}
 	}
 }
