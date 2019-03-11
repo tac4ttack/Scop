@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:07:49 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 14:44:09 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/11 14:23:45 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	flush(t_scop *trash)
 		// 	ft_putendl("memdel mesh");
 		// 	ft_memdel((void**)&trash->mesh);
 		// }
+		ft_putendl("memdel win_title");
+		ft_memdel((void**)&trash->win_title);
 		ft_putendl("memdel trash");
 		ft_memdel((void**)&trash);
 	}
