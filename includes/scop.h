@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/10 17:35:33 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:53:45 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct					s_mesh
 
 	GLfloat						*space;
 	size_t						n_space[2];
+	double						euler[3];
 }								t_mesh;
 
 typedef struct					s_texture
@@ -136,14 +137,14 @@ typedef struct					s_texture
 	size_t						size[2];
 }								t_texture;
 
-typedef struct					s_text
+typedef struct					s_text2d
 {
 	GLuint						Text2DVertexBufferID;
 	GLuint						Text2DUVBufferID;
 	GLuint						Text2DTextureID;
 	GLuint						text_shader_program;
 	GLuint						Text2DUniformID;
-}								t_text;
+}								t_text2d;
 
 typedef struct 					s_uni
 {
@@ -155,25 +156,36 @@ typedef struct 					s_uni
 	GLint						projection_id;
 }								t_uni;
 
-typedef struct					s_mat
+typedef struct					s_matrix
 {
 	t_mat4						translation;
 	t_mat4						rotation;
 	t_mat4						scale;
 	t_mat4						view;
 	t_mat4						projection;
-}								t_mat;
+}								t_matrix;
 
-typedef struct 					s_cam
+typedef struct 					s_camera
 {
 	GLfloat						cam_mod[3];
 	t_vec3f						pos;
 	t_vec3f						front;
 	t_vec3f						up;
-
+	double						euler[3];
 	GLfloat						speed;
-}								t_cam;
+}								t_camera;
 
+typedef struct					s_keyboard
+{
+	GLfloat						dummy;
+}								t_keyboard;
+
+typedef struct					s_mouse
+{
+	GLfloat						sensitivity;
+	double						last[2];
+	bool						ready;
+}								t_mouse;
 
 typedef struct					s_scop
 {
@@ -185,14 +197,17 @@ typedef struct					s_scop
 	GLuint						ebo;
 	t_mesh						*mesh;
 	char						*mesh_data;
-	t_cam						*cam;
-	t_uni						*uni;
-	t_mat						*mat;
-	t_text						*text;
+	t_camera					*cam;
+	t_keyboard					*key;
+	t_matrix					*mat;
+	t_mouse						*mouse;
+	t_text2d					*text;
 	t_texture					*texture;
 	size_t						n_texture;
-	GLfloat						time_delta;
+	char						*win_title;
 	GLfloat						time_last;
+	GLint						time_frames;
+	t_uni						*uni;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);
@@ -227,6 +242,16 @@ void							glfw_key_callback(GLFWwindow* window, \
 													int action, \
 													int mods);
 bool							glfw_launch(t_scop *env);
+void							glfw_mouse_button_callback(GLFWwindow *window, \
+															int button, \
+															int action, \
+															int mods);
+void							glfw_mouse_pos_callback(GLFWwindow *window, \
+														double xpos, \
+														double ypos);
+void							glfw_mouse_scroll_callback(GLFWwindow *window, \
+															double xoffset, \
+															double yoffset);
 void							glfw_window_size_callback(GLFWwindow *win, \
 														const int width, \
 														const int height);
