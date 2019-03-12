@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 10:43:45 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/12 11:43:00 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ bool		init_glfw(t_scop *env)
 		glfwSetCursorPosCallback(env->win, cb_mouse_pos);
 		glfwSetMouseButtonCallback(env->win, cb_mouse_btn);
 		glfwSetScrollCallback(env->win, cb_mouse_scroll);
+
+		glEnable(GL_PROGRAM_POINT_SIZE);
 
 		return (true);
 	}

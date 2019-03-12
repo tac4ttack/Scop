@@ -15,10 +15,11 @@ uniform						mat4	view;
 uniform						mat4	projection;
 void main()
 {
-	mat4	model = translation * rotation * scale;
+	mat4	model = transpose(translation) * rotation * scale;
 	mat4	mvp = projection * view * model;
 
 	gl_Position = mvp * aPosition;
+	gl_PointSize = gl_Position.z * 2.5;
 	vertexColor = aHue;
 	texCoord = aTexCoord.xy;
 }

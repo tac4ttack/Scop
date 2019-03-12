@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:55:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 10:56:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/12 13:18:43 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ bool	cam_translate(t_scop *env, int key)
 			;
 		else if (key == GLFW_KEY_C)
 			;
-		env->mat->view = mat4_set_lookat(env->cam->pos, \
-					vec3f_add(env->cam->pos, env->cam->front), env->cam->up);
+		env->mat->view = cam_get_lookat(env->cam);
 		return (true);
 	}
 	return (false);
