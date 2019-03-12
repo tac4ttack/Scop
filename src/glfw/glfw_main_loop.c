@@ -1,51 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   glfw_launch.c                                      :+:      :+:    :+:   */
+/*   glfw_main_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:43:42 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/11 18:36:35 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/12 10:09:11 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static void glfw_clean(t_scop *env)
-{
-	if (env)
-	{
-		glDeleteVertexArrays(1, &env->vao);
-		glDeleteBuffers(1, &env->vbo);
-		glDeleteBuffers(1, &env->ebo);
-		// add texture deletion
-		// add shader deletion?
-		// add shader uniform deletion?
-	}
-}
-
-static	void	update_time(t_scop *env)
-{
-	GLfloat		current;
-
-	current = glfwGetTime();
-	if (env)
-	{
-		env->time_frames++;
-		if (current - env->time_last >= 1.0f)
-		{
-			sprintf(env->win_title, "Scop - [%f ms/frame | %d fps]", \
-			1000.0/(double)env->time_frames, env->time_frames);
-			glfwSetWindowTitle(env->win, env->win_title);
-			env->time_frames = 0;
-			env->time_last += 1.0f;
-			env->cam->speed = 2.5f * (current - env->time_last);
-		}
-	}
-}
-
-bool	glfw_launch(t_scop *env)
+bool	glfw_main_loop(t_scop *env)
 {
 	if (env)
 	{
@@ -54,7 +21,7 @@ bool	glfw_launch(t_scop *env)
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// wipe the drawing surface clear
 
-			update_time(env);
+			time_update(env);
 
 			glUseProgram(env->shader_program); // specify wich shader to use
 			shader_uniform_update(env);	// update our uniforms
@@ -75,7 +42,7 @@ bool	glfw_launch(t_scop *env)
 			else
 			{
 				glfwSetWindowShouldClose(env->win, 1);
-				return (error_bool("[ERROR glfw_launch]\t" \
+				return (error_bool("[ERROR glfw_main_loop]\t" \
 				"Nothing to draw! Vertices or elements arrays are empty!\n"));
 			}
 			glfwPollEvents(); // update other events like input handling
@@ -84,5 +51,5 @@ bool	glfw_launch(t_scop *env)
 		glfw_clean(env);
 		return (true);
 	}
-	return (error_bool("[ERROR glfw_launch]\tNULL Scop pointer!\n"));
+	return (error_bool("[ERROR glfw_main_loop]\tNULL Scop pointer!\n"));
 }

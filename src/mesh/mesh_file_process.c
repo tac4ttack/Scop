@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:15:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/11 12:22:51 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/12 09:39:34 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 		"Mesh memory allocation failed!\n"));
 	target->vertex = NULL;
 	target->face = NULL;
-	target->euler[0] = 0.0f;
-	target->euler[0] = 0.0f;
-	target->euler[0] = 0.0f;
 	return (target);
 }
 

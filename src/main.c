@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 14:05:26 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 14:09:01 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/12 10:35:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(int ac, char **av)
 			exit_fail("Could create the shader program :(", env);
 		if (!(buffer_create(env)))
 			exit_fail("Could create vertex buffers :(", env);
-		if (!(glfw_launch(env)))
+		if (!(glfw_main_loop(env)))
 			exit_fail("Exception caught! :(", env);
 
 		exit_ok(env);

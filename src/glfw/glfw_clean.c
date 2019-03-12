@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat_init.c                                         :+:      :+:    :+:   */
+/*   glfw_clean.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 10:35:08 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/18 10:36:48 by fmessina         ###   ########.fr       */
+/*   Created: 2019/03/12 10:37:49 by fmessina          #+#    #+#             */
+/*   Updated: 2019/03/12 10:37:56 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-t_dmat4 *mat_init(t_dmat4 *matrix, const size_t col, const size_t row)
+bool glfw_clean(t_scop *env)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if (matrix)
+	if (env)
 	{
-		while (j < col)
-		{
-			while (i < row)
-			{
-				matrix->p[j][i] = 0.0f;
-				i++;
-			}
-			j++;
-		}
-		return (matrix);
+		glDeleteVertexArrays(1, &env->vao);
+		glDeleteBuffers(1, &env->vbo);
+		glDeleteBuffers(1, &env->ebo);
+		// add texture deletion
+		// add shader deletion?
+		// add shader uniform deletion?
+		return (true);
 	}
-	else
-		return (NULL);
+	return (error_bool("[ERROR glfw_clean]\tNULL Scop pointer!\n"));
 }

@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/11 16:26:18 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/12 10:56:57 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,16 +53,27 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
 SRC_FILES =  			buffer/buffer_create.c \
-						glfw/glfw_error_callback.c \
-						glfw/glfw_key_callback.c \
-						glfw/glfw_launch.c \
-						glfw/glfw_mouse_callback.c \
-						glfw/glfw_window_size_callback.c \
-						init.c \
+						callback/cb_error.c \
+						callback/cb_keyboard.c \
+						callback/cb_mouse.c \
+						callback/cb_window.c \
+						cam/cam_translate.c\
+						cam/cam.c \
+						glfw/glfw_clean.c \
+						glfw/glfw_main_loop.c \
+						glfw/glfw_poly_mode.c \
+						init/init.c \
+						init/init_cam.c \
+						init/init_glew.c \
+						init/init_glfw.c \
+						init/init_keyboard.c \
+						init/init_matrix.c \
+						init/init_mouse.c \
+						init/init_textures.c \
+						init/init_uniforms.c \
 						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
-						main.c \
 						mesh/process/face/mesh_process_face.c \
 						mesh/process/face/mesh_process_face_data.c \
 						mesh/process/face/mesh_process_face_get_type.c \
@@ -92,6 +103,9 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/mesh_clean.c \
 						mesh/mesh_file_load.c \
 						mesh/mesh_file_process.c \
+						mesh/mesh_rotate.c \
+						mesh/mesh_scale.c \
+						mesh/mesh_translate.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
 						text/text_clean.c \
@@ -105,7 +119,9 @@ SRC_FILES =  			buffer/buffer_create.c \
 						utility/error.c \
 						utility/exit.c \
 						utility/flush.c \
-						utility/split.c
+						utility/split.c \
+						utility/time_update.c \
+						main.c
 
 OS_TEST := $(shell uname)
 ifeq ($(OS_TEST), Darwin)
@@ -128,8 +144,11 @@ $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
 	@mkdir $(OBJ_PATH)
 	@mkdir $(OBJ_PATH)/buffer
+	@mkdir $(OBJ_PATH)/callback
+	@mkdir $(OBJ_PATH)/cam
 	@mkdir $(OBJ_PATH)/log
 	@mkdir $(OBJ_PATH)/glfw
+	@mkdir $(OBJ_PATH)/init
 	@mkdir $(OBJ_PATH)/mesh
 	@mkdir $(OBJ_PATH)/mesh/line
 	@mkdir $(OBJ_PATH)/mesh/print

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   glfw_window_size_callback.c                        :+:      :+:    :+:   */
+/*   cb_window.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/18 11:40:21 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 16:55:37 by fmessina         ###   ########.fr       */
+/*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
+/*   Updated: 2019/03/12 10:41:48 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	update_viewport(t_scop *env)
 	}
 }
 
-void		glfw_window_size_callback(GLFWwindow *win, \
-									const int width, \
-									const int height)
+void		cb_window_size(GLFWwindow *win, const int width, const int height)
 {
 	t_scop	*env;
 

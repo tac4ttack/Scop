@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/11 16:53:45 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/12 11:21:31 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@
 # endif
 
 /*
-**	MESH DATA:
+**	MESH DATA STRUCT:
+**	-----------------
 **	object		->	object name
 **	group		->	object's group name
 **	mtllib		->	mtllib specified file
@@ -101,7 +102,6 @@
 **					[0] is preprocessing count,
 **					[1] is for checksum and filling
 */
-
 typedef struct					s_mesh
 {
 	char						*object;
@@ -127,9 +127,12 @@ typedef struct					s_mesh
 
 	GLfloat						*space;
 	size_t						n_space[2];
-	double						euler[3];
 }								t_mesh;
 
+/*
+**	TEXTURES DATA STRUCT:
+**	---------------------
+*/
 typedef struct					s_texture
 {
 	GLuint						id;
@@ -137,6 +140,10 @@ typedef struct					s_texture
 	size_t						size[2];
 }								t_texture;
 
+/*
+**	BITMAP FONT STRUCT:
+**	-------------------
+*/
 typedef struct					s_text2d
 {
 	GLuint						Text2DVertexBufferID;
@@ -146,6 +153,10 @@ typedef struct					s_text2d
 	GLuint						Text2DUniformID;
 }								t_text2d;
 
+/*
+**	OPENGL UNIFORMS STRUCT:
+**	-----------------------
+*/
 typedef struct 					s_uni
 {
 	// GLint						time_id;
@@ -156,30 +167,53 @@ typedef struct 					s_uni
 	GLint						projection_id;
 }								t_uni;
 
+/*
+**	MATRIX STRUCT:
+**	--------------
+*/
 typedef struct					s_matrix
 {
 	t_mat4						translation;
 	t_mat4						rotation;
+	double						mesh_euler[3];
 	t_mat4						scale;
 	t_mat4						view;
+	double						cam_euler[3];
 	t_mat4						projection;
 }								t_matrix;
 
+/*
+**	CAMERA STRUCT:
+**	--------------
+**	cam_mod stores camera settings
+**	cam_mod[0] = FOV
+**	cam_mod[1] = NEAR
+**	cam_mod[2] = FAR
+*/
 typedef struct 					s_camera
 {
 	GLfloat						cam_mod[3];
 	t_vec3f						pos;
 	t_vec3f						front;
 	t_vec3f						up;
-	double						euler[3];
+	t_vec3f						right;
+	t_vec3f						world_up;
 	GLfloat						speed;
 }								t_camera;
 
+/*
+**	KEYBOARD INPUTS STRUCT:
+**	-----------------------
+*/
 typedef struct					s_keyboard
 {
 	GLfloat						dummy;
 }								t_keyboard;
 
+/*
+**	MOUSE INPUT STRUCT:
+**	-------------------
+*/
 typedef struct					s_mouse
 {
 	GLfloat						sensitivity;
@@ -187,6 +221,11 @@ typedef struct					s_mouse
 	bool						ready;
 }								t_mouse;
 
+/*
+**	SCOP STRUCT:
+**	------------
+**	This is the core data structure of this program
+*/
 typedef struct					s_scop
 {
 	GLFWwindow					*win;
@@ -206,25 +245,73 @@ typedef struct					s_scop
 	size_t						n_texture;
 	char						*win_title;
 	GLfloat						time_last;
+	GLfloat						time_delta;
 	GLint						time_frames;
 	t_uni						*uni;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);
 
+/*
+**	CALLBACK Functions
+*/
+void							cb_error(const int error, \
+										const char *description);
+void							cb_keyboard(GLFWwindow* window, \
+											int key, \
+											int scancode, \
+											int action, \
+											int mods);
+void							cb_mouse_btn(GLFWwindow *window, \
+											int button, \
+											int action, \
+											int mods);
+void							cb_mouse_pos(GLFWwindow *window, \
+											double xpos, \
+											double ypos);
+void							cb_mouse_scroll(GLFWwindow *window, \
+												double xoffset, \
+												double yoffset);
+void							cb_window_size(GLFWwindow *win, \
+												const int width, \
+												const int height);
+
+/*
+**	CAM Functions
+*/
+t_mat4							cam_get_lookat(t_camera *c);
+bool							cam_look(t_scop *env, int key);
+bool							cam_translate(t_scop *env, int key);
+bool							cam_update(t_scop *env);
+
+/*
+**	INIT Functions
+*/
+t_scop							*init(const char *av);
+bool							init_cam(t_scop *env);
+bool							init_glew(t_scop *env);
+bool							init_glfw(t_scop *env);
+bool							init_keyboard(t_scop *env);
+bool							init_matrix(t_scop *env);
+bool							init_mouse(t_scop *env);
+bool							init_textures(t_scop *env);
+bool							init_uniforms(t_scop *env);
+
+/*
+**	UTILITY Functions
+*/
 void							*error(const char *msg);
 bool							error_bool(const char *msg);
-
 void							exit_ok(void *trash);
 void							exit_fail(const char *msg, void *trash);
-
 void							flush(t_scop *trash);
-
 void							split_destroy(char **split);
 size_t							split_len(char **split);
+void							time_update(t_scop *env);
 
-t_scop							*init(const char *av);
-
+/*
+**	SCOP LOGGING Functions
+*/
 bool							scop_log(const char *message, ...);
 bool							scop_log_err(const char *message, ...);
 void							scop_log_gl_params(void);
@@ -232,33 +319,14 @@ bool							scop_log_restart(void);
 
 
 /*
-** GLFW functions
+** GLFW Functions
 */
-void							glfw_error_callback(const int error, \
-													const char *description);
-void							glfw_key_callback(GLFWwindow* window, \
-													int key, \
-													int scancode, \
-													int action, \
-													int mods);
-bool							glfw_launch(t_scop *env);
-void							glfw_mouse_button_callback(GLFWwindow *window, \
-															int button, \
-															int action, \
-															int mods);
-void							glfw_mouse_pos_callback(GLFWwindow *window, \
-														double xpos, \
-														double ypos);
-void							glfw_mouse_scroll_callback(GLFWwindow *window, \
-															double xoffset, \
-															double yoffset);
-void							glfw_window_size_callback(GLFWwindow *win, \
-														const int width, \
-														const int height);
-
+bool							glfw_clean(t_scop *env);
+bool							glfw_main_loop(t_scop *env);
+bool							glfw_poly_mode(int key);
 
 /*
-** Mesh functions
+** MESH Functions
 */
 void							mesh_clean(t_mesh *mesh);
 char							*mesh_file_load(t_scop *env, char *target);
@@ -267,17 +335,14 @@ bool							mesh_get_face_type(t_mesh *mesh, char *str);
 bool							mesh_line_process(t_mesh *mesh, char **split);
 bool							mesh_line_process_check(char *str, \
 														char *charset);
-
 bool							mesh_line_process_f(t_mesh *mesh, char *str);
 bool							mesh_line_process_v(t_mesh *mesh, char *str);
 bool							mesh_line_process_vn(t_mesh *mesh, char *str);
 bool							mesh_line_process_vp(t_mesh *mesh, char *str);
 bool							mesh_line_process_vt(t_mesh *mesh, char *str);
-
 bool							mesh_prepack(t_mesh *mesh);
 bool							mesh_prepack_ebo_data(t_mesh *mesh);
 bool							mesh_prepack_vao_data(t_mesh *mesh);
-
 bool							mesh_process_face(t_mesh *mesh, char *str);
 bool							mesh_process_face_data_dispatch(t_mesh *mesh, \
 																char *str, \
@@ -294,7 +359,6 @@ bool							mesh_process_normal(t_mesh *mesh, char *str);
 bool							mesh_process_space(t_mesh *mesh, char *str);
 bool							mesh_process_texture(t_mesh *mesh, char *str);
 bool							mesh_process_vertex(t_mesh *mesh, char *str);
-
 void							mesh_print_data(t_mesh *mesh);
 void							mesh_print_data_face(t_mesh *mesh);
 void							mesh_print_data_normal(t_mesh *mesh);
@@ -302,9 +366,11 @@ void							mesh_print_data_packed_ebo(t_mesh *mesh);
 void							mesh_print_data_packed_vao(t_mesh *mesh);
 void							mesh_print_data_texture(t_mesh *mesh);
 void							mesh_print_data_vertex(t_mesh *mesh);
-
+bool							mesh_rotate_self(t_scop *env, int key);
+bool							mesh_scale(t_scop *env, int key);
+bool							mesh_translate(t_scop *env, int key);
 /*
-** Shader functions
+** SHADER Functions
 */
 bool							shader_build(t_scop *env);
 GLuint							shader_uniform_bind(t_scop *env);
