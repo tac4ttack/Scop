@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:07:49 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/11 16:36:38 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:24:18 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	flush(t_scop *trash)
 			ft_putendl("\nmemdel env->texture");
 			ft_memdel((void**)&trash->texture);
 		}
-		if (trash->cam)
+		if (trash->world)
 		{
-			ft_putendl("\nmemdel env->cam");
-			ft_memdel((void**)&trash->cam);
+			ft_putendl("\nmemdel env->world");
+			ft_memdel((void**)&trash->world);
 		}
 		if (trash->key)
 		{
@@ -56,11 +56,7 @@ void	flush(t_scop *trash)
 			ft_memdel((void**)&trash->uni);
 
 		}
-		if (trash->mat)
-		{
-			ft_putendl("\nmemdel env->mat");
-			ft_memdel((void**)&trash->mat);
-		}
+
 
 		ft_putendl("memdel win_title");
 		ft_memdel((void**)&trash->win_title);

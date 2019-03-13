@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 11:21:31 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:02:11 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,46 +160,48 @@ typedef struct					s_text2d
 typedef struct 					s_uni
 {
 	// GLint						time_id;
-	GLint						translation_id;
-	GLint						rotation_id;
-	GLint						scale_id;
-	GLint						view_id;
-	GLint						projection_id;
+	// GLint						translation_id;
+	// GLint						rotation_id;
+	// GLint						scale_id;
+	// GLint						view_id;
+	// GLint						projection_id;
+
+	GLint						mvp_id;
 }								t_uni;
 
 /*
-**	MATRIX STRUCT:
-**	--------------
-*/
-typedef struct					s_matrix
-{
-	t_mat4						translation;
-	t_mat4						rotation;
-	double						mesh_euler[3];
-	t_mat4						scale;
-	t_mat4						view;
-	double						cam_euler[3];
-	t_mat4						projection;
-}								t_matrix;
-
-/*
-**	CAMERA STRUCT:
+**	WORLD STRUCT:
 **	--------------
 **	cam_mod stores camera settings
 **	cam_mod[0] = FOV
 **	cam_mod[1] = NEAR
 **	cam_mod[2] = FAR
 */
-typedef struct 					s_camera
+typedef struct 					s_world
 {
+	double						cam_euler[3];
 	GLfloat						cam_mod[3];
-	t_vec3f						pos;
-	t_vec3f						front;
-	t_vec3f						up;
-	t_vec3f						right;
+	t_vec3f						cam_position;
+	t_quat						cam_orientation;
+	t_vec3f						cam_front;
+	t_vec3f						cam_up;
+	t_vec3f						cam_right;
+	GLfloat						cam_speed;
+
+	double						mesh_euler[3];
+	t_mat4						mesh_translation;
+	t_mat4						mesh_rotation;
+	t_mat4						mesh_scale;
+	t_quat						mesh_orientation;
+
+	t_mat4						model;
+	t_mat4						view;
+	t_mat4						projection;
+	t_mat4						mvp;
+
 	t_vec3f						world_up;
-	GLfloat						speed;
-}								t_camera;
+}								t_world;
+
 
 /*
 **	KEYBOARD INPUTS STRUCT:
@@ -230,24 +232,32 @@ typedef struct					s_scop
 {
 	GLFWwindow					*win;
 	GLsizei						win_res[3];
+	char						*win_title;
+
 	GLuint						shader_program;
+	t_uni						*uni;
+
 	GLuint						vbo;
 	GLuint						vao;
 	GLuint						ebo;
+
 	t_mesh						*mesh;
 	char						*mesh_data;
-	t_camera					*cam;
+
+	t_world						*world;
+
 	t_keyboard					*key;
-	t_matrix					*mat;
 	t_mouse						*mouse;
+
 	t_text2d					*text;
+
 	t_texture					*texture;
 	size_t						n_texture;
-	char						*win_title;
+
 	GLfloat						time_last;
 	GLfloat						time_delta;
 	GLint						time_frames;
-	t_uni						*uni;
+
 }								t_scop;
 
 bool							buffer_create(t_scop *env);
@@ -279,23 +289,24 @@ void							cb_window_size(GLFWwindow *win, \
 /*
 **	CAM Functions
 */
-t_mat4							cam_get_lookat(t_camera *c);
-bool							cam_look(t_scop *env, int key);
-bool							cam_translate(t_scop *env, int key);
-bool							cam_update(t_scop *env);
+// t_mat4							cam_get_lookat(t_camera *c);
+// bool							cam_look(t_scop *env, int key);
+// bool							cam_translate(t_scop *env, int key);
+// bool							cam_update(t_scop *env);
 
 /*
 **	INIT Functions
 */
 t_scop							*init(const char *av);
-bool							init_cam(t_scop *env);
+// bool							init_cam(t_scop *env);
 bool							init_glew(t_scop *env);
 bool							init_glfw(t_scop *env);
 bool							init_keyboard(t_scop *env);
-bool							init_matrix(t_scop *env);
+// bool							init_matrix(t_scop *env);
 bool							init_mouse(t_scop *env);
 bool							init_textures(t_scop *env);
 bool							init_uniforms(t_scop *env);
+bool							init_world(t_scop *env);
 
 /*
 **	UTILITY Functions

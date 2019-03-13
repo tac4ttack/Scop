@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:49:59 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 10:50:47 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:19:47 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool		mesh_translate(t_scop *env, int key)
 			trans = mat4_set_translation(vec3f(0.0, 0.00, -0.1));
 		else if (key == GLFW_KEY_KP_7)
 			trans = mat4_set_translation(vec3f(0.0, 0.00, 0.1));
-		env->mat->translation = mat4_mul(env->mat->translation, trans);
+		env->world->mesh_translation = mat4_mul(env->world->mesh_translation, trans);
 		return (true);
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 10:56:48 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:20:03 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ void		cb_keyboard(GLFWwindow* window, \
 		|| glfwGetKey(window, GLFW_KEY_3))
 		glfw_poly_mode(param[0]);
 
-	else if (glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_A)
-		|| glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_D)
-		|| glfwGetKey(window, GLFW_KEY_R) || glfwGetKey(window, GLFW_KEY_C)
-		|| glfwGetKey(window, GLFW_KEY_SPACE))
-		cam_translate(env, param[0]);
+	// else if (glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_A)
+	// 	|| glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_D)
+	// 	|| glfwGetKey(window, GLFW_KEY_R) || glfwGetKey(window, GLFW_KEY_C)
+	// 	|| glfwGetKey(window, GLFW_KEY_SPACE))
+	// 	cam_translate(env, param[0]);
 
-	else if (glfwGetKey(window, GLFW_KEY_UP) || glfwGetKey(window, GLFW_KEY_DOWN) \
-		|| glfwGetKey(window, GLFW_KEY_LEFT) || glfwGetKey(window, GLFW_KEY_RIGHT) \
-		|| glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL) || glfwGetKey(window, GLFW_KEY_KP_0))
-		cam_look(env, param[0]);
+	// else if (glfwGetKey(window, GLFW_KEY_UP) || glfwGetKey(window, GLFW_KEY_DOWN) \
+	// 	|| glfwGetKey(window, GLFW_KEY_LEFT) || glfwGetKey(window, GLFW_KEY_RIGHT) \
+	// 	|| glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL) || glfwGetKey(window, GLFW_KEY_KP_0))
+	// 	cam_look(env, param[0]);
 
 	// fprintf(stdout, "KEYPRESSED!\nkey = %d | scancode = %d | action = %d | mods = %d\n", key, scancode, action, mods);
 }

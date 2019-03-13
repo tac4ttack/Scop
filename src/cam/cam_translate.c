@@ -6,37 +6,38 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:55:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 13:18:43 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:22:06 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
+// BROKEN
 bool	cam_translate(t_scop *env, int key)
 {
 	if (env)
 	{
 		if (key == GLFW_KEY_R)
-			env->cam->pos = vec3f(0.0f, 0.0f, 0.0f);
+			env->world->cam_position = vec3f(0.0f, 0.0f, 0.0f);
 		else if (key == GLFW_KEY_W)
-			env->cam->pos = vec3f_add(env->cam->pos, \
-							vec3f_mul_scalar(env->cam->front, env->cam->speed));
+			env->world->cam_position = vec3f_add(env->world->cam_position, \
+							vec3f_mul_scalar(env->world->cam_front, env->world->cam_speed));
 		else if (key == GLFW_KEY_S)
-			env->cam->pos = vec3f_sub(env->cam->pos, \
-							vec3f_mul_scalar(env->cam->front, env->cam->speed));
+			env->world->cam_position = vec3f_sub(env->world->cam_position, \
+							vec3f_mul_scalar(env->world->cam_front, env->world->cam_speed));
 		else if (key == GLFW_KEY_A)
-			env->cam->pos = vec3f_sub(env->cam->pos, vec3f_mul_scalar( \
-				vec3f_normalize(vec3f_cross(env->cam->front, env->cam->up)), \
-				env->cam->speed));
+			env->world->cam_position = vec3f_sub(env->world->cam_position, vec3f_mul_scalar( \
+				vec3f_normalize(vec3f_cross(env->world->cam_front, env->world->cam_up)), \
+				env->world->cam_speed));
 		else if (key == GLFW_KEY_D)
-			env->cam->pos = vec3f_add(env->cam->pos, vec3f_mul_scalar( \
-				vec3f_normalize(vec3f_cross(env->cam->front, env->cam->up)), \
-				env->cam->speed));
+			env->world->cam_position = vec3f_add(env->world->cam_position, vec3f_mul_scalar( \
+				vec3f_normalize(vec3f_cross(env->world->cam_front, env->world->cam_up)), \
+				env->world->cam_speed));
 		else if (key == GLFW_KEY_SPACE)
 			;
 		else if (key == GLFW_KEY_C)
 			;
-		env->mat->view = cam_get_lookat(env->cam);
+		// env->mat->view = cam_get_lookat(env->cam);
 		return (true);
 	}
 	return (false);

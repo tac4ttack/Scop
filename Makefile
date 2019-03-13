@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/12 10:56:57 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/13 16:12:44 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,14 +63,13 @@ SRC_FILES =  			buffer/buffer_create.c \
 						glfw/glfw_main_loop.c \
 						glfw/glfw_poly_mode.c \
 						init/init.c \
-						init/init_cam.c \
 						init/init_glew.c \
 						init/init_glfw.c \
 						init/init_keyboard.c \
-						init/init_matrix.c \
 						init/init_mouse.c \
 						init/init_textures.c \
 						init/init_uniforms.c \
+						init/init_world.c \
 						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
