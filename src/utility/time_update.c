@@ -6,17 +6,18 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:07:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/13 16:24:30 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/14 12:01:34 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void	time_update(t_scop *env)
+bool			time_update(t_scop *env)
 {
 	GLfloat		current;
 
 	current = glfwGetTime();
+	env->time_delta = current - env->time_last;
 	if (env)
 	{
 		env->time_frames++;
@@ -30,5 +31,7 @@ void	time_update(t_scop *env)
 			env->time_last += 1.0f;
 			env->world->cam_speed = 2.5f * env->time_delta;
 		}
+		return (true);
 	}
+	return (error_bool("[ERROR world_update]\tNULL Scop pointer!\n"));
 }
