@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 13:06:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:55:44 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,6 @@ typedef struct					s_text2d
 */
 typedef struct 					s_uni
 {
-	// GLint						time_id;
-	// GLint						translation_id;
-	// GLint						rotation_id;
-	// GLint						scale_id;
-	// GLint						view_id;
-	// GLint						projection_id;
-
 	GLint						mvp_id;
 }								t_uni;
 
@@ -294,20 +287,15 @@ void							cb_window_size(GLFWwindow *win, \
 /*
 **	CAM Functions
 */
-// t_mat4							cam_get_lookat(t_camera *c);
-// bool							cam_look(t_scop *env, int key);
 bool							cam_translate(t_scop *env, int key);
-// bool							cam_update(t_scop *env);
 
 /*
 **	INIT Functions
 */
 t_scop							*init(const char *av);
-// bool							init_cam(t_scop *env);
 bool							init_glew(t_scop *env);
 bool							init_glfw(t_scop *env);
 bool							init_keyboard(t_scop *env);
-// bool							init_matrix(t_scop *env);
 bool							init_mouse(t_scop *env);
 bool							init_textures(t_scop *env);
 bool							init_uniforms(t_scop *env);

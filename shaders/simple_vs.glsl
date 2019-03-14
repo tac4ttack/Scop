@@ -8,17 +8,9 @@ layout (location = 4) in	vec3	aSpaceParam;
 out							vec4	vertexColor;
 out							vec2	texCoord;
 
-// uniform						mat4	translation;
-// uniform						mat4	rotation;
-// uniform						mat4	scale;
-// uniform						mat4	view;
-// uniform						mat4	projection;
 uniform						mat4	mvp;
 void main()
 {
-	// mat4	model = translation * rotation * scale;
-	// mat4	mvp = projection * view * model;
-
 	gl_Position = mvp * aPosition;
 	gl_PointSize = gl_Position.z * 2.5;
 	vertexColor = aHue;
