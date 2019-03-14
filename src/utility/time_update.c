@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:07:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 12:01:34 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:52:16 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ bool			time_update(t_scop *env)
 			sprintf(env->win_title, "Scop - [%f ms/frame | %d fps]", \
 			1000.0/(double)env->time_frames, env->time_frames);
 			glfwSetWindowTitle(env->win, env->win_title);
-			env->time_delta = current - env->time_last;
 			env->time_frames = 0;
 			env->time_last += 1.0f;
-			env->world->cam_speed = 2.5f * env->time_delta;
+			env->world->cam_speed = 0.5f * env->time_delta;
 		}
 		return (true);
 	}
