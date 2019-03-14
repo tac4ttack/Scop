@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/13 16:12:44 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/14 11:59:39 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						utility/flush.c \
 						utility/split.c \
 						utility/time_update.c \
+						world/world_update.c \
 						main.c
 
 OS_TEST := $(shell uname)
@@ -163,6 +164,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/text
 	@mkdir $(OBJ_PATH)/tga
 	@mkdir $(OBJ_PATH)/utility
+	@mkdir $(OBJ_PATH)/world
 
 clean:
 	@echo "$(GREEN)Cleaning...$(EOC)"

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/13 16:02:11 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:06:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,10 +189,15 @@ typedef struct 					s_world
 	GLfloat						cam_speed;
 
 	double						mesh_euler[3];
+	t_vec3f						mesh_position;
 	t_mat4						mesh_translation;
-	t_mat4						mesh_rotation;
-	t_mat4						mesh_scale;
+
 	t_quat						mesh_orientation;
+	t_mat4						mesh_rotation;
+
+	t_vec3f						mesh_scaler;
+	t_mat4						mesh_scale;
+
 
 	t_mat4						model;
 	t_mat4						view;
@@ -291,7 +296,7 @@ void							cb_window_size(GLFWwindow *win, \
 */
 // t_mat4							cam_get_lookat(t_camera *c);
 // bool							cam_look(t_scop *env, int key);
-// bool							cam_translate(t_scop *env, int key);
+bool							cam_translate(t_scop *env, int key);
 // bool							cam_update(t_scop *env);
 
 /*
@@ -318,7 +323,7 @@ void							exit_fail(const char *msg, void *trash);
 void							flush(t_scop *trash);
 void							split_destroy(char **split);
 size_t							split_len(char **split);
-void							time_update(t_scop *env);
+bool							time_update(t_scop *env);
 
 /*
 **	SCOP LOGGING Functions
@@ -380,6 +385,7 @@ void							mesh_print_data_vertex(t_mesh *mesh);
 bool							mesh_rotate_self(t_scop *env, int key);
 bool							mesh_scale(t_scop *env, int key);
 bool							mesh_translate(t_scop *env, int key);
+
 /*
 ** SHADER Functions
 */
@@ -387,4 +393,8 @@ bool							shader_build(t_scop *env);
 GLuint							shader_uniform_bind(t_scop *env);
 GLuint							shader_uniform_update(t_scop *env);
 
+/*
+** WORLD Functions
+*/
+bool							world_update(t_scop *env);
 #endif
