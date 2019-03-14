@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 12:56:02 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:37:56 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,17 @@ void		cb_keyboard(GLFWwindow* window, \
 	param[3] = mods;
 
 	env = glfwGetWindowUserPointer(window);
+
+	// OTHERS INTERACTIONS
 	if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_ESCAPE))
 		glfwSetWindowShouldClose(window, 1);
 
-	if (glfwGetKey(window, GLFW_KEY_KP_4) || glfwGetKey(window, GLFW_KEY_KP_5) \
+	else if (glfwGetKey(window, GLFW_KEY_1) || glfwGetKey(window, GLFW_KEY_2) \
+		|| glfwGetKey(window, GLFW_KEY_3))
+		glfw_poly_mode(param[0]);
+
+	// MESH INTERACTION
+	else if (glfwGetKey(window, GLFW_KEY_KP_4) || glfwGetKey(window, GLFW_KEY_KP_5) \
 		|| glfwGetKey(window, GLFW_KEY_KP_6) || glfwGetKey(window, GLFW_KEY_KP_7) \
 		|| glfwGetKey(window, GLFW_KEY_KP_8) || glfwGetKey(window, GLFW_KEY_KP_9))
 		mesh_translate(env, param[0]);
@@ -44,10 +51,7 @@ void		cb_keyboard(GLFWwindow* window, \
 		|| glfwGetKey(window, GLFW_KEY_KP_SUBTRACT))
 		mesh_scale(env, param[0]);
 
-	else if (glfwGetKey(window, GLFW_KEY_1) || glfwGetKey(window, GLFW_KEY_2) \
-		|| glfwGetKey(window, GLFW_KEY_3))
-		glfw_poly_mode(param[0]);
-
+	// CAM INTERACTIONS
 	else if (glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_A)
 		|| glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_D)
 		|| glfwGetKey(window, GLFW_KEY_R) || glfwGetKey(window, GLFW_KEY_C)
@@ -59,6 +63,8 @@ void		cb_keyboard(GLFWwindow* window, \
 	// 	|| glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL) || glfwGetKey(window, GLFW_KEY_KP_0))
 	// 	cam_look(env, param[0]);
 
+
+	// DEBUG
 	if (glfwGetKey(window, GLFW_KEY_SPACE))
 	{
 		ft_putendl("\nmodel");
