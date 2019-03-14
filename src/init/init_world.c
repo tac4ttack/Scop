@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 15:59:10 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 13:52:19 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/14 15:06:14 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ bool	init_world(t_scop *env)
 		if (!(init_world_cam(env)))
 			return (error_bool("[ERROR init_world]\tinit world cam failed!\n"));
 
-		env->world->mesh_euler[0] = 45.0f;
-		env->world->mesh_euler[1] = 45.0f;
+		env->world->mesh_euler[0] = 0.0f;
+		env->world->mesh_euler[1] = 0.0f;
 		env->world->mesh_euler[2] = 0.0f;
 		env->world->mesh_scaler = vec3f(1.0, 1.0, 1.0);
 		env->world->mesh_translation = mat4_set_identity();
@@ -49,7 +49,21 @@ bool	init_world(t_scop *env)
 		env->world->mesh_scale = mat4_set_identity();
 		if (!world_update(env))
 			return (error_bool("[ERROR init_world]\tCould not init MVP!\n"));
-		else
+	ft_putendl("\nmodel");
+		mat4_print(env->world->model);
+
+		ft_putendl("\nview");
+		mat4_print(env->world->view);
+
+		ft_putendl("\nmodel/view");
+		mat4_print(mat4_mul(env->world->model, env->world->view));
+
+		ft_putendl("\nprojection");
+		mat4_print(env->world->projection);
+
+		ft_putendl("\nmodel/view/projection");
+		mat4_print(env->world->mvp);
+		// else
 			return (true);
 	}
 	return (error_bool("[ERROR init_world]\tNULL Scop pointer!\n"));

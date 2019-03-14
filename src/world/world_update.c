@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:54:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 13:54:30 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/14 15:05:17 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,29 @@ static bool	world_update_model(t_scop *env)
 	return (error_bool("[ERROR world_update_model]\tNULL Scop pointer!\n"));
 }
 
+static t_mat4		test_lookat(t_scop *env)
+{
+	t_mat4	translation;
+	t_mat4	rotation;
+
+	translation = mat4_set_translation(vec3f_neg(env->world->cam_position));
+	rotation = mat4_set_identity();
+	rotation.m[0] = env->world->cam_right.x;
+	rotation.m[4] = env->world->cam_right.y;
+	rotation.m[8] = env->world->cam_right.z;
+
+	rotation.m[1] = env->world->cam_up.x;
+	rotation.m[5] = env->world->cam_up.y;
+	rotation.m[9] = env->world->cam_up.z;
+
+	rotation.m[2] = env->world->cam_front.x;
+	rotation.m[6] = env->world->cam_front.y;
+	rotation.m[9] = env->world->cam_front.z;
+
+	return (mat4_mul(translation, rotation));
+	// return (mat4_mul(rotation, translation));
+}
+
 bool	world_update(t_scop *env)
 {
 	if (env)
@@ -38,10 +61,10 @@ bool	world_update(t_scop *env)
 		if (!(world_update_model(env)))
 			return (error_bool("[ERROR world_update]\t" \
 			"Could not update model matrix!\n"));
-		env->world->view = mat4_set_lookat(env->world->cam_position, \
-										env->world->cam_front, \
-										env->world->cam_up);
-
+		env->world->view = test_lookat(env);
+		// env->world->view = mat4_set_lookat(env->world->cam_position, \
+		// 								env->world->cam_front, \
+		// 								env->world->cam_up);
 		env->world->projection = mat4_set_perspective(env->world->cam_mod[0], \
 													env->win_res[2], \
 													env->world->cam_mod[1], \
