@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 13:55:44 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:50:32 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ typedef struct					s_mesh
 
 	GLfloat						*space;
 	size_t						n_space[2];
+
+	t_vec3f						axis_center;	//DO THE AXIS CENTERING
 }								t_mesh;
 
 /*
@@ -283,11 +285,6 @@ void							cb_mouse_scroll(GLFWwindow *window, \
 void							cb_window_size(GLFWwindow *win, \
 												const int width, \
 												const int height);
-
-/*
-**	CAM Functions
-*/
-bool							cam_translate(t_scop *env, int key);
 
 /*
 **	INIT Functions
