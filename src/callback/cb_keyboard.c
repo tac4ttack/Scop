@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 13:37:56 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:42:45 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void		cb_keyboard(GLFWwindow* window, \
 		mesh_scale(env, param[0]);
 
 	// CAM INTERACTIONS
-	else if (glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_A)
-		|| glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_D)
-		|| glfwGetKey(window, GLFW_KEY_R) || glfwGetKey(window, GLFW_KEY_C)
-		|| glfwGetKey(window, GLFW_KEY_SPACE))
-		cam_translate(env, param[0]);
+	// else if (glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_A)
+	// 	|| glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_D)
+	// 	|| glfwGetKey(window, GLFW_KEY_R) || glfwGetKey(window, GLFW_KEY_C)
+	// 	|| glfwGetKey(window, GLFW_KEY_SPACE))
+	// 	cam_translate(env, param[0]);
 
 	// else if (glfwGetKey(window, GLFW_KEY_UP) || glfwGetKey(window, GLFW_KEY_DOWN) \
 	// 	|| glfwGetKey(window, GLFW_KEY_LEFT) || glfwGetKey(window, GLFW_KEY_RIGHT) \
@@ -68,19 +68,19 @@ void		cb_keyboard(GLFWwindow* window, \
 	if (glfwGetKey(window, GLFW_KEY_SPACE))
 	{
 		ft_putendl("\nmodel");
-		mat4_print(env->world->model);
+		mat4_print(mat4_transpose(env->world->model));
 
 		ft_putendl("\nview");
-		mat4_print(env->world->view);
+		mat4_print(mat4_transpose(env->world->view));
 
 		ft_putendl("\nmodel/view");
-		mat4_print(mat4_mul(env->world->model, env->world->view));
+		mat4_print(mat4_transpose(mat4_mul(env->world->model, env->world->view)));
 
 		ft_putendl("\nprojection");
-		mat4_print(env->world->projection);
+		mat4_print(mat4_transpose(env->world->projection));
 
 		ft_putendl("\nmodel/view/projection");
-		mat4_print(env->world->mvp);
+		mat4_print(mat4_transpose(env->world->mvp));
 	}
 
 	// fprintf(stdout, "KEYPRESSED!\nkey = %d | scancode = %d | action = %d | mods = %d\n", key, scancode, action, mods);
