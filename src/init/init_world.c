@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 15:59:10 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 15:06:14 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:45:12 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	init_world_cam(t_scop *env)
 		env->world->cam_mod[1] = NEAR;
 		env->world->cam_mod[2] = FAR;
 		env->world->cam_speed = 0.5f;
-		env->world->cam_position = vec3f(0.0f, 0.0f, 3.0f);
+		env->world->cam_position = vec3f(0.0f, 0.0f, 10.0f);
 		env->world->cam_up = vec3f(0.0f, 1.0f, 0.0f);
 		env->world->cam_front = vec3f(0.0f, 0.0f, -1.0f);
 		env->world->world_up = env->world->cam_up;
@@ -49,7 +49,8 @@ bool	init_world(t_scop *env)
 		env->world->mesh_scale = mat4_set_identity();
 		if (!world_update(env))
 			return (error_bool("[ERROR init_world]\tCould not init MVP!\n"));
-	ft_putendl("\nmodel");
+
+		ft_putendl("\nmodel");
 		mat4_print(env->world->model);
 
 		ft_putendl("\nview");
