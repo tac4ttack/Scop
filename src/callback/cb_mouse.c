@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/13 16:21:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:48:44 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,11 @@ void		cb_mouse_scroll(GLFWwindow *window, \
 	t_scop	*env;
 
 	env = glfwGetWindowUserPointer(window);
-	x_offset = y_offset = 0.0f;
-	// if (env->cam->cam_mod[0] >= 30.0f && env->cam->cam_mod[0] <= 120.0f)
-	// 	env->cam->cam_mod[0] -= y_offset;
-	// if (env->cam->cam_mod[0] <= 30.0f)
-	// 	env->cam->cam_mod[0] = 30.0f;
-	// if (env->cam->cam_mod[0] >= 120.0f)
-	// 	env->cam->cam_mod[0] = 120.0f;
-	// env->mat->projection = mat4_set_perspective(env->cam->cam_mod[0], \
-	// 			env->win_res[2], env->cam->cam_mod[1], env->cam->cam_mod[2]);
+	x_offset = 0.0f;
+	if (env->world->cam_mod[0] >= 30.0f && env->world->cam_mod[0] <= 120.0f)
+		env->world->cam_mod[0] -= y_offset;
+	if (env->world->cam_mod[0] <= 30.0f)
+		env->world->cam_mod[0] = 30.0f;
+	if (env->world->cam_mod[0] >= 120.0f)
+		env->world->cam_mod[0] = 120.0f;
 }
