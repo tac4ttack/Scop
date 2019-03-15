@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/14 11:59:39 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/15 14:42:29 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,6 @@ SRC_FILES =  			buffer/buffer_create.c \
 						callback/cb_keyboard.c \
 						callback/cb_mouse.c \
 						callback/cb_window.c \
-						cam/cam_translate.c\
-						cam/cam.c \
 						glfw/glfw_clean.c \
 						glfw/glfw_main_loop.c \
 						glfw/glfw_poly_mode.c \
