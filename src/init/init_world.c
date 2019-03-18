@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 15:59:10 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/15 14:45:12 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:12:35 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ bool	init_world(t_scop *env)
 		if (!(init_world_cam(env)))
 			return (error_bool("[ERROR init_world]\tinit world cam failed!\n"));
 
-		env->world->mesh_euler[0] = 0.0f;
-		env->world->mesh_euler[1] = 0.0f;
-		env->world->mesh_euler[2] = 0.0f;
 		env->world->mesh_scaler = vec3f(1.0, 1.0, 1.0);
 		env->world->mesh_translation = mat4_set_identity();
+		env->world->mesh_orient = quat_set_identity();
 		env->world->mesh_rotation = mat4_set_identity();
 		env->world->mesh_scale = mat4_set_identity();
 		if (!world_update(env))

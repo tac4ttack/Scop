@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/15 14:50:32 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:31:58 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 */
 # include "libft.h"
 # include "libftmath.h"
+# include "tga.h"
+
+/*
+**	OpenGL related libs
+*/
 # include "GL/glew.h"
 # include "GLFW/glfw3.h"
-# include "tga.h"
 
 /*
 **	Standard libs
@@ -31,8 +35,8 @@
 # include <stdio.h>		// required for FILE printf etc
 # include <stdarg.h>	// required for va_arg
 # include <assert.h>	// required for assert()
-# include <fcntl.h>      // required for open()
-# include <unistd.h>    // required for read() and close()
+# include <fcntl.h>		// required for open()
+# include <unistd.h>	// required for read() and close()
 # include <string.h>	// required for strspn() used in mesh_line_process_check()
 # include <math.h>		// required for sin() etc
 
@@ -128,7 +132,7 @@ typedef struct					s_mesh
 	GLfloat						*space;
 	size_t						n_space[2];
 
-	t_vec3f						axis_center;	//DO THE AXIS CENTERING
+	t_vec3f						axis[3];	//DO THE AXIS CENTERING
 }								t_mesh;
 
 /*
@@ -186,8 +190,7 @@ typedef struct 					s_world
 	double						mesh_euler[3];
 	t_vec3f						mesh_position;
 	t_mat4						mesh_translation;
-
-	t_quat						mesh_orientation;
+	t_quat						mesh_orient;
 	t_mat4						mesh_rotation;
 
 	t_vec3f						mesh_scaler;
@@ -342,7 +345,9 @@ bool							mesh_line_process_vn(t_mesh *mesh, char *str);
 bool							mesh_line_process_vp(t_mesh *mesh, char *str);
 bool							mesh_line_process_vt(t_mesh *mesh, char *str);
 bool							mesh_prepack(t_mesh *mesh);
+bool							mesh_prepack_center_vertices(t_mesh *mesh);
 bool							mesh_prepack_ebo_data(t_mesh *mesh);
+bool							mesh_prepack_get_center_axis(t_mesh *mesh);
 bool							mesh_prepack_vao_data(t_mesh *mesh);
 bool							mesh_process_face(t_mesh *mesh, char *str);
 bool							mesh_process_face_data_dispatch(t_mesh *mesh, \

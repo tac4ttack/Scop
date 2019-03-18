@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:07:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/14 13:52:16 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:30:34 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ bool			time_update(t_scop *env)
 
 	current = glfwGetTime();
 	env->time_delta = current - env->time_last;
+	// env->world->mesh_orient = quat_mul(env->world->mesh_orient, \
+	//  							quat_rot(vec3f(0.0, -1.0, 0.0), 1.0));
 	if (env)
 	{
 		env->time_frames++;
-		if (env->time_delta >= 1.0f)
+		if (env->time_delta >= 0.50f)
 		{
 			sprintf(env->win_title, "Scop - [%f ms/frame | %d fps]", \
 			1000.0/(double)env->time_frames, env->time_frames);
