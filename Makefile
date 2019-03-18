@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/15 14:42:29 by fmessina         ###   ########.fr        #
+#    Updated: 2019/03/18 12:15:08 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,8 +84,10 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/process/line/mesh_line_process_vp.c \
 						mesh/process/line/mesh_line_process_vt.c \
 						mesh/process/normal/mesh_process_normal.c \
+						mesh/prepack/mesh_prepack_center_vertices.c \
 						mesh/prepack/mesh_prepack.c \
 						mesh/prepack/mesh_prepack_ebo_data.c \
+						mesh/prepack/mesh_prepack_get_center_axis.c \
 						mesh/prepack/mesh_prepack_vao_data.c \
 						mesh/process/space/mesh_process_space.c \
 						mesh/process/texture/mesh_process_texture.c \
