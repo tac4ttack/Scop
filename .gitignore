@@ -1,0 +1,4 @@
+obj/*
+lib/glew-2.1.0/lib/
+lib/glew-2.1.0/tmp/
+lib/glfw-3.2.1/glfw-build/

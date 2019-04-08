@@ -10,3 +10,4 @@ Ce mini-projet est une première incursion dans l’utilisation d’OpenGL.
 - MacOSX
 - OpenGL 4.0 compatible GPU
 - CMake
+-  Don't forget to pull the "LIBFT" submodule with `git submodule update --init --recursive`

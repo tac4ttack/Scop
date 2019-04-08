@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/02/27 11:38:21 by fmessina         ###   ########.fr        #
+#    Updated: 2019/04/08 10:21:49 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,6 +167,10 @@ endif
 glfwclean:
 	@echo "$(GREEN)Cleaning$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library's files$(EOC)"
 	@rm -rf $(GLFW_BUILD_PATH)
+
+pullsubmodule:
+	@echo "$(GREEN)Fetching$(EOC) $(YELL)Libft$(EOC) $(GREEN)library's files$(EOC)"
+	git submodule update --init --recursive
 
 re: fclean default
 
