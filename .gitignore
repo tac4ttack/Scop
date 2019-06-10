@@ -3,11 +3,11 @@ obj/
 scop
 scop.log
 lib/libft/*.o
+lib/glew-2.1.0/bin
 lib/glfw-3.2.1/glfw-build
 _show/
 .vscode
 .DS_Store
-
 
 # Prerequisites
 *.d
