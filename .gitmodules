@@ -7,3 +7,6 @@
 [submodule "lib/libftmath"]
 	path = lib/libftmath
 	url = https://gitlab.com/tacattack/libftmath.git
+[submodule "lib/simpleTGA"]
+	path = lib/simpleTGA
+	url = https://github.com/tac4ttack/simpleTGA.git
