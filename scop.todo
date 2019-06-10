@@ -1,0 +1,38 @@
+MAKEFILE:
+    ✔ do not recompile with modified header??? @done (3/9/2019, 3:54:15 PM)
+
+OBJ PARSING:
+     ✔ parse V @done (2/28/2019, 5:56:19 PM)
+     ✔ parse F @done (3/6/2019, 11:10:04 AM)
+        ✔ parse Vn @done (2/28/2019, 6:35:58 PM)
+        ✔ parse Vn/VTn @done (2/28/2019, 6:36:19 PM)
+        ✔ parse Vn/VTn/VNn @done (2/28/2019, 6:36:22 PM)
+        ✔ parse Vn//VNn @done (2/28/2019, 6:36:23 PM)
+        ✔ triangulate quads! @done (3/6/2019, 11:10:00 AM)
+     ✔ parse VT @done (3/6/2019, 11:42:01 AM)
+     ✔ parse VN @done (3/6/2019, 11:42:49 AM)
+     ✘ parse VP ( -> optionnel?) @cancelled (3/6/2019, 11:14:50 AM)
+     ✔ fix faces indices problem, should start at 1 or -1 @done (3/9/2019, 3:54:11 PM)
+     ☐ Problem with vertex parsing (default values and shit)?
+
+VAO PACKING:
+    ✔ pack vertex position @done (3/6/2019, 6:20:24 PM)
+    ✔ pack vertex hue @done (3/6/2019, 6:20:22 PM)
+    ✔ pack texture coord @done (3/7/2019, 12:07:57 PM)
+    ✔ pack vertex normal @done (3/7/2019, 12:07:58 PM)
+    ✔ pack vertex space @done (3/7/2019, 12:07:59 PM)
+
+VARIOUS:
+    ☐ totally remove the space VP support
+
+MATRIX:
+    ✔ prototype a transform matrix @done (3/8/2019, 4:38:58 PM)
+
+KEYBOARD INPUT:
+    ☐ support multi input!
+
+UI:
+    ☐ Add a 2d text writer!
+
+LEAKS:
+    ✔ u got one leak of always 1044480 bytes (it was the default texture!) @done (2/28/2019, 6:35:34 PM)

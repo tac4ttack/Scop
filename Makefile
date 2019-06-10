@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/04/08 10:21:49 by fmessina         ###   ########.fr        #
+#    Updated: 2019/06/10 17:26:52 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,15 @@ OFLAGS := 				-O3
 SCOP_INCLUDE =			-I $(SCOP_INCLUDES_PATH)
 SCOP_INCLUDES_PATH =	./includes
 SCOP_INCLUDES =			$(addprefix $(SCOP_INCLUDES_PATH)/,$(SCOP_INCLUDES_FILES))
-SCOP_INCLUDES_FILES =	scop.h \
-						tga.h
+SCOP_INCLUDES_FILES =	scop.h
 
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
 LIBFT_LINK :=			-L $(LIBFT_PATH) -lft
+
+LIBFTMATH_PATH :=		./lib/libftmath
+LIBFTMATH_INCLUDE :=	-I $(LIBFTMATH_PATH)/includes
+LIBFTMATH_LINK :=		-L $(LIBFTMATH_PATH) -lftmath
 
 LIBMATH_LINK :=			-lm
 
@@ -40,6 +43,11 @@ GLFW_INCLUDE =			-I $(GLFW_PATH)/include
 GLFW_LINK =				-L $(GLFW_BUILD_PATH)/src $(GLFW_LIB_FILE)
 GLFW_LIB_FILE =			$(shell ls $(GLFW_BUILD_PATH)/src/libglfw3.a)
 
+SIMPLETGA_LINK =		$(SIMPLETGA_PATH)/simpleTGA.a
+SIMPLETGA_PATH =		./lib/simpleTGA
+SIMPLETGA_INC_PATH =	./lib/simpleTGA
+SIMPLETGA_INCLUDE =     -I $(SIMPLETGA_PATH)/
+
 FRAMEWORKS =			-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
 OBJ =					$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
@@ -49,41 +57,70 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
 SRC_FILES =  			buffer/buffer_create.c \
+						callback/cb_error.c \
+						callback/cb_keyboard.c \
+						callback/cb_mouse.c \
+						callback/cb_window.c \
+						glfw/glfw_clean.c \
+						glfw/glfw_main_loop.c \
+						glfw/glfw_poly_mode.c \
+						init/init.c \
+						init/init_glew.c \
+						init/init_glfw.c \
+						init/init_keyboard.c \
+						init/init_mouse.c \
+						init/init_textures.c \
+						init/init_uniforms.c \
+						init/init_world.c \
 						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
-						glfw/glfw_error_callback.c \
-						glfw/glfw_launch.c \
-						glfw/glfw_window_size_callback.c \
-						init.c \
-						main.c \
+						mesh/process/face/mesh_process_face.c \
+						mesh/process/face/mesh_process_face_data.c \
+						mesh/process/face/mesh_process_face_get_type.c \
+						mesh/process/face/mesh_process_face_quad.c \
+						mesh/process/face/mesh_process_face_triangle.c \
+						mesh/process/line/mesh_line_process.c \
+						mesh/process/line/mesh_line_process_check.c \
+						mesh/process/line/mesh_line_process_f.c \
+						mesh/process/line/mesh_line_process_v.c \
+						mesh/process/line/mesh_line_process_vn.c \
+						mesh/process/line/mesh_line_process_vp.c \
+						mesh/process/line/mesh_line_process_vt.c \
+						mesh/process/normal/mesh_process_normal.c \
+						mesh/prepack/mesh_prepack_center_vertices.c \
+						mesh/prepack/mesh_prepack.c \
+						mesh/prepack/mesh_prepack_ebo_data.c \
+						mesh/prepack/mesh_prepack_get_center_axis.c \
+						mesh/prepack/mesh_prepack_vao_data.c \
+						mesh/process/space/mesh_process_space.c \
+						mesh/process/texture/mesh_process_texture.c \
+						mesh/process/vertex/mesh_process_vertex.c \
+						mesh/print/mesh_print_data.c \
+						mesh/print/mesh_print_data_face.c \
+						mesh/print/mesh_print_data_normal.c \
+						mesh/print/mesh_print_data_prepack_vao.c \
+						mesh/print/mesh_print_data_prepack_ebo.c \
+						mesh/print/mesh_print_data_texture.c \
+						mesh/print/mesh_print_data_vertex.c \
 						mesh/mesh_clean.c \
 						mesh/mesh_file_load.c \
 						mesh/mesh_file_process.c \
-						mesh/mesh_get_face_type.c \
-						mesh/mesh_line_check.c \
-						mesh/mesh_line_process.c \
-						mesh/mesh_line_process_face.c \
-						mesh/mesh_line_process_normal.c \
-						mesh/mesh_line_process_texture.c \
-						mesh/mesh_line_process_vertex.c \
-						mesh/mesh_print_data.c \
-						mesh/mesh_print_data_face.c \
-						mesh/mesh_print_data_normal.c \
-						mesh/mesh_print_data_texture.c \
-						mesh/mesh_print_data_vertex.c \
-						mesh/mesh_process_face.c \
+						mesh/mesh_rotate.c \
+						mesh/mesh_scale.c \
+						mesh/mesh_translate.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
-						tga/tga_error.c \
-						tga/tga_load_file.c \
-						tga/tga_process_file.c \
-						tga/tga_process_pixels.c \
-						tga/tga_transform.c \
-						utility/split_destroy.c \
+						text/text_clean.c \
+						text/text_init.c \
+						text/text_print.c \
 						utility/error.c \
 						utility/exit.c \
-						utility/flush.c
+						utility/flush.c \
+						utility/split.c \
+						utility/time_update.c \
+						world/world_update.c \
+						main.c
 
 OS_TEST := $(shell uname)
 ifeq ($(OS_TEST), Darwin)
@@ -92,25 +129,40 @@ endif
 
 default: all
 
-all: libft glew glfw $(NAME)
+all: libft libftmath simpleTGA glew glfw $(NAME)
 
-$(NAME): $(SRC) $(SCOP_INCLUDES) $(OBJ_PATH) $(OBJ)
+$(NAME): $(SRC) $(OBJ_PATH) $(OBJ)
+	@echo $(SCOP_INCLUDES)
 	@echo "\n$(GREEN)Compiling $(NAME) for MacOSX $(OS_NAME)$(EOC)"
-	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
+	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBFTMATH_LINK) $(LIBMATH_LINK) $(SIMPLETGA_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(SCOP_INCLUDES)
+	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(LIBFTMATH_INCLUDE) $(SIMPLETGA_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
 
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
 	@mkdir $(OBJ_PATH)
 	@mkdir $(OBJ_PATH)/buffer
+	@mkdir $(OBJ_PATH)/callback
+	@mkdir $(OBJ_PATH)/cam
 	@mkdir $(OBJ_PATH)/log
 	@mkdir $(OBJ_PATH)/glfw
+	@mkdir $(OBJ_PATH)/init
 	@mkdir $(OBJ_PATH)/mesh
+	@mkdir $(OBJ_PATH)/mesh/line
+	@mkdir $(OBJ_PATH)/mesh/print
+	@mkdir $(OBJ_PATH)/mesh/prepack
+	@mkdir $(OBJ_PATH)/mesh/process
+	@mkdir $(OBJ_PATH)/mesh/process/face
+	@mkdir $(OBJ_PATH)/mesh/process/line
+	@mkdir $(OBJ_PATH)/mesh/process/normal
+	@mkdir $(OBJ_PATH)/mesh/process/space
+	@mkdir $(OBJ_PATH)/mesh/process/texture
+	@mkdir $(OBJ_PATH)/mesh/process/vertex
 	@mkdir $(OBJ_PATH)/shader
-	@mkdir $(OBJ_PATH)/tga
+	@mkdir $(OBJ_PATH)/text
 	@mkdir $(OBJ_PATH)/utility
+	@mkdir $(OBJ_PATH)/world
 
 clean:
 	@echo "$(GREEN)Cleaning...$(EOC)"
@@ -119,14 +171,12 @@ clean:
 
 fclean: clean
 	@echo "$(GREEN)Full cleaning...$(EOC)"
-	@echo "$(GREEN)Deleting $(NAME) executable and config file$(EOC)"
-	@rm -rf $(NAME) ./config.json
+	@echo "$(GREEN)Deleting $(NAME) executable$(EOC)"
+	@rm -rf $(NAME)
 
-fcleanmega: fcleanlibft fclean glewclean glfwclean
+fcleanmega: fcleanlibft fcleanlibftmath simpleTGA_fclean fclean glewclean glfwclean
 
 libft:
-	@echo $(SCOP_INCLUDES)
-
 	@echo "$(GREEN)Compiling$(EOC) $(YELL)Libft$(EOC) $(GREEN)library$(EOC)"
 	@make -C $(LIBFT_PATH)/ all
 
@@ -137,6 +187,18 @@ cleanlibft:
 fcleanlibft: cleanlibft
 	@echo "$(GREEN)Cleaning$(EOC) $(YELL)Libft$(EOC) $(GREEN)library's folders and deleting binary$(EOC)"
 	@make -C $(LIBFT_PATH)/ fclean
+
+libftmath:
+	@echo "$(GREEN)Compiling$(EOC) $(YELL)LibftMath$(EOC) $(GREEN)library$(EOC)"
+	@make -C $(LIBFTMATH_PATH)/ all
+
+cleanlibftmath:
+	@echo "$(GREEN)Cleaning$(EOC) $(YELL)LibftMath$(EOC) $(GREEN)library's folders$(EOC)"
+	@make -C $(LIBFTMATH_PATH)/ clean
+
+fcleanlibftmath: cleanlibftmath
+	@echo "$(GREEN)Cleaning$(EOC) $(YELL)LibftMath$(EOC) $(GREEN)library's folders and deleting binary$(EOC)"
+	@make -C $(LIBFTMATH_PATH)/ fclean
 
 glew:
 	@echo "\n$(GREEN)Compiling$(EOC) $(YELL)GLEW$(EOC) $(GREEN)library$(EOC)"
@@ -171,6 +233,26 @@ glfwclean:
 pullsubmodule:
 	@echo "$(GREEN)Fetching$(EOC) $(YELL)Libft$(EOC) $(GREEN)library's files$(EOC)"
 	git submodule update --init --recursive
+	
+simpleTGA:
+	@echo "$(GREEN)Compiling simpleTGA library$(EOC)"
+	make -C $(SIMPLETGA_PATH)/ all
+
+simpleTGA_debug:
+	@echo "Compiling simpleTGA library with debug flag"
+	make -C $(SIMPLETGA_PATH)/ debug all
+
+simpleTGA_asan:
+	@echo "Compiling simpleTGA library with ASan"
+	make -C $(SIMPLETGA_PATH)/ debug debug_asan all
+
+simpleTGA_clean:
+	@echo "$(GREEN)Cleaning simpleTGA folder$(EOC)"
+	make -C $(SIMPLETGA_PATH)/ clean
+
+simpleTGA_fclean: simpleTGA_clean
+	@echo "$(GREEN)Full cleaning simpleTGA$(EOC)"
+	make -C $(SIMPLETGA_PATH)/ fclean
 
 re: fclean default
 
@@ -252,7 +334,7 @@ norme:
 ######
 ## REDO YOUR FUCKIN' PHONY!!!!!!
 ##
-.PHONY: all clean fclean re libft cleanlibft fcleanlibft debug usage norme
+.PHONY: all clean fclean re libft simpleTGA cleanlibft fcleanlibft debug usage norme
 #####
 
 ## SHELL COLOR CODES ##

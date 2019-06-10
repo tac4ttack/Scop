@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 14:34:54 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/07 12:13:51 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static bool	buffer_create_texture(t_scop *env)
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// nearest when unzoom
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	// linear when zoom
 			// tester avec GL_RGBA?
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, env->texture[i].size[0], \
-						env->texture[i].size[1], 0, GL_RGB, GL_UNSIGNED_BYTE, \
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, env->texture[i].size[0], \
+						env->texture[i].size[1], 0, GL_BGRA, GL_UNSIGNED_BYTE, \
 						env->texture[i].pixels);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			i++;
@@ -44,10 +44,67 @@ static bool	buffer_create_texture(t_scop *env)
 		scop_log("Textures buffers successfully generated!\n");
 		return (true);
 	}
-	return (error_bool("[ERROR buffer_create_texture]\tNULL scop pointer!\n"));
+	return (error_bool("[ERROR buffer_create_texture]\tNULL Scop pointer!\n"));
 }
 
-bool	buffer_create(t_scop *env)
+static bool	buffer_create_vao_vbo(t_scop *env)
+{
+	if (env)
+	{
+		glGenVertexArrays(1, &env->vao);
+		glBindVertexArray(env->vao);
+		glGenBuffers(1, &env->vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, env->vbo);
+		glBufferData(GL_ARRAY_BUFFER, env->mesh->n_vertex[0] * 17
+			* sizeof(float), env->mesh->prepack_vao, GL_STATIC_DRAW);
+		return (true);
+	}
+	return (error_bool("[ERROR buffer_create_vao_vbo]\t" \
+	"NULL Scop pointer!\n"));
+}
+
+static bool	buffer_create_ebo(t_scop *env)
+{
+	if (env)
+	{
+		scop_log("Copying faces data into EBO\n");
+		glGenBuffers(1, &env->ebo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
+					sizeof(GLuint) * env->mesh->n_face[0] * 3, \
+					env->mesh->prepack_ebo, GL_STATIC_DRAW);
+		return (true);
+	}
+	return (error_bool("[ERROR buffer_create_ebo]\t" \
+	"NULL Scop pointer!\n"));
+}
+
+static bool	buffer_create_vertex_attrib(t_scop *env)
+{
+	if (env)
+	{
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 17 * sizeof(GLfloat), \
+							(void*)0);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 17 * sizeof(GLfloat), \
+							(void*)(4 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 17 * sizeof(GLfloat), \
+							(void*)(8 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 17 * sizeof(GLfloat), \
+							(void*)(11 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 17 * sizeof(GLfloat), \
+							(void*)(14 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(4);
+		return (true);
+	}
+	return (error_bool("[ERROR buffer_create_vertex_attrib]\t" \
+	"NULL Scop pointer!\n"));
+}
+
+bool		buffer_create(t_scop *env)
 {
 	if (env)
 	{
@@ -57,35 +114,21 @@ bool	buffer_create(t_scop *env)
 			if (!(buffer_create_texture(env)))
 				return (error_bool("[ERROR buffer_create]\tFailed creating" \
 				" buffers for textures!\n"));
-			glGenVertexArrays(1, &env->vao); // get an id for our vertex array
-			glBindVertexArray(env->vao);	// specify which vao to use
-
-			glGenBuffers(1, &env->vbo);	// get an id for our vertex buffer
-			glBindBuffer(GL_ARRAY_BUFFER, env->vbo); // bind it as an array buffer, all calls to GL_ARRAY_BUFFER will be applied to our env->vbo
-
-			glBufferData(GL_ARRAY_BUFFER, env->mesh->n_vertex[1] \
-						* sizeof(float) * 8, env->mesh->vertex, GL_STATIC_DRAW);
+			if (!(buffer_create_vao_vbo(env)))
+				return (error_bool("[ERROR buffer_create]\t" \
+				"Failed initializing VOA and VBO buffers!\n"));
 			if (env->mesh->face && env->mesh->n_face[1] >= 1)
-			{
-				scop_log("Copying faces data into EBO\n");
-				glGenBuffers(1, &env->ebo); // get an id for our element buffer object
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->ebo);
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
-				sizeof(GLuint) * env->mesh->n_face[1] * env->mesh->n_face[5], \
-				env->mesh->face, GL_STATIC_DRAW);
-			}
-			// vertex position
-			glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, \
-									8 * sizeof(GLfloat), (void*)0);
-			glEnableVertexAttribArray(0);
-			// vertex color
-			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, \
-									8 * sizeof(GLfloat), \
-									(void*)(4 * sizeof(GLfloat)));
-			glEnableVertexAttribArray(1);
+				if (!(buffer_create_ebo(env)))
+					return (error_bool("[ERROR buffer_create]\t" \
+					"Failed initializing and filling EBO buffer!\n"));
+			if (!(buffer_create_vertex_attrib(env)))
+				return (error_bool("[ERROR buffer_create]\t" \
+				"Failed copying data into VAO buffer!\n"));
 			scop_log("OpenGL buffers successfully created!\n");
 			return (true);
 		}
+		return (error_bool("[ERROR buffer_create]\t" \
+		"Mesh must have at least 3 vertices!\n"));
 	}
-	return (false);
+	return (error_bool("[ERROR buffer_create]\tNULL Scop pointer!\n"));
 }

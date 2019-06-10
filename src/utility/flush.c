@@ -6,11 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:07:49 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 11:46:36 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:24:18 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+
+
 
 void	flush(t_scop *trash)
 {
@@ -24,48 +26,40 @@ void	flush(t_scop *trash)
 		if (trash->mesh)
 			mesh_clean(trash->mesh);
 		if (trash->texture)
-			;	// call to texture clean function!
+		{
+			if (trash->texture->pixels)
+			{
+				ft_putendl("\nmemdel env->texture->pixels");
+				ft_memdel((void**)&trash->texture->pixels);
+			}
+			ft_putendl("\nmemdel env->texture");
+			ft_memdel((void**)&trash->texture);
+		}
+		if (trash->world)
+		{
+			ft_putendl("\nmemdel env->world");
+			ft_memdel((void**)&trash->world);
+		}
+		if (trash->key)
+		{
+			ft_putendl("\nmemdel env->key");
+			ft_memdel((void**)&trash->key);
+		}
+		if (trash->mouse)
+		{
+			ft_putendl("\nmemdel env->mouse");
+			ft_memdel((void**)&trash->mouse);
+		}
+		if (trash->uni)
+		{
+			ft_putendl("\nmemdel env->uni");
+			ft_memdel((void**)&trash->uni);
+
+		}
 
 
-		// {
-		// 	if (trash->mesh->vertex)
-		// 	{
-		// 		ft_putendl("memdel mesh->vertex");
-		// 		ft_memdel((void**)&trash->mesh->vertex);
-		// 	}
-		// 	if (trash->mesh->face)
-		// 	{
-		// 		ft_putendl("memdel mesh->face");
-		// 		ft_memdel((void**)&trash->mesh->face);
-		// 	}
-		// 	if (trash->mesh->face_format)
-		// 	{
-		// 		ft_putendl("memdel mesh->face_format");
-		// 		ft_memdel((void**)&trash->mesh->face_format);
-		// 	}
-		// 	if (trash->mesh->normal)
-		// 	{
-		// 		ft_putendl("memdel mesh->normal");
-		// 		ft_memdel((void**)&trash->mesh->normal);
-		// 	}
-		// 	if (trash->mesh->texture)
-		// 	{
-		// 		ft_putendl("memdel mesh->texture");
-		// 		ft_memdel((void**)&trash->mesh->texture);
-		// 	}
-		// 	if (trash->mesh->space)
-		// 	{
-		// 		ft_putendl("memdel mesh->space");
-		// 		ft_memdel((void**)&trash->mesh->space);
-		// 	}
-		// 	if (trash->mesh->line)
-		// 	{
-		// 		ft_putendl("memdel mesh->line");
-		// 		ft_memdel((void**)&trash->mesh->line);
-		// 	}
-		// 	ft_putendl("memdel mesh");
-		// 	ft_memdel((void**)&trash->mesh);
-		// }
+		ft_putendl("memdel win_title");
+		ft_memdel((void**)&trash->win_title);
 		ft_putendl("memdel trash");
 		ft_memdel((void**)&trash);
 	}

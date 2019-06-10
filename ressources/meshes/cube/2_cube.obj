@@ -1,0 +1,86 @@
+# cube.obj
+#
+
+#   Les fichiers OBJ sont au format ASCII (une version binaire existe, identifiée par l'extension MOD).
+#   Un commentaire peut être placé en faisant commencer la ligne par le caractère #.
+#
+#   Une surface polygonale est décrite par un ensemble de sommets (accompagné de coordonnées de texture et de normales en chaque sommet) et d'un ensemble de faces.
+#
+#   Un sommet est défini de la manière suivante:
+#   v 1.0 0.0 0.0
+#
+#   Une coordonnée de texture est définie de la manière suivante:
+#   vt 1.0 0.0
+#
+#   Une normale est définie de la manière suivante:
+#   vn 0.0 1.0 0.0
+#
+#   Chaque face est ensuite définie par un ensemble d'indices faisant référence aux coordonnées des points, de texture et des normales définies précédemment.
+#   Par exemple, la face suivante
+#   f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3
+#   définit un triangle constitué des sommets d'indices v1, v2 et v3 dans la liste des sommets v. Chacun de ces sommets possède une coordonnée de texture identifiée par son indice dans la liste des coordonnées de texture vt et une normale identifiée dans la liste des normales vn.
+#
+#   Lorsque plusieurs objets cohabitent dans le même fichier, la section définissant l'objet est définie par
+#   o [nom de l'objet]
+#
+#   Lorsque plusieurs groupes de faces cohabitent dans le même objet, la section définissant chaque groupe est définie par
+#   g [nom du groupe]
+#
+#   Des matériaux peuvent être référencés en important des fichiers .mtl (Material Template Library)
+#   usemtl [nom de matériau]
+
+
+o cube
+
+v  5.0 6.0 4.0 1.0   0.0  0.0  0.0
+v  6.0 6.0 4.0 1.0   0.33 0.25 0.37
+v  6.0  5.0 4.0 1.0 0.39 0.41 0.39
+v  5.0 5.0 4.0 1.0   0.84 0.45 0.33
+v  5.0 6.0 5.0 1.0   0.0  0.0  0.0
+v  6.0 6.0 5.0 1.0   0.33 0.25 0.37
+v  6.0  5.0 5.0 1.0 0.39 0.41 0.39
+v  5.0 5.0 5.0 1.0   0.84 0.45 0.33
+
+vt 0 0
+vt 0 1
+vt 1 0
+vt 1 1
+
+#front
+#f 1/3 2/4 3/2
+#f 1/3 3/2 4/1
+f 1 2 3
+f 1 3 4
+#back
+#f 5/3 6/4 7/2
+#f 5/3 7/2 8/1
+f 5 6 7
+f 5 7 8
+#left
+#f 5/3 1/4 4/2
+#f 5/3 4/2 8/1
+f 5 1 4
+f 5 4 8
+#right
+#f 2/3 6/4 7/2
+#f 2/3 7/2 3/1
+f 2 6 7
+f 2 7 3
+#top
+#f 5/3 6/4 2/2
+#f 5/3 2/2 1/1
+f 5 6 2
+f 5 2 1
+#bottom
+#f 8/3 7/4 3/2
+#f 8/3 3/2 4/1
+f 8 7 3
+f 8 3 4
+
+
+#f 1/1 2/3 3/4 4/2
+#f 5/1 1/3 4/4 8/2
+#f 2/1 6/3 7/4 3/2
+#f 5/1 6/3 7/4 8/2
+#f 5/1 6/3 2/4 1/2
+#f 8/1 7/3 3/4 4/2
