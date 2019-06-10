@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:07:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/18 15:30:34 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:34:16 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ bool			time_update(t_scop *env)
 
 	current = glfwGetTime();
 	env->time_delta = current - env->time_last;
+	
+	// auto rotate
 	// env->world->mesh_orient = quat_mul(env->world->mesh_orient, \
-	//  							quat_rot(vec3f(0.0, -1.0, 0.0), 1.0));
+	//							quat_rot(vec3f(0.0, -1.0, 0.0), 1.0));
+
 	if (env)
 	{
 		env->time_frames++;
