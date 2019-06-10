@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 11:43:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/10 17:04:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ bool		init_glfw(t_scop *env)
 		glfwSetInputMode(env->win, GLFW_STICKY_KEYS, 1);
 		// glfwSetInputMode(env->win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		glfwSetWindowSizeCallback(env->win, cb_window_size); // Set up a callback for windows events
+		// settings up callbacks
+		glfwSetWindowSizeCallback(env->win, cb_window_size);
 		glfwSetKeyCallback(env->win, cb_keyboard);
-
 		glfwSetCursorPosCallback(env->win, cb_mouse_pos);
 		glfwSetMouseButtonCallback(env->win, cb_mouse_btn);
 		glfwSetScrollCallback(env->win, cb_mouse_scroll);
