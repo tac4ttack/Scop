@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:49:59 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/18 15:31:42 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:17:47 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ bool	mesh_rotate_self(t_scop *env, int key)
 {
 	if (env)
 	{
-		if (key == GLFW_KEY_HOME)
+		if (key == GLFW_KEY_O)
 			env->world->mesh_euler[0] += 1.0;
-		else if (key == GLFW_KEY_END)
+		else if (key == GLFW_KEY_L)
 			env->world->mesh_euler[0] -= 1.0;
-		else if (key == GLFW_KEY_DELETE)
+		else if (key == GLFW_KEY_K)
 			env->world->mesh_euler[1] += 1.0;
-		else if (key == GLFW_KEY_PAGE_DOWN)
+		else if (key == GLFW_KEY_M)
 			env->world->mesh_euler[1] -= 1.0;
-		else if (key == GLFW_KEY_F13)
+		else if (key == GLFW_KEY_I)
 			env->world->mesh_euler[2] += 1.0;
-		else if (key == GLFW_KEY_F15)
+		else if (key == GLFW_KEY_P)
 			env->world->mesh_euler[2] -= 1.0;
 		return (true);
 	}

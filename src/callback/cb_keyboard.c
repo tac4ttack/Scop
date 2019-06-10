@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/15 14:42:45 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:59:05 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,24 @@ void		cb_keyboard(GLFWwindow* window, \
 		glfw_poly_mode(param[0]);
 
 	// MESH INTERACTION
-	else if (glfwGetKey(window, GLFW_KEY_KP_4) || glfwGetKey(window, GLFW_KEY_KP_5) \
-		|| glfwGetKey(window, GLFW_KEY_KP_6) || glfwGetKey(window, GLFW_KEY_KP_7) \
-		|| glfwGetKey(window, GLFW_KEY_KP_8) || glfwGetKey(window, GLFW_KEY_KP_9))
+	// else if (glfwGetKey(window, GLFW_KEY_KP_4) || glfwGetKey(window, GLFW_KEY_KP_5) \
+	// 	|| glfwGetKey(window, GLFW_KEY_KP_6) || glfwGetKey(window, GLFW_KEY_KP_7) \
+	// 	|| glfwGetKey(window, GLFW_KEY_KP_8) || glfwGetKey(window, GLFW_KEY_KP_9))
+	else if (glfwGetKey(window, GLFW_KEY_T) || glfwGetKey(window, GLFW_KEY_U) \
+		|| glfwGetKey(window, GLFW_KEY_G) || glfwGetKey(window, GLFW_KEY_Y) \
+		|| glfwGetKey(window, GLFW_KEY_J) || glfwGetKey(window, GLFW_KEY_H))
 		mesh_translate(env, param[0]);
 
-	else if (glfwGetKey(window, GLFW_KEY_F13) || glfwGetKey(window, GLFW_KEY_F15) \
-		|| glfwGetKey(window, GLFW_KEY_HOME) || glfwGetKey(window, GLFW_KEY_DELETE) \
-		|| glfwGetKey(window, GLFW_KEY_END) || glfwGetKey(window, GLFW_KEY_PAGE_DOWN))
+	// else if (glfwGetKey(window, GLFW_KEY_F13) || glfwGetKey(window, GLFW_KEY_F15) \
+	// 	|| glfwGetKey(window, GLFW_KEY_HOME) || glfwGetKey(window, GLFW_KEY_DELETE) \
+	// 	|| glfwGetKey(window, GLFW_KEY_END) || glfwGetKey(window, GLFW_KEY_PAGE_DOWN))
+	else if (glfwGetKey(window, GLFW_KEY_I) || glfwGetKey(window, GLFW_KEY_P) \
+		|| glfwGetKey(window, GLFW_KEY_O) || glfwGetKey(window, GLFW_KEY_K) \
+		|| glfwGetKey(window, GLFW_KEY_L) || glfwGetKey(window, GLFW_KEY_M))
 		mesh_rotate_self(env, param[0]);
 
+	// else if (glfwGetKey(window, GLFW_KEY_KP_ADD) \
+	// 	|| glfwGetKey(window, GLFW_KEY_KP_SUBTRACT))
 	else if (glfwGetKey(window, GLFW_KEY_KP_ADD) \
 		|| glfwGetKey(window, GLFW_KEY_KP_SUBTRACT))
 		mesh_scale(env, param[0]);
