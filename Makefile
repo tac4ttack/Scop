@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/03/18 12:15:08 by fmessina         ###   ########.fr        #
+#    Updated: 2019/06/10 14:06:05 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ OFLAGS := 				-O3
 SCOP_INCLUDE =			-I $(SCOP_INCLUDES_PATH)
 SCOP_INCLUDES_PATH =	./includes
 SCOP_INCLUDES =			$(addprefix $(SCOP_INCLUDES_PATH)/,$(SCOP_INCLUDES_FILES))
-SCOP_INCLUDES_FILES =	scop.h \
-						tga.h
+SCOP_INCLUDES_FILES =	scop.h
 
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
@@ -43,6 +42,11 @@ GLFW_BUILD_PATH := 		$(GLFW_PATH)/glfw-build
 GLFW_INCLUDE =			-I $(GLFW_PATH)/include
 GLFW_LINK =				-L $(GLFW_BUILD_PATH)/src $(GLFW_LIB_FILE)
 GLFW_LIB_FILE =			$(shell ls $(GLFW_BUILD_PATH)/src/libglfw3.a)
+
+SIMPLETGA_LINK =		$(SIMPLETGA_PATH)/simpleTGA.a
+SIMPLETGA_PATH =		./lib/simpleTGA
+SIMPLETGA_INC_PATH =	./lib/simpleTGA
+SIMPLETGA_INCLUDE =     -I $(SIMPLETGA_PATH)/
 
 FRAMEWORKS =			-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
@@ -110,11 +114,6 @@ SRC_FILES =  			buffer/buffer_create.c \
 						text/text_clean.c \
 						text/text_init.c \
 						text/text_print.c \
-						tga/tga_error.c \
-						tga/tga_load_file.c \
-						tga/tga_process_file.c \
-						tga/tga_process_pixels.c \
-						tga/tga_transform.c \
 						utility/error.c \
 						utility/exit.c \
 						utility/flush.c \
@@ -130,15 +129,15 @@ endif
 
 default: all
 
-all: libft libftmath glew glfw $(NAME)
+all: libft libftmath simpleTGA glew glfw $(NAME)
 
 $(NAME): $(SRC) $(OBJ_PATH) $(OBJ)
 	@echo $(SCOP_INCLUDES)
 	@echo "\n$(GREEN)Compiling $(NAME) for MacOSX $(OS_NAME)$(EOC)"
-	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBFTMATH_LINK) $(LIBMATH_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
+	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBFTMATH_LINK) $(LIBMATH_LINK) $(SIMPLETGA_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(SCOP_INCLUDES)
-	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(LIBFTMATH_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
+	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(LIBFTMATH_INCLUDE) $(SIMPLETGA_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
 
 $(OBJ_PATH):
 	@echo "$(GREEN)Creating ./obj path and making binaries from source files$(EOC)"
@@ -162,7 +161,6 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/mesh/process/vertex
 	@mkdir $(OBJ_PATH)/shader
 	@mkdir $(OBJ_PATH)/text
-	@mkdir $(OBJ_PATH)/tga
 	@mkdir $(OBJ_PATH)/utility
 	@mkdir $(OBJ_PATH)/world
 
@@ -176,7 +174,7 @@ fclean: clean
 	@echo "$(GREEN)Deleting $(NAME) executable$(EOC)"
 	@rm -rf $(NAME)
 
-fcleanmega: fcleanlibft fcleanlibftmath fclean glewclean glfwclean
+fcleanmega: fcleanlibft fcleanlibftmath simpleTGA_fclean fclean glewclean glfwclean
 
 libft:
 	@echo "$(GREEN)Compiling$(EOC) $(YELL)Libft$(EOC) $(GREEN)library$(EOC)"
@@ -231,6 +229,26 @@ endif
 glfwclean:
 	@echo "$(GREEN)Cleaning$(EOC) $(YELL)GLFW$(EOC) $(GREEN)library's files$(EOC)"
 	@rm -rf $(GLFW_BUILD_PATH)
+
+simpleTGA:
+	@echo "$(GREEN)Compiling simpleTGA library$(EOC)"
+	make -C $(SIMPLETGA_PATH)/ all
+
+simpleTGA_debug:
+	@echo "Compiling simpleTGA library with debug flag"
+	make -C $(SIMPLETGA_PATH)/ debug all
+
+simpleTGA_asan:
+	@echo "Compiling simpleTGA library with ASan"
+	make -C $(SIMPLETGA_PATH)/ debug debug_asan all
+
+simpleTGA_clean:
+	@echo "$(GREEN)Cleaning simpleTGA folder$(EOC)"
+	make -C $(SIMPLETGA_PATH)/ clean
+
+simpleTGA_fclean: simpleTGA_clean
+	@echo "$(GREEN)Full cleaning simpleTGA$(EOC)"
+	make -C $(SIMPLETGA_PATH)/ fclean
 
 re: fclean default
 
@@ -312,7 +330,7 @@ norme:
 ######
 ## REDO YOUR FUCKIN' PHONY!!!!!!
 ##
-.PHONY: all clean fclean re libft cleanlibft fcleanlibft debug usage norme
+.PHONY: all clean fclean re libft simpleTGA cleanlibft fcleanlibft debug usage norme
 #####
 
 ## SHELL COLOR CODES ##

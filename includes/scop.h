@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/18 15:31:58 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:29:17 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 # include "libft.h"
 # include "libftmath.h"
-# include "tga.h"
+# include "simpleTGA.h"
 
 /*
 **	OpenGL related libs
