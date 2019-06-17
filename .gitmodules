@@ -1,12 +1,3 @@
-[submodule "lib/libft"]
-	path = lib/libft
-	url = https://gitlab.com/tacattack/libft.git
-[submodule "lib/libft_m"]
-	path = lib/libft_m
-	url = https://gitlab.com/tacattack/libft_m.git
-[submodule "lib/libftmath"]
-	path = lib/libftmath
-	url = https://gitlab.com/tacattack/libftmath.git
 [submodule "lib/simpleTGA"]
 	path = lib/simpleTGA
 	url = https://github.com/tac4ttack/simpleTGA.git
