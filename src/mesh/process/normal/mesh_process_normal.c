@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 15:45:13 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:49:53 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
 	"NULL mesh pointer!\n"));
 }
 
+// est-ce toujours d'actualité avec le mesh prepack?
 // WIP si pas de normal alors la calculer?????
 bool			mesh_process_normal(t_mesh *mesh, char *str)
 {

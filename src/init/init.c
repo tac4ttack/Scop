@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/13 16:01:52 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:19:23 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_scop		*init(const char *av)
 
 	if (av)
 	{
+		srand((unsigned int)time(NULL));
 		assert(scop_log_restart());
 		scop_log("\nSCOP initializing...\n");
 		if (!(env = ft_memalloc(sizeof(t_scop))))

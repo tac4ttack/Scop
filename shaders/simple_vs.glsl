@@ -7,12 +7,15 @@ layout (location = 4) in	vec3	aSpaceParam;
 
 out							vec4	vertexColor;
 out							vec2	texCoord;
+out							vec4	vertexNormal;
 
 uniform						mat4	mvp;
 void main()
 {
 	gl_Position = mvp * aPosition;
-	gl_PointSize = gl_Position.z * 2.5;
+	// gl_PointSize = gl_Position.z * 2.5;
+	gl_PointSize = 2.5;
 	vertexColor = aHue;
+	vertexNormal = vec4(aNormal.xyz, 0);
 	texCoord = aTexCoord.xy;
 }

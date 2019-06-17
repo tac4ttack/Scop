@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/10 13:29:17 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/13 20:26:58 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,28 @@ typedef struct					s_mouse
 **	SCOP STRUCT:
 **	------------
 **	This is the core data structure of this program
+**
+**	The VAO OpenGL buffer will contain for each vertex the following data:
+**	vao[index + 0]	= vertex position X
+**	vao[index + 1]	= vertex position Y 
+**	vao[index + 2]	= vertex position Z
+**	vao[index + 3]	= vertex position W
+**	vao[index + 4]	= vertex Alpha color channel   // NEED TO CHECK THE CORRECT FORMAT USED 
+**	vao[index + 5]	= vertex Red color channel
+**	vao[index + 6]	= vertex Green color channel
+**	vao[index + 7]	= vertex Blue color channel
+**	vao[index + 8]	= vertex texture U coordinate
+**	vao[index + 9]	= vertex texture V coordinate
+**	vao[index + 10]	= vertex texture W coordinate
+**	vao[index + 11]	= vertex normal parameter I
+**	vao[index + 12]	= vertex normal parameter J
+**	vao[index + 13]	= vertex normal parameter K
+**	vao[index + 14]	= vertex parameter space U
+**	vao[index + 15]	= vertex parameter space V
+**	vao[index + 16]	= vertex parameter space W
+**
+**	The EBO OpenGL buffer will contains all vertices index needed to build faces
+**
 */
 typedef struct					s_scop
 {

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 15:58:21 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 16:59:45 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:38:25 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static bool		fill_vertex_hue(t_mesh *mesh, const int index)
 {
 	if (mesh)
 	{
-		mesh->vertex[index + 4] = 1.0f;
-		mesh->vertex[index + 5] = 1.0f;
-		mesh->vertex[index + 6] = 1.0f;
+		mesh->vertex[index + 4] = ((float)rand()/(float)(RAND_MAX)) * 1.0f;
+		mesh->vertex[index + 5] = ((float)rand()/(float)(RAND_MAX)) * 1.0f;
+		mesh->vertex[index + 6] = ((float)rand()/(float)(RAND_MAX)) * 1.0f;
 		mesh->vertex[index + 7] = 1.0f;
 		return (true);
 	}

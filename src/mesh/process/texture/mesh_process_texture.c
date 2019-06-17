@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 13:56:15 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/15 13:16:03 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:50:27 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,24 @@ static bool	mesh_process_texture_validate_data(t_mesh *mesh, int idx, int ret)
 {
 	if (mesh)
 	{
-		if (ret == 1)
-		{
-			mesh->texture[idx + 1] = 0.0;
-			mesh->texture[idx + 2] = 0.0;
-		}
-		else if (ret == 2)
-			mesh->texture[idx + 2] = 0.0;
+		((ret == 2) || (ret == 1) ? mesh->texture[idx + 2] = 0.0f : 0);
+		(ret == 1 ? mesh->texture[idx + 1] = 0.0f : 0);
+		
+		// if (ret == 1)
+		// {
+		// 	mesh->texture[idx + 1] = 0.0;
+		// 	mesh->texture[idx + 2] = 0.0;
+		// }
+		// else if (ret == 2)
+		// 	mesh->texture[idx + 2] = 0.0;
 
-		if (mesh->texture[idx] < -1.0 || mesh->texture[idx] > 1.0 \
-			|| mesh->texture[idx + 1] < -1.0 || mesh->texture[idx + 1] > 1.0 \
-			|| mesh->texture[idx + 2] < -1.0 || mesh->texture[idx + 2] > 1.0)
-			return (error_bool("[ERROR mesh_process_texture_validate_data]\t" \
-			"Incorrect value found in vertex texture coordinate!\n"));
-		else
+		// je dois reverifier quelle valeur peuvent prendre les textures
+		// if (mesh->texture[idx] < -1.0 || mesh->texture[idx] > 1.0 \
+		// 	|| mesh->texture[idx + 1] < -1.0 || mesh->texture[idx + 1] > 1.0 \
+		// 	|| mesh->texture[idx + 2] < -1.0 || mesh->texture[idx + 2] > 1.0)
+		// 	return (error_bool("[ERROR mesh_process_texture_validate_data]\t" \
+		// 	"Incorrect value found in vertex texture coordinate!\n"));
+		// else
 			return (true);
 	}
 	return (error_bool("[ERROR mesh_process_texture_validate_data]\t" \

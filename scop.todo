@@ -36,3 +36,19 @@ UI:
 
 LEAKS:
     ✔ u got one leak of always 1044480 bytes (it was the default texture!) @done (2/28/2019, 6:35:34 PM)
+
+REPRISE:
+    ☐ résoudre problème des normals!!!!!!
+    ☐ textures hs???
+    ☐ norme!!!
+    ☐ mise au propre etc
+    ☐ supprimer parsing de VP?
+    ☐ rajout dans libft ou quoi une fonction CLAMP?
+    ☐ extract simpleOBJ parser!!!!!
+    ☐ calcul axe central foiré?????
+    ☐ transition texture pas texture  
+    ☐ gestion options via uniform+bool?
+
+
+
+

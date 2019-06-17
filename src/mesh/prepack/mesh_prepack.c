@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:07:32 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/18 14:31:02 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:33:12 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ bool	mesh_prepack(t_mesh *mesh)
 				return (error_bool("[ERROR mesh_prepack]\t" \
 				"Failed to pack EBO data!\n"));
 
-		mesh_prepack_get_center_axis(mesh);
-		mesh_prepack_center_vertices(mesh);
-		// if (!(mesh_prepack_get_center_axis(mesh)) \
-		// 		|| !mesh_prepack_center_vertices(mesh))
-		// 	return (error_bool("[ERROR mesh_prepack]\t" \
-		// 	"Failed to recenter mesh and compute its main axis!\n"));
+		
+		// need to secure this?
+		// mesh_prepack_get_center_axis(mesh);
+		// mesh_prepack_center_vertices(mesh);
+		if (!(mesh_prepack_get_center_axis(mesh)) \
+				|| !mesh_prepack_center_vertices(mesh))
+			return (error_bool("[ERROR mesh_prepack]\t" \
+			"Failed to recenter mesh and compute its main axis!\n"));
 		if (!(mesh_prepack_vao_data(mesh)))
 			return (error_bool("[ERROR mesh_prepack]\t" \
 			"Failed to pack VAO data!\n"));
