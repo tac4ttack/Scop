@@ -6,26 +6,26 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/11 11:50:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:12:44 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static void	prepack_vao_data_push_pos_hue(t_mesh *mesh, size_t index)
+static void	prepack_vao_data_push_pos_hue(t_mesh *mesh, size_t i)
 {
 	if (mesh)
 	{
 		if (mesh->vertex)
 		{
-			mesh->prepack_vao[(index * 17)] = mesh->vertex[(index * 8)];
-			mesh->prepack_vao[(index * 17) + 1] = mesh->vertex[(index * 8) + 1];
-			mesh->prepack_vao[(index * 17) + 2] = mesh->vertex[(index * 8) + 2];
-			mesh->prepack_vao[(index * 17) + 3] = mesh->vertex[(index * 8) + 3];
-			mesh->prepack_vao[(index * 17) + 4] = mesh->vertex[(index * 8) + 4];
-			mesh->prepack_vao[(index * 17) + 5] = mesh->vertex[(index * 8) + 5];
-			mesh->prepack_vao[(index * 17) + 6] = mesh->vertex[(index * 8) + 6];
-			mesh->prepack_vao[(index * 17) + 7] = mesh->vertex[(index * 8) + 7];
+			mesh->prepack_vao[(i * VAOSIZE)] = mesh->vertex[(i * 8)];
+			mesh->prepack_vao[(i * VAOSIZE) + 1] = mesh->vertex[(i * 8) + 1];
+			mesh->prepack_vao[(i * VAOSIZE) + 2] = mesh->vertex[(i * 8) + 2];
+			mesh->prepack_vao[(i * VAOSIZE) + 3] = mesh->vertex[(i * 8) + 3];
+			mesh->prepack_vao[(i * VAOSIZE) + 4] = mesh->vertex[(i * 8) + 4];
+			mesh->prepack_vao[(i * VAOSIZE) + 5] = mesh->vertex[(i * 8) + 5];
+			mesh->prepack_vao[(i * VAOSIZE) + 6] = mesh->vertex[(i * 8) + 6];
+			mesh->prepack_vao[(i * VAOSIZE) + 7] = mesh->vertex[(i * 8) + 7];
 		}
 	}
 }
@@ -35,7 +35,7 @@ static bool	prepack_push_vertex_data(t_mesh *mesh, int v, int vt, int vn)
 	if (mesh)
 	{
 		// fprintf(stdout, "\ndebug push vertex\nv = %d | vt = %d | vn = %d\n", v, vt, vn);
-		v *= 17;
+		v *= 14;
 		vt *= 3;
 		vn *= 3;
 		if (mesh->texture && vt >= 0 && (size_t)vt < mesh->n_texture[0] * 3)
@@ -125,7 +125,7 @@ bool		mesh_prepack_vao_data(t_mesh *mesh)
 	{
 		scop_log("Packing data for a big VAO...\n", NULL);
 		if (!(mesh->prepack_vao = ft_memalloc(sizeof(GLfloat) \
-											* mesh->n_vertex[0] * 17)))
+											* mesh->n_vertex[0] * VAOSIZE)))
 			return (error_bool("[ERROR mesh_pack_vao_data]\t" \
 			"Could not allocate memory for the VAO data packing!\n"));
 		while (i < mesh->n_vertex[0])

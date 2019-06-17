@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/17 11:34:34 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:58:07 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 # include "libft.h"
 # include "libftmath.h"
+# include "simpleOBJ.h"
 # include "simpleTGA.h"
 
 /*
@@ -29,14 +30,8 @@
 /*
 **	Standard libs
 */
-# include <sys/stat.h>	// required for stat()
 # include <stdbool.h>	// required for bool type
-# include <time.h>		// required for time()
 # include <stdio.h>		// required for FILE printf etc
-# include <stdarg.h>	// required for va_arg
-# include <assert.h>	// required for assert()
-# include <fcntl.h>		// required for open()
-# include <unistd.h>	// required for read() and close()
 # include <string.h>	// required for strspn() used in mesh_line_process_check()
 # include <math.h>		// required for sin() etc
 
@@ -53,14 +48,10 @@
 # define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
 # define VERTEX_FRAGMENT_PATH 	"./shaders/simple_fs.glsl"
 
-# define CHARSET_V				"v \t.-0123456789"
-# define CHARSET_VT				"vt \t.-0123456789"
-# define CHARSET_VN				"vn \t.-0123456789"
-# define CHARSET_VP				"vp \t.-0123456789"
-# define CHARSET_F				 "f \t/-0123456789"
-# define CHARSET_L 				"l \t-0123456789"
 
 # define ANTIALIASING			4
+
+# define VAOSIZE				14
 
 # ifdef DEBUG
 #  define DEBUG_SCOP			1
@@ -106,7 +97,7 @@
 **					[0] is preprocessing count,
 **					[1] is for checksum and filling
 */
-typedef struct					s_mesh
+typedef struct					s_mesh  // TO REMOVe
 {
 	char						*object;
 	char						*group;
@@ -246,9 +237,6 @@ typedef struct					s_mouse
 **	vao[index + 11]	= vertex normal parameter I
 **	vao[index + 12]	= vertex normal parameter J
 **	vao[index + 13]	= vertex normal parameter K
-**	vao[index + 14]	= vertex parameter space U
-**	vao[index + 15]	= vertex parameter space V
-**	vao[index + 16]	= vertex parameter space W
 **
 **	The EBO OpenGL buffer will contains all vertices index needed to build faces
 **
@@ -266,8 +254,7 @@ typedef struct					s_scop
 	GLuint						vao;
 	GLuint						ebo;
 
-	t_mesh						*mesh;
-	char						*mesh_data;
+	t_obj						*mesh;
 
 	t_world						*world;
 
@@ -357,46 +344,13 @@ bool							glfw_poly_mode(int key);
 /*
 ** MESH Functions
 */
-void							mesh_clean(t_mesh *mesh);
-char							*mesh_file_load(t_scop *env, char *target);
-t_mesh							*mesh_file_process(t_scop *env);
-bool							mesh_get_face_type(t_mesh *mesh, char *str);
-bool							mesh_line_process(t_mesh *mesh, char **split);
-bool							mesh_line_process_check(char *str, \
-														char *charset);
-bool							mesh_line_process_f(t_mesh *mesh, char *str);
-bool							mesh_line_process_v(t_mesh *mesh, char *str);
-bool							mesh_line_process_vn(t_mesh *mesh, char *str);
-bool							mesh_line_process_vp(t_mesh *mesh, char *str);
-bool							mesh_line_process_vt(t_mesh *mesh, char *str);
 bool							mesh_prepack(t_mesh *mesh);
 bool							mesh_prepack_center_vertices(t_mesh *mesh);
 bool							mesh_prepack_ebo_data(t_mesh *mesh);
 bool							mesh_prepack_get_center_axis(t_mesh *mesh);
 bool							mesh_prepack_vao_data(t_mesh *mesh);
-bool							mesh_process_face(t_mesh *mesh, char *str);
-bool							mesh_process_face_data_dispatch(t_mesh *mesh, \
-																char *str, \
-																int mod, \
-																int index);
-bool							mesh_process_face_quad(t_mesh *mesh, \
-														char **split, \
-														int index);
-bool							mesh_process_face_triangle(t_mesh *mesh, \
-														char **split, \
-														int index);
-int								mesh_process_face_type_get(char *sample);
-bool							mesh_process_normal(t_mesh *mesh, char *str);
-bool							mesh_process_space(t_mesh *mesh, char *str);
-bool							mesh_process_texture(t_mesh *mesh, char *str);
-bool							mesh_process_vertex(t_mesh *mesh, char *str);
-void							mesh_print_data(t_mesh *mesh);
-void							mesh_print_data_face(t_mesh *mesh);
-void							mesh_print_data_normal(t_mesh *mesh);
 void							mesh_print_data_packed_ebo(t_mesh *mesh);
 void							mesh_print_data_packed_vao(t_mesh *mesh);
-void							mesh_print_data_texture(t_mesh *mesh);
-void							mesh_print_data_vertex(t_mesh *mesh);
 bool							mesh_rotate_self(t_scop *env, int key);
 bool							mesh_scale(t_scop *env, int key);
 bool							mesh_translate(t_scop *env, int key);
