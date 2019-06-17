@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/10 17:04:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:00:04 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ bool		init_glfw(t_scop *env)
 		}
 		glfwMakeContextCurrent(env->win); // Attach window and context
 		glfwSetWindowUserPointer(env->win, (void*)env); // makes our env ptr available
+		glfwGetFramebufferSize(env->win, &env->win_res[0], &env->win_res[1]);
 
 		glfwSetInputMode(env->win, GLFW_STICKY_KEYS, 1);
 		// glfwSetInputMode(env->win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		// settings up callbacks
 		glfwSetWindowSizeCallback(env->win, cb_window_size);
+		glfwSetFramebufferSizeCallback(env->win, cb_framebuffer_size);
 		glfwSetKeyCallback(env->win, cb_keyboard);
 		glfwSetCursorPosCallback(env->win, cb_mouse_pos);
 		glfwSetMouseButtonCallback(env->win, cb_mouse_btn);

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/13 20:26:58 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/17 11:34:34 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,9 @@ void							cb_keyboard(GLFWwindow* window, \
 											int scancode, \
 											int action, \
 											int mods);
+void							cb_framebuffer_size(GLFWwindow* window, \
+													int width, \
+													int height);
 void							cb_mouse_btn(GLFWwindow *window, \
 											int button, \
 											int action, \
