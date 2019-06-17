@@ -7,3 +7,6 @@
 [submodule "lib/libft"]
 	path = lib/libft
 	url = https://github.com/tac4ttack/libft.git
+[submodule "lib/simpleOBJ"]
+	path = lib/simpleOBJ
+	url = https://github.com/tac4ttack/simpleOBJ.git
