@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/07 12:13:51 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:15:07 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static bool	buffer_create_texture(t_scop *env)
 		i = 0;
 		while (i < env->n_texture)
 		{
-			glGenTextures(1, &env->texture[i].id);
-			glBindTexture(GL_TEXTURE_2D, env->texture[i].id);
+			glGenTextures(1, &env->texture->id);
+			glBindTexture(GL_TEXTURE_2D, env->texture->id);
 			// TEXTURES PART
 			// specify the texture wrapping
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -35,9 +35,9 @@ static bool	buffer_create_texture(t_scop *env)
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// nearest when unzoom
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	// linear when zoom
 			// tester avec GL_RGBA?
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, env->texture[i].size[0], \
-						env->texture[i].size[1], 0, GL_BGRA, GL_UNSIGNED_BYTE, \
-						env->texture[i].pixels);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, env->texture->size[0], \
+						env->texture->size[1], 0, GL_BGRA, GL_UNSIGNED_BYTE, \
+						env->texture->pixels);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			i++;
 		}
@@ -116,7 +116,7 @@ bool		buffer_create(t_scop *env)
 				" buffers for textures!\n"));
 			if (!(buffer_create_vao_vbo(env)))
 				return (error_bool("[ERROR buffer_create]\t" \
-				"Failed initializing VOA and VBO buffers!\n"));
+				"Failed initializing VAO and VBO buffers!\n"));
 			if (env->mesh->face && env->mesh->n_face[1] >= 1)
 				if (!(buffer_create_ebo(env)))
 					return (error_bool("[ERROR buffer_create]\t" \

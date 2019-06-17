@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 15:41:04 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:50:05 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,43 @@ static bool	prepack_push_vertex_data(t_mesh *mesh, int v, int vt, int vn)
 		}
 		if (mesh->normal && vn >= 0 && (size_t)vn < mesh->n_normal[0] * 3)
 		{
+			// ft_putendl("using obj file vertex normal data");
+			
+			
 			mesh->prepack_vao[v + 11] = mesh->normal[vn];
 			mesh->prepack_vao[v + 12] = mesh->normal[vn + 1];
 			mesh->prepack_vao[v + 13] = mesh->normal[vn + 2];
+		}
+		else
+		{
+			/*	ok gros kiproko ici, je pensais que j'allais devoir calculer une
+				normal pour chaque vertex alors qu'en fait c'est pour chaque
+				triangle.
+				Donc va falloir changer la taille du VBO de 17 à 14?
+				Et aussi trouver où stocker les normales pour chaque face?
+		
+				new edit: en fait j'y étais presque. on va devoir duppliquer
+				les vertices (faces * 3) pour qu'ils aient chacun leur normal
+				qu'elle soit dans le fichier ou à calculer par moi meme
+			*/
+					
+			/*
+			Begin Function CalculateSurfaceNormal (Input Triangle) Returns Vector
+
+			Set Vector U to (Triangle.p2 minus Triangle.p1)
+			Set Vector V to (Triangle.p3 minus Triangle.p1)
+
+			Set Normal.x to (multiply U.y by V.z) minus (multiply U.z by V.y)
+			Set Normal.y to (multiply U.z by V.x) minus (multiply U.x by V.z)
+			Set Normal.z to (multiply U.x by V.y) minus (multiply U.y by V.x)
+
+			Returning Normal
+
+			End Function
+			 */
+
+			
+			// ft_putendl("should be computing triangle normal manually");
 		}
 		return (true);
 	}
