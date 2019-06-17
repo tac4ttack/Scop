@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/11 12:19:23 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/17 22:06:27 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_scop		*init(const char *av)
 			free(env);
 			return (error("[ERROR init]\tCould initialize Scop!\n"));
 		}
-		scop_log("\nSCOP initialization done!\n");
+		scop_log("\nSCOP initialization done!\n\n");
 		return (env);
 	}
 	return (NULL);
