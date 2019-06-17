@@ -4,3 +4,6 @@
 [submodule "lib/libftmath"]
 	path = lib/libftmath
 	url = https://github.com/tac4ttack/libftmath.git
+[submodule "lib/libft"]
+	path = lib/libft
+	url = https://github.com/tac4ttack/libft.git
