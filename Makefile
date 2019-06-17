@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/06/17 18:55:14 by fmessina         ###   ########.fr        #
+#    Updated: 2019/06/17 19:38:46 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -256,7 +256,9 @@ simpleTGA_fclean: simpleTGA_clean
 
 re: fclean default
 
-debug: clean cleanlibft debuglibft debug_flag all
+debug_all: libft libftmath simpleOBJ_debug simpleTGA_debug glew glfw $(NAME)
+
+debug: clean cleanlibft debuglibft debug_flag debug_all
 debug_asan: clean cleanlibft debug_asan_flag debug
 debug_flag:
 	$(eval DEBUG_MACRO = -DDEBUG -g)
