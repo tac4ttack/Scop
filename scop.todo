@@ -39,15 +39,19 @@ LEAKS:
 
 REPRISE:
     ☐ résoudre problème des normals!!!!!!
-    ☐ textures hs???
+    ☐ textures hs??? -> du à la construction du VAO qui est naze?
     ☐ norme!!!
     ☐ mise au propre etc
     ☐ supprimer parsing de VP?
     ☐ rajout dans libft ou quoi une fonction CLAMP?
-    ☐ extract simpleOBJ parser!!!!!
+    ✔ extract simpleOBJ parser!!!!! @done (6/24/2019, 11:04:36 AM)
     ☐ calcul axe central foiré?????
     ☐ transition texture pas texture  
-    ☐ gestion options via uniform+bool?
+	☐ gestion options via uniform+bool?
+	☐ SEGFAULT si fichier mesh vide!!!!!!
+	☐ remove VAO and EBO prepack from simpleOBJ
+	☐ you have some leaks!!!!!!
+    ✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
 
 
 
