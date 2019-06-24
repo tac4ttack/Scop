@@ -42,6 +42,7 @@ REPRISE:
 	☐ textures hs???
 		-> du à la construction du VAO qui est naze?
 		-> algo actuel working as designed, mais peut-être j'ai rien pité au concept de vao etc...
+		-> ok il semblerait qu'il faille que je refasse un vrai VBOindexer pour checker les sommets identiques et les foutres dans le VAO
     ☐ norme!!!
     ☐ mise au propre etc
 	☐ supprimer parsing de VP?
