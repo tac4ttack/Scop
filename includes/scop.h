@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 11:10:39 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:50:28 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # include <string.h>	// required for strspn() used in mesh_line_process_check()
 # include <math.h>		// required for sin() etc
 
-# define LOG_FILENAME			"scop.log"
+# define SCOP_LOG_FILENAME		"scop.log"
 
 # define DEFAULT_TEXTURE		"./ressources/textures/default.tga"
 
@@ -51,7 +51,7 @@
 
 # define ANTIALIASING			4
 
-# define VAOSIZE				14
+# define VAOLEN				14
 
 # ifdef DEBUG
 #  define DEBUG_SCOP			1
@@ -193,8 +193,8 @@ typedef struct					s_scop
 	GLuint						vao;
 	GLuint						ebo;
 
-	float						*prepack_vao;
-	unsigned int				*prepack_ebo;
+	GLfloat						*prepack_vao;
+	GLint						*prepack_ebo;
 
 	t_obj						*mesh;
 
@@ -286,11 +286,11 @@ bool							glfw_poly_mode(int key);
 /*
 ** MESH Functions
 */
-bool							mesh_prepack(t_obj *mesh);
+bool							mesh_prepack(t_scop *env);
 bool							mesh_prepack_center_vertices(t_obj *mesh);
-bool							mesh_prepack_ebo_data(t_obj *mesh);
+bool							mesh_prepack_ebo_data(t_scop *env);
 bool							mesh_prepack_get_center_axis(t_obj *mesh);
-bool							mesh_prepack_vao_data(t_obj *mesh);
+bool							mesh_prepack_vao_data(t_scop *env);
 void							mesh_print_data_packed_ebo(t_obj *mesh);
 void							mesh_print_data_packed_vao(t_obj *mesh);
 bool							mesh_rotate_self(t_scop *env, int key);

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 11:46:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/26 15:40:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:34:28 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ bool		scop_log(const char *message, ...)
 	FILE	*file;
 	va_list	argptr;
 
-	file = fopen(LOG_FILENAME, "a");
+	file = fopen(SCOP_LOG_FILENAME, "a");
 	if (!file)
 	{
 		fprintf(
 			stderr,
-			"ERROR: could not open LOG_FILENAME %s file for appending\n",
-			LOG_FILENAME);
+			"ERROR: could not open Scop %s log file for appending\n",
+			SCOP_LOG_FILENAME);
 		return (false);
 	}
 	va_start(argptr, message);
@@ -41,12 +41,12 @@ bool		scop_log_err(const char *message, ...)
 	FILE	*file;
 	va_list	argptr;
 
-	file = fopen(LOG_FILENAME, "a");
+	file = fopen(SCOP_LOG_FILENAME, "a");
 	if (!file)
 	{
 		fprintf(stderr,
-				"ERROR: could not open LOG_FILENAME %s file for appending\n",
-				LOG_FILENAME);
+				"ERROR: could not open %s log file for appending\n",
+				SCOP_LOG_FILENAME);
 		return (false);
 	}
 	va_start(argptr, message);
