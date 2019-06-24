@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 13:50:41 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:28:21 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,11 +192,11 @@ typedef struct					s_scop
 	GLuint						vbo;
 	
 	GLuint						vao;
+	size_t						vao_len;
 	GLfloat						*prepack_vao;
 	
 	GLuint						ebo;
 	GLint						*prepack_ebo;
-
 
 	t_obj						*mesh;
 

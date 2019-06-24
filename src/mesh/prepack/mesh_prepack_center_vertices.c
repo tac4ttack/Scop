@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 12:14:25 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 11:16:24 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:20:25 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ bool		mesh_prepack_center_vertices(t_obj *mesh)
 			i += 8;
 		}
 		mesh->axis[1] = vec3f(0.0f, 0.0f, 0.0f);
-		// mesh->axis[1].x = 0.0f;
-		// mesh->axis[1].y = 0.0f;
-		// mesh->axis[1].z = 0.0f;
 		return (true);
 	}
 	return (error_bool("[ERROR mesh_prepack_center_vertices]\t" \
