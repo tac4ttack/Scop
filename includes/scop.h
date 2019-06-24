@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 11:50:28 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 12:00:03 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,8 +291,8 @@ bool							mesh_prepack_center_vertices(t_obj *mesh);
 bool							mesh_prepack_ebo_data(t_scop *env);
 bool							mesh_prepack_get_center_axis(t_obj *mesh);
 bool							mesh_prepack_vao_data(t_scop *env);
-void							mesh_print_data_packed_ebo(t_obj *mesh);
-void							mesh_print_data_packed_vao(t_obj *mesh);
+void							mesh_print_data_packed_ebo(t_scop* env);
+void							mesh_print_data_packed_vao(t_scop* env);
 bool							mesh_rotate_self(t_scop *env, int key);
 bool							mesh_scale(t_scop *env, int key);
 bool							mesh_translate(t_scop *env, int key);
