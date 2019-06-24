@@ -61,3 +61,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 simpleOBJ.log
+lib/glew-2.1.0/glew.pc
