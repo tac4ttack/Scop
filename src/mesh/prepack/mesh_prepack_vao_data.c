@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 11:50:30 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:42:57 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static bool	prepack_push_vertex_data(t_scop *env, int v, int vt, int vn)
 {
 	if (env && env->mesh)
 	{
-		// fprintf(stdout, "\ndebug push vertex\nv = %d | vt = %d | vn = %d\n", v, vt, vn);
-		v *= 14;
+		v *= VAOLEN;
 		vt *= 3;
 		vn *= 3;
 		if (env->mesh->texture && vt >= 0 && (size_t)vt < env->mesh->n_texture[0] * 3)
@@ -46,15 +45,12 @@ static bool	prepack_push_vertex_data(t_scop *env, int v, int vt, int vn)
 		}
 		if (env->mesh->normal && vn >= 0 && (size_t)vn < env->mesh->n_normal[0] * 3)
 		{
-			// ft_putendl("using obj file vertex normal data");
-			
-			
 			env->prepack_vao[v + 11] = env->mesh->normal[vn];
 			env->prepack_vao[v + 12] = env->mesh->normal[vn + 1];
 			env->prepack_vao[v + 13] = env->mesh->normal[vn + 2];
 		}
-		else
-		{
+		// else
+		// {
 			/*	ok gros kiproko ici, je pensais que j'allais devoir calculer une
 				normal pour chaque vertex alors qu'en fait c'est pour chaque
 				triangle.
@@ -83,7 +79,7 @@ static bool	prepack_push_vertex_data(t_scop *env, int v, int vt, int vn)
 
 			
 			// ft_putendl("should be computing triangle normal manually");
-		}
+		// }
 		return (true);
 	}
 	return (error_bool("[ERROR prepack_push_vertex_data]\t" \
@@ -104,13 +100,13 @@ static bool	mesh_preprack_push_face_data(t_scop *env, size_t pos)
 		}
 		if (!(prepack_push_vertex_data(env, i[1], i[2], i[3])))
 			return (error_bool("[ERROR mesh_prepack_push_face_data]\t" \
-			"First face\'s vertex data push failed!\n"));
+			"Face\'s first vertex data push failed!\n"));
 		if (!(prepack_push_vertex_data(env, i[4], i[5], i[6])))
 			return (error_bool("[ERROR mesh_prepack_push_face_data]\t" \
-			"Second face\'s vertex data push failed!\n"));
+			"Face\'s second vertex data push failed!\n"));
 		if (!(prepack_push_vertex_data(env, i[7], i[8], i[9])))
 			return (error_bool("[ERROR mesh_prepack_push_face_data]\t" \
-			"Third face\'s vertex data push failed!\n"));
+			"Face\'s third vertex data push failed!\n"));
 		return (true);
 	}
 	return (error_bool("[ERROR mesh_prepack_push_face_data]\t" \

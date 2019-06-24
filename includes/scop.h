@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 12:00:03 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:50:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,11 +190,13 @@ typedef struct					s_scop
 	t_uni						*uni;
 
 	GLuint						vbo;
+	
 	GLuint						vao;
-	GLuint						ebo;
-
 	GLfloat						*prepack_vao;
+	
+	GLuint						ebo;
 	GLint						*prepack_ebo;
+
 
 	t_obj						*mesh;
 

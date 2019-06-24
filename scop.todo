@@ -39,10 +39,13 @@ LEAKS:
 
 REPRISE:
     ☐ résoudre problème des normals!!!!!!
-    ☐ textures hs??? -> du à la construction du VAO qui est naze?
+	☐ textures hs???
+		-> du à la construction du VAO qui est naze?
+		-> algo actuel working as designed, mais peut-être j'ai rien pité au concept de vao etc...
     ☐ norme!!!
     ☐ mise au propre etc
-    ☐ supprimer parsing de VP?
+	☐ supprimer parsing de VP?
+	☐ revoir parsing vertex (pos + couleur, caffouillage si pas de W etc)
     ☐ rajout dans libft ou quoi une fonction CLAMP?
     ✔ extract simpleOBJ parser!!!!! @done (6/24/2019, 11:04:36 AM)
     ☐ calcul axe central foiré?????
@@ -52,7 +55,4 @@ REPRISE:
 	☐ remove VAO and EBO prepack from simpleOBJ
 	☐ you have some leaks!!!!!!
     ✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
-
-
-
 
