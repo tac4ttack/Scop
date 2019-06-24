@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:53:11 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/27 18:12:21 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-bool	mesh_line_process_vn(t_mesh *mesh, char *str)
+bool	mesh_line_process_vn(t_obj *mesh, char *str)
 {
 	if (mesh && str)
 	{

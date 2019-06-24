@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 15:58:21 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/12 19:38:25 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool		create_v_array(t_mesh *mesh)
+static bool		create_v_array(t_obj *mesh)
 {
 	if (mesh)
 	{
@@ -26,7 +26,7 @@ static bool		create_v_array(t_mesh *mesh)
 	"NULL mesh pointer!\n"));
 }
 
-static bool		fill_vertex_hue(t_mesh *mesh, const int index)
+static bool		fill_vertex_hue(t_obj *mesh, const int index)
 {
 	if (mesh)
 	{
@@ -39,7 +39,7 @@ static bool		fill_vertex_hue(t_mesh *mesh, const int index)
 	return (error_bool("[ERROR fill_vertex_hue]\tNULL mesh pointer!\n"));
 }
 
-static bool		check_vertex_data(t_mesh *mesh, const int index, const int ret)
+static bool		check_vertex_data(t_obj *mesh, const int index, const int ret)
 {
 	bool		res;
 
@@ -64,7 +64,7 @@ static bool		check_vertex_data(t_mesh *mesh, const int index, const int ret)
 	"NULL mesh pointer!\n"));
 }
 
-bool	mesh_process_vertex(t_mesh *mesh, char *str)
+bool	mesh_process_vertex(t_obj *mesh, char *str)
 {
 	int			i[2];
 

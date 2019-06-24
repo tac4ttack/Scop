@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 13:56:15 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/12 19:50:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool	create_vt_array(t_mesh *mesh)
+static bool	create_vt_array(t_obj *mesh)
 {
 	if (mesh)
 	{
@@ -26,7 +26,7 @@ static bool	create_vt_array(t_mesh *mesh)
 	"NULL mesh pointer!\n"));
 }
 
-static bool	mesh_process_texture_validate_data(t_mesh *mesh, int idx, int ret)
+static bool	mesh_process_texture_validate_data(t_obj *mesh, int idx, int ret)
 {
 	if (mesh)
 	{
@@ -54,7 +54,7 @@ static bool	mesh_process_texture_validate_data(t_mesh *mesh, int idx, int ret)
 	"NULL mesh pointer!\n"));
 }
 
-bool		mesh_process_texture(t_mesh *mesh, char *str)
+bool		mesh_process_texture(t_obj *mesh, char *str)
 {
 	int		i[2];
 

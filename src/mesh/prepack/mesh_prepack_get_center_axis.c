@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 12:14:25 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/18 15:15:34 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-bool		mesh_prepack_get_center_axis(t_mesh *mesh)
+bool		mesh_prepack_get_center_axis(t_obj *mesh)
 {
 	size_t	i;
 
@@ -40,8 +40,10 @@ bool		mesh_prepack_get_center_axis(t_mesh *mesh)
 		mesh->axis[1] = vec3f_mul_scalar( \
 						vec3f_add(mesh->axis[1], mesh->axis[0]), \
 						0.5f);
+		
 		// DEBUG!
 		vec3f_print(mesh->axis[1]);
+		
 		return (true);
 	}
 	return (error_bool("[ERROR mesh_prepack_get_center_axis]\t" \

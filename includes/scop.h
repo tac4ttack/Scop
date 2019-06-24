@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/17 18:58:07 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:10:39 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,67 +64,6 @@
 # else
 #  define MAC					0
 # endif
-
-/*
-**	MESH DATA STRUCT:
-**	-----------------
-**	object		->	object name
-**	group		->	object's group name
-**	mtllib		->	mtllib specified file
-**	usemtl		->	material file specified
-**	shading		->	s line boolean
-**	vertex		->	vertices array, defined with 4 components
-**	n_vertex	->	number of vertices, [0] is preprocessing count,
-**					[1] is for checksum and filling
-**	face		->	face elements array
-**	n_face		->	face elements settings:
-**					[0] preprocessing count,
-**					[1] checksum control,
-**	normal		->	vertices normal array
-**	n_normal	->	number of vertices normals:
-**					[0] is preprocessing count,
-**					[1] is for checksum and filling
-**	texture		->	vertices texture coord array
-**	n_texture	->	number of vertices texture coord:
-**					[0] is preprocessing count,
-**					[1] is for checksum and filling
-**	space		->	space vertices array
-**	n_space		->	number of space vertices:
-**					[0] is preprocessing count,
-**					[1] is for checksum and filling
-**	linel		->	polyline definition array
-**	n_line		->	number of polylines:
-**					[0] is preprocessing count,
-**					[1] is for checksum and filling
-*/
-typedef struct					s_mesh  // TO REMOVe
-{
-	char						*object;
-	char						*group;
-	char						*mtllib;
-	char						*usemtl;
-	bool						shading;
-
-	GLfloat						*prepack_vao;
-	GLint						*prepack_ebo;
-
-	GLfloat						*vertex;
-	size_t						n_vertex[2];
-
-	GLint						*face;
-	size_t						n_face[2];
-
-	GLfloat						*normal;
-	size_t						n_normal[2];
-
-	GLfloat						*texture;
-	size_t						n_texture[2];
-
-	GLfloat						*space;
-	size_t						n_space[2];
-
-	t_vec3f						axis[3];	//DO THE AXIS CENTERING
-}								t_mesh;
 
 /*
 **	TEXTURES DATA STRUCT:
@@ -254,6 +193,9 @@ typedef struct					s_scop
 	GLuint						vao;
 	GLuint						ebo;
 
+	float						*prepack_vao;
+	unsigned int				*prepack_ebo;
+
 	t_obj						*mesh;
 
 	t_world						*world;
@@ -344,13 +286,13 @@ bool							glfw_poly_mode(int key);
 /*
 ** MESH Functions
 */
-bool							mesh_prepack(t_mesh *mesh);
-bool							mesh_prepack_center_vertices(t_mesh *mesh);
-bool							mesh_prepack_ebo_data(t_mesh *mesh);
-bool							mesh_prepack_get_center_axis(t_mesh *mesh);
-bool							mesh_prepack_vao_data(t_mesh *mesh);
-void							mesh_print_data_packed_ebo(t_mesh *mesh);
-void							mesh_print_data_packed_vao(t_mesh *mesh);
+bool							mesh_prepack(t_obj *mesh);
+bool							mesh_prepack_center_vertices(t_obj *mesh);
+bool							mesh_prepack_ebo_data(t_obj *mesh);
+bool							mesh_prepack_get_center_axis(t_obj *mesh);
+bool							mesh_prepack_vao_data(t_obj *mesh);
+void							mesh_print_data_packed_ebo(t_obj *mesh);
+void							mesh_print_data_packed_vao(t_obj *mesh);
 bool							mesh_rotate_self(t_scop *env, int key);
 bool							mesh_scale(t_scop *env, int key);
 bool							mesh_translate(t_scop *env, int key);

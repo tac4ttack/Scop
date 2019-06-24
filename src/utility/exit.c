@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:07:38 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/17 19:51:39 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 10:53:11 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	exit_ok(void *trash)
 	if (trash)
 		flush((t_scop*)trash);
 	glfwTerminate();
-	while (1)
-		;
+	// while (1)
+		// ;
 	exit(EXIT_SUCCESS);
 }
 
@@ -29,7 +29,7 @@ void	exit_fail(const char *msg, void *trash)
 	if (trash)
 		flush((t_scop*)trash);
 	glfwTerminate();
-	while (1)
-		;
+	// while (1)
+		// ;
 	exit(EXIT_FAILURE);
 }

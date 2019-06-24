@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:02:16 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 17:58:13 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool		create_vp_array(t_mesh *mesh)
+static bool		create_vp_array(t_obj *mesh)
 {
 	if (mesh)
 	{
@@ -26,7 +26,7 @@ static bool		create_vp_array(t_mesh *mesh)
 	"NULL mesh pointer!\n"));
 }
 
-bool			mesh_process_space(t_mesh *mesh, char *str)
+bool			mesh_process_space(t_obj *mesh, char *str)
 {
 	size_t		i[2];
 

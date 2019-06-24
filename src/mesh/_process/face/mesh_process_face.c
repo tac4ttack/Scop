@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 12:59:37 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 11:04:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool	create_face_array(t_mesh *mesh)
+static bool	create_face_array(t_obj *mesh)
 {
 	if (mesh)
 	{
@@ -24,7 +24,7 @@ static bool	create_face_array(t_mesh *mesh)
 	return (false);
 }
 
-bool		mesh_process_face(t_mesh *mesh, char *str)
+bool		mesh_process_face(t_obj *mesh, char *str)
 {
 	int		i[2];
 	char	**split;

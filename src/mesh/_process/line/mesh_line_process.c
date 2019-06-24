@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 11:37:40 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/17 12:06:57 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool	mesh_line_process_validate_face(t_mesh *mesh, char *str)
+static bool	mesh_line_process_validate_face(t_obj *mesh, char *str)
 {
 	size_t	len;
 	char	**face_split;
@@ -37,7 +37,7 @@ static bool	mesh_line_process_validate_face(t_mesh *mesh, char *str)
 	"NULL mesh or string pointer!\n"));
 }
 
-static bool	mesh_line_preprocess(t_mesh *mesh, char **split)
+static bool	mesh_line_preprocess(t_obj *mesh, char **split)
 {
 	if (mesh && split)
 	{
@@ -71,7 +71,7 @@ static bool	mesh_line_preprocess(t_mesh *mesh, char **split)
 	"NULL mesh or split pointer!\n"));
 }
 
-static bool	mesh_line_process_checksum(t_mesh *mesh)
+static bool	mesh_line_process_checksum(t_obj *mesh)
 {
 	if (mesh)
 	{
@@ -99,7 +99,7 @@ static bool	mesh_line_process_checksum(t_mesh *mesh)
 	"NULL mesh pointer!\n"));
 }
 
-static bool	mesh_line_process_dispatch(t_mesh *mesh, char *str)
+static bool	mesh_line_process_dispatch(t_obj *mesh, char *str)
 {
 	bool	failure;
 
@@ -123,7 +123,7 @@ static bool	mesh_line_process_dispatch(t_mesh *mesh, char *str)
 	"NULL mesh or string pointer!\n")));
 }
 
-bool		mesh_line_process(t_mesh *mesh, char **split)
+bool		mesh_line_process(t_obj *mesh, char **split)
 {
 	bool	failure;
 

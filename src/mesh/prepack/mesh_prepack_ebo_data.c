@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 15:51:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool	mesh_prepack_ebo_check_indexes_vertex(t_mesh *mesh, int i)
+static bool	mesh_prepack_ebo_check_indexes_vertex(t_obj *mesh, int i)
 {
 	if (mesh)
 	{
@@ -25,7 +25,7 @@ static bool	mesh_prepack_ebo_check_indexes_vertex(t_mesh *mesh, int i)
 	"NULL mesh pointer!\n"));
 }
 
-static bool	mesh_prepack_ebo_check_indexes_texture(t_mesh *mesh, int i)
+static bool	mesh_prepack_ebo_check_indexes_texture(t_obj *mesh, int i)
 {
 	if (mesh)
 	{
@@ -38,7 +38,7 @@ static bool	mesh_prepack_ebo_check_indexes_texture(t_mesh *mesh, int i)
 	"NULL mesh pointer!\n"));
 }
 
-static bool	mesh_prepack_ebo_check_indexes_normal(t_mesh *mesh, int i)
+static bool	mesh_prepack_ebo_check_indexes_normal(t_obj *mesh, int i)
 {
 	if (mesh)
 	{
@@ -51,7 +51,7 @@ static bool	mesh_prepack_ebo_check_indexes_normal(t_mesh *mesh, int i)
 	"NULL mesh pointer!\n"));
 }
 
-static bool	mesh_prepack_ebo_check_indexes(t_mesh *mesh)
+static bool	mesh_prepack_ebo_check_indexes(t_obj *mesh)
 {
 	size_t	i;
 
@@ -76,7 +76,7 @@ static bool	mesh_prepack_ebo_check_indexes(t_mesh *mesh)
 	"NULL mesh pointer!\n"));
 }
 
-bool		mesh_prepack_ebo_data(t_mesh *mesh)
+bool		mesh_prepack_ebo_data(t_obj *mesh)
 {
 	size_t	i;
 

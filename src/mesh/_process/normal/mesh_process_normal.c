@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/10 18:49:53 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static bool		create_vn_array(t_mesh *mesh)
+static bool		create_vn_array(t_obj *mesh)
 {
 	if (mesh)
 	{
@@ -26,7 +26,7 @@ static bool		create_vn_array(t_mesh *mesh)
 	"NULL mesh pointer!\n"));
 }
 
-static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
+static bool		normalize_vertex_normal(t_obj *mesh, const size_t index)
 {
 	float	vec[4];
 
@@ -49,7 +49,7 @@ static bool		normalize_vertex_normal(t_mesh *mesh, const size_t index)
 
 // est-ce toujours d'actualité avec le mesh prepack?
 // WIP si pas de normal alors la calculer?????
-bool			mesh_process_normal(t_mesh *mesh, char *str)
+bool			mesh_process_normal(t_obj *mesh, char *str)
 {
 	size_t		i[2];
 

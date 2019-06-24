@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:17:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 15:50:04 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void		mesh_print_data_packed_ebo(t_mesh *mesh)
+void		mesh_print_data_packed_ebo(t_obj *mesh)
 {
 	size_t	i;
 

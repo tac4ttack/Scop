@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/17 12:12:44 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static void	prepack_vao_data_push_pos_hue(t_mesh *mesh, size_t i)
+static void	prepack_vao_data_push_pos_hue(t_obj *mesh, size_t i)
 {
 	if (mesh)
 	{
@@ -30,7 +30,7 @@ static void	prepack_vao_data_push_pos_hue(t_mesh *mesh, size_t i)
 	}
 }
 
-static bool	prepack_push_vertex_data(t_mesh *mesh, int v, int vt, int vn)
+static bool	prepack_push_vertex_data(t_obj *mesh, int v, int vt, int vn)
 {
 	if (mesh)
 	{
@@ -90,7 +90,7 @@ static bool	prepack_push_vertex_data(t_mesh *mesh, int v, int vt, int vn)
 	"NULL mesh pointer!\n"));
 }
 
-static bool	mesh_preprack_push_face_data(t_mesh *mesh, size_t pos)
+static bool	mesh_preprack_push_face_data(t_obj *mesh, size_t pos)
 {
 	int i[10];
 
@@ -117,7 +117,7 @@ static bool	mesh_preprack_push_face_data(t_mesh *mesh, size_t pos)
 	"NULL mesh pointer!\n"));
 }
 
-bool		mesh_prepack_vao_data(t_mesh *mesh)
+bool		mesh_prepack_vao_data(t_obj *mesh)
 {
 	size_t	i;
 

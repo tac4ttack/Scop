@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:07:38 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/06 14:45:20 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void		mesh_print_data_vertex(t_mesh *mesh)
+void		mesh_print_data_vertex(t_obj *mesh)
 {
 	size_t	i;
 

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mesh_file_process.c                                :+:      :+:    :+:   */
+/*   _mesh_file_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:15:07 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 09:39:34 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:23:00 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
- static t_mesh	*create_mesh(t_mesh *target)
+ static t_obj	*create_mesh(t_obj *target)
 {
-	if (!(target = ft_memalloc(sizeof(t_mesh))))
+	if (!(target = ft_memalloc(sizeof(t_obj))))
 		return (error("[ERROR create_mesh]\t" \
 		"Mesh memory allocation failed!\n"));
 	target->vertex = NULL;
@@ -22,7 +22,7 @@
 	return (target);
 }
 
-static void 	*mesh_file_processing_error(t_mesh *mesh, char **split, char *msg)
+static void 	*mesh_file_processing_error(t_obj *mesh, char **split, char *msg)
 {
 	if (mesh)
 		mesh_clean(mesh);
@@ -31,9 +31,9 @@ static void 	*mesh_file_processing_error(t_mesh *mesh, char **split, char *msg)
 	return (error(msg));
 }
 
-t_mesh			*mesh_file_process(t_scop *env)
+t_obj			*mesh_file_process(t_scop *env)
 {
-	t_mesh		*mesh;
+	t_obj		*mesh;
 	char		**split;
 
 	mesh = NULL;

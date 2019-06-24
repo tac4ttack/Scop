@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/17 12:10:58 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:10:08 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ static bool	buffer_create_vao_vbo(t_scop *env)
 		glBindVertexArray(env->vao);
 		glGenBuffers(1, &env->vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, env->vbo);
+		// glBufferData(GL_ARRAY_BUFFER, env->mesh->n_vertex[0] * VAOSIZE
+			// * sizeof(float), env->mesh->prepack_vao, GL_STATIC_DRAW);
 		glBufferData(GL_ARRAY_BUFFER, env->mesh->n_vertex[0] * VAOSIZE
-			* sizeof(float), env->mesh->prepack_vao, GL_STATIC_DRAW);
+			* sizeof(float), env->prepack_vao, GL_STATIC_DRAW);
 		return (true);
 	}
 	return (error_bool("[ERROR buffer_create_vao_vbo]\t" \
@@ -70,9 +72,12 @@ static bool	buffer_create_ebo(t_scop *env)
 		scop_log("Copying faces data into EBO\n");
 		glGenBuffers(1, &env->ebo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->ebo);
+		// glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
+		// 			sizeof(GLuint) * env->mesh->n_face[0] * 3, \
+		// 			env->mesh->prepack_ebo, GL_STATIC_DRAW);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
 					sizeof(GLuint) * env->mesh->n_face[0] * 3, \
-					env->mesh->prepack_ebo, GL_STATIC_DRAW);
+					env->prepack_ebo, GL_STATIC_DRAW);
 		return (true);
 	}
 	return (error_bool("[ERROR buffer_create_ebo]\t" \
