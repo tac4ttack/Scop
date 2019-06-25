@@ -9,14 +9,22 @@ in vec2	texCoordDefault;
 in vec3 vertexNormal;
 in vec4	vertexNormalDefault;
 
-
 uniform		sampler2D	defaultTexture;
+
+vec4 convert_to_grayscale(vec4 source)
+{
+	float average = (source.x + source.y + source.z) / 3;
+	return (vec4(average, average, average, source.w));
+}
+
 void main()
 {
 	FragColor = texture(defaultTexture, texCoord);
 	// FragColor = texture(defaultTexture, texCoordDefault);
 	// FragColor = vertexColorFlat;
 	// FragColor = vertexColor;
+	FragColor = convert_to_grayscale(vertexColorFlat);
+
 	
 	// FragColor = texture(defaultTexture, texCoord) * vertexColorSmooth;
 	// FragColor = texture(defaultTexture, texCoord) * vertexColorFlat;
