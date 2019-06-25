@@ -57,5 +57,44 @@ REPRISE:
 	☐ replace all obj_berror and obj_error by obj_log_error in simpleOBJ?
 	☐ remove VAO and EBO prepack from simpleOBJ
 	☐ you have some leaks!!!!!!
-    ✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
+	✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
+	
+
+
+	
+MANDATORY:
+	☐ Mesh rotation sur axe central tout seul
+	☐ Faces avec couleurs ou grayscale
+	☐ Basic texturing
+	☐ translation objet
+	☐ rotation objet
+	☐ norme
+	☐ leaks
+	☐ no crash
+
+BONUS:
+	☐ Ajout controle pour gérer les options
+	☐ Big parser TGA
+	☐ SEGFAULT
+
+EVALUTATION:
+	✔ fenetre s'ouvre avec objet 3d affiché, face cachées bien gérées @done (6/25/2019, 5:09:21 PM)
+	✔ perspective ok? (derriere petit etcetc) @done (6/25/2019, 5:09:23 PM)
+	✔ couleurs par facette (ok car triangulé) @done (6/25/2019, 5:09:23 PM)
+	✔ rotation centrale @done (6/25/2019, 5:09:25 PM)
+	✔ translation mesh @done (6/25/2019, 5:09:25 PM)
+	✔ application basique de texture @done (6/25/2019, 5:09:29 PM)
+	✔ logo 42 ok @done (6/25/2019, 5:09:29 PM)
+	✔ teapot2.obj et d'autres modèles @done (6/25/2019, 5:09:30 PM)
+
+EVALUATION BONUS:
+	OBJ:
+		☐ non coplanaire?
+		☐ face concaves?
+		✔ triangularisation @done (6/25/2019, 5:09:33 PM)
+		✔ teapot1.obj? @done (6/25/2019, 5:09:32 PM)
+	TEXTURE++:
+		☐ texture non déformée sur aucune des faces
+	AUTRE:
+		☐ slider sur 5....
 
