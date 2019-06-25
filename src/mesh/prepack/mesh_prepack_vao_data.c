@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 18:33:55 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 16:42:57 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/25 09:57:49 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ static bool	prepack_push_vertex_data(t_scop *env, int v, int vt, int vn)
 			env->prepack_vao[v + 12] = env->mesh->normal[vn + 1];
 			env->prepack_vao[v + 13] = env->mesh->normal[vn + 2];
 		}
+
+
+		// LAST EDIT:
+		// Je vais rajouter un process après le prepack, il va parcourir chaque
+		// face et calculer une normal qu'il foutra dans un buffer qu'on enverra
+		// au GPU
+
+		
 		// else
 		// {
 			/*	ok gros kiproko ici, je pensais que j'allais devoir calculer une

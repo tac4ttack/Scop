@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:07:32 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 17:30:07 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:32:27 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,15 @@ static bool	mesh_prepack_ebo_check_indexes(t_obj *mesh)
 
 bool	mesh_prepack(t_scop *env)
 {
-	if (env)
+	size_t i;
+
+	if (env && !(i = 0))
 	{
-		// the centering should be ok and should be keepable
 		if (!(mesh_prepack_get_center_axis(env->mesh)) \
 			|| !mesh_prepack_center_vertices(env->mesh))
 			return (error_bool("[ERROR mesh_prepack]\t" \
 			"Failed to recenter mesh and compute its main axis!\n"));
 
-
-
-		// EBO PROCESSING
-		size_t i;
 		if (env && env->mesh && !(i = 0))
 		{
 			scop_log("Packing data for a EBO...\n", NULL);
@@ -97,31 +94,55 @@ bool	mesh_prepack(t_scop *env)
 			// memalloc for the EBO
 			if (!(env->prepack_ebo = ft_memalloc(sizeof(GLint) \
 												* env->mesh->n_face[0] * 3)))
-			return (error_bool("[ERROR mesh_prepack_ebo_data]\t" \
-					"Could not allocate memory for the EBO data packing!\n"));
+			return (error_bool("[ERROR mesh_prepack]\t" \
+				"Could not allocate memory for the EBO data buffer!\n"));
+			
+			// memalloc for the VAO
+			if (!(env->prepack_vao = ft_memalloc(sizeof(GLfloat) \
+										* env->mesh->n_face[0] * 3 * VAOLEN)))
+			return (error_bool("[ERROR mesh_prepack]\t" \
+				"Could not allocate memory for the VAO data buffer!\n"));
+			
 			// checking faces definition indexes
 			if (!(mesh_prepack_ebo_check_indexes(env->mesh)))
-				return (error_bool("[ERROR mesh_prepack_ebo_data]\t" \
+				return (error_bool("[ERROR mesh_prepack]\t" \
 					"Failed reverting negative indexes in face elements!\n"));
 
+			int face[3];
+			i = 0;
+			while (i < env->mesh->n_face[0] * 3)
+			{
+				face[0] = env->mesh->face[(i * 3)];
+				face[1] = env->mesh->face[(i * 3) + 1];
+				face[2] = env->mesh->face[(i * 3) + 2];
+				
+				env->prepack_ebo[i] = i;
+				env->prepack_vao[(i * VAOLEN) + 0] = env->mesh->vertex[(face[0] * 8) + 0];
+				env->prepack_vao[(i * VAOLEN) + 1] = env->mesh->vertex[(face[0] * 8) + 1];
+				env->prepack_vao[(i * VAOLEN) + 2] = env->mesh->vertex[(face[0] * 8) + 2];
+				env->prepack_vao[(i * VAOLEN) + 3] = env->mesh->vertex[(face[0] * 8) + 3];
 
-			// OK DONC LA TU CHECK TON CARNET TU DOIS FAIRE UN VRAI INDEXEUR ET BUILDER DE VBO
-			// TU DOIS CHECK LES SOMMETS DEFINIS PAR LES FACES, VOIR S'IL EXISTE OU PAS, AGIR EN CONSEQUENCE
-			// ET REMPLIR LE EBO COMME IL FAUT
-			// CREER FUNCTION DE RECHERCE DE VERTEX IDENTIQUE DANS LE VAO?
-		}
-
-		
-		// old shit
-		// if (env->mesh->n_face[0] > 1)
-		// 	if (!(mesh_prepack_ebo_data(env)))
-		// 		return (error_bool("[ERROR mesh_prepack]\t" \
-		// 		"Failed to pack EBO data!\n"));
-		// if (!(mesh_prepack_vao_data(env)))
-		// 	return (error_bool("[ERROR mesh_prepack]\t" \
-		// 	"Failed to pack VAO data!\n"));
-		
-		return (true);
+				env->prepack_vao[(i * VAOLEN) + 4] = env->mesh->vertex[(face[0] * 8) + 4];
+				env->prepack_vao[(i * VAOLEN) + 5] = env->mesh->vertex[(face[0] * 8) + 5];
+				env->prepack_vao[(i * VAOLEN) + 6] = env->mesh->vertex[(face[0] * 8) + 6];
+				env->prepack_vao[(i * VAOLEN) + 7] = env->mesh->vertex[(face[0] * 8) + 7];
+				
+				if (env->mesh->texture)
+				{
+					env->prepack_vao[(i * VAOLEN) + 8] = env->mesh->texture[(face[1] * 3) + 0];
+					env->prepack_vao[(i * VAOLEN) + 9] = env->mesh->texture[(face[1] * 3) + 1];
+					env->prepack_vao[(i * VAOLEN) + 10] = env->mesh->texture[(face[1] * 3) + 2];
+				}
+				
+				if (env->mesh->normal)
+				{
+					env->prepack_vao[(i * VAOLEN) + 11] = env->mesh->normal[(face[2] * 3) + 0];
+					env->prepack_vao[(i * VAOLEN) + 12] = env->mesh->normal[(face[2] * 3) + 1];
+					env->prepack_vao[(i * VAOLEN) + 13] = env->mesh->normal[(face[2] * 3) + 2];
+				}
+				i++;
+			}
+			return (true);
 	}
 	return (error_bool("[ERROR mesh_prepack]\tNULL env pointer!\n"));
 }
