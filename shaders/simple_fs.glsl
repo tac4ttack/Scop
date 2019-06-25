@@ -21,9 +21,9 @@ void main()
 {
 	FragColor = texture(defaultTexture, texCoord);
 	// FragColor = texture(defaultTexture, texCoordDefault);
-	// FragColor = vertexColorFlat;
+	FragColor = vertexColorFlat;
+	// FragColor = convert_to_grayscale(vertexColorFlat);
 	// FragColor = vertexColor;
-	FragColor = convert_to_grayscale(vertexColorFlat);
 
 	
 	// FragColor = texture(defaultTexture, texCoord) * vertexColorSmooth;

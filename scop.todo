@@ -39,29 +39,41 @@ LEAKS:
 
 REPRISE:
     ☐ résoudre problème des normals!!!!!!
+	
 	☐ textures hs???
 		-> du à la construction du VAO qui est naze?
 		-> algo actuel working as designed, mais peut-être j'ai rien pité au concept de vao etc...
 		-> ok il semblerait qu'il faille que je refasse un vrai VBOindexer pour checker les sommets identiques et les foutres dans le VAO
-    ☐ norme!!!
-    ☐ mise au propre etc
+	
 	☐ supprimer parsing de VP?
+
 	☐ revoir parsing vertex (pos + couleur, caffouillage si pas de W etc)
-    ☐ rajout dans libft ou quoi une fonction CLAMP?
-    ✔ extract simpleOBJ parser!!!!! @done (6/24/2019, 11:04:36 AM)
-    ☐ calcul axe central foiré?????
-	☐ transition texture pas texture  
+	
+	☐ rajout dans libft ou quoi une fonction CLAMP?
+	✔ extract simpleOBJ parser!!!!! @done (6/24/2019, 11:04:36 AM)
+	
+	☐ calcul axe central foiré?????
+	
 	☐ recompile pas les sous modules si modifiés?
+	
+	☐ transition texture pas texture  
 	☐ gestion options via uniform+bool?
-	☐ SEGFAULT si fichier mesh vide!!!!!!
+	
+	✘ generation aleatoire de couleur pour vertex borken??? (mais ca colore les facette en entier par carre)
+
 	☐ replace all obj_berror and obj_error by obj_log_error in simpleOBJ?
+	
 	☐ remove VAO and EBO prepack from simpleOBJ
+		
+	☐ norme!!!
+	☐ mise au propre etc
+	☐ SEGFAULT si fichier mesh vide ou invalide?  !!!!!!
 	☐ you have some leaks!!!!!!
 	✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
 	
 
 
-	
+
 MANDATORY:
 	☐ Mesh rotation sur axe central tout seul
 	☐ Faces avec couleurs ou grayscale
@@ -75,7 +87,6 @@ MANDATORY:
 BONUS:
 	☐ Ajout controle pour gérer les options
 	☐ Big parser TGA
-	☐ SEGFAULT
 
 EVALUTATION:
 	✔ fenetre s'ouvre avec objet 3d affiché, face cachées bien gérées @done (6/25/2019, 5:09:21 PM)
@@ -89,12 +100,15 @@ EVALUTATION:
 
 EVALUATION BONUS:
 	OBJ:
-		☐ non coplanaire?
-		☐ face concaves?
+		☐ non coplanaire? (OK non? car triangularisation?)
+		☐ face concaves? (OK non? car triangularisation?)
 		✔ triangularisation @done (6/25/2019, 5:09:33 PM)
 		✔ teapot1.obj? @done (6/25/2019, 5:09:32 PM)
 	TEXTURE++:
 		☐ texture non déformée sur aucune des faces
 	AUTRE:
 		☐ slider sur 5....
+			-> big parserTGA
+			-> options au clavier
+			-> interface?
 
