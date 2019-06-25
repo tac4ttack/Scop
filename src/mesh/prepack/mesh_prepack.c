@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:07:32 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/25 16:32:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:49:09 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ bool	mesh_prepack(t_scop *env)
 				i++;
 			}
 			return (true);
+		}
 	}
 	return (error_bool("[ERROR mesh_prepack]\tNULL env pointer!\n"));
 }

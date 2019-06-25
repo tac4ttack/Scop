@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/06/24 12:01:08 by fmessina         ###   ########.fr        #
+#    Updated: 2019/06/25 16:48:25 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,11 +81,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
-						mesh/prepack/mesh_prepack_center_vertices.c \
 						mesh/prepack/mesh_prepack.c \
-						mesh/prepack/mesh_prepack_ebo_data.c \
-						mesh/prepack/mesh_prepack_get_center_axis.c \
-						mesh/prepack/mesh_prepack_vao_data.c \
 						mesh/prepack/mesh_print_data_prepack_ebo.c \
 						mesh/prepack/mesh_print_data_prepack_vao.c \
 						mesh/mesh_rotate.c \
