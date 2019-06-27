@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:49:59 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 13:19:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:54:00 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool		mesh_translate(t_scop *env)
 {
 	if (env)
-	{	
+	{
 		if (env->key->key_w)
 			env->world->mesh_position = vec3f_add(env->world->mesh_position, \
 												vec3f(0.0, 0.1, 0.0));

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 16:08:16 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:17:40 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define K_ROT_NX	75
 # define K_ROT_PY	76
 # define K_ROT_NY	74
-# define K_ROT_PZ	79 
+# define K_ROT_PZ	79
 # define K_ROT_NZ	85
 
 # define K_AUTO_ROT	48
@@ -108,18 +108,18 @@ typedef struct					s_texture
 */
 typedef struct					s_text2d
 {
-	GLuint						Text2DVertexBufferID;
-	GLuint						Text2DUVBufferID;
-	GLuint						Text2DTextureID;
+	GLuint						text2d_vertex_buffer_id;
+	GLuint						text2d_buffer_id;
+	GLuint						text2d_texture_id;
 	GLuint						text_shader_program;
-	GLuint						Text2DUniformID;
+	GLuint						text2d_uniform_id;
 }								t_text2d;
 
 /*
 **	OPENGL UNIFORMS STRUCT:
 **	-----------------------
 */
-typedef struct 					s_uni
+typedef struct					s_uni
 {
 	GLint						mvp_id;
 	GLint						shading_mode_id;
@@ -138,7 +138,7 @@ typedef struct 					s_uni
 **	cam_mod[1] = NEAR
 **	cam_mod[2] = FAR
 */
-typedef struct 					s_world
+typedef struct					s_world
 {
 	double						cam_euler[3];
 	GLfloat						cam_mod[3];
@@ -166,7 +166,6 @@ typedef struct 					s_world
 	t_vec3f						world_up;
 }								t_world;
 
-
 /*
 **	KEYBOARD INPUTS STRUCT:
 **	-----------------------
@@ -184,26 +183,26 @@ typedef struct					s_keyboard
 	bool						key_shading;
 	bool						key_desaturate;
 
-	bool						key_texture_default;			// activate default texture
-	bool						key_texture_mesh;			// activate mesh texture (bonus)
-	bool						key_uv_mode;			// switch between meshUV / defaultUV
-	bool						key_colorize;			// add color to texture
+	bool						key_texture_default;
+	bool						key_texture_mesh;
+	bool						key_uv_mode;
+	bool						key_colorize;
 
-	bool						key_w;			// mesh translation
+	bool						key_w;
 	bool						key_a;
 	bool						key_s;
 	bool						key_d;
 	bool						key_q;
 	bool						key_e;
 
-	bool						key_i;			// mesh rotation
+	bool						key_i;
 	bool						key_j;
 	bool						key_k;
 	bool						key_l;
 	bool						key_u;
 	bool						key_o;
 
-	bool						key_lbra;		// mesh scale
+	bool						key_lbra;
 	bool						key_rbra;
 }								t_keyboard;
 
@@ -219,28 +218,25 @@ typedef struct					s_mouse
 }								t_mouse;
 
 /*
-**	SCOP STRUCT:
-**	------------
+**	MOUSE INPUT STRUCT:
+**	-------------------
 **	This is the core data structure of this program
-**
 **	The VAO OpenGL buffer will contain for each vertex the following data:
 **	vao[index + 0]	= vertex position X
-**	vao[index + 1]	= vertex position Y 
+**	vao[index + 1]	= vertex position Y
 **	vao[index + 2]	= vertex position Z
 **	vao[index + 3]	= vertex position W
-**	vao[index + 4]	= vertex Alpha color channel   // NEED TO CHECK THE CORRECT FORMAT USED 
-**	vao[index + 5]	= vertex Red color channel
-**	vao[index + 6]	= vertex Green color channel
-**	vao[index + 7]	= vertex Blue color channel
+**	vao[index + 4]	= vertex Red color channel
+**	vao[index + 5]	= vertex Green color channel
+**	vao[index + 6]	= vertex Blue color channel
+**	vao[index + 7]	= vertex Alpha color channel
 **	vao[index + 8]	= vertex texture U coordinate
 **	vao[index + 9]	= vertex texture V coordinate
 **	vao[index + 10]	= vertex texture W coordinate
 **	vao[index + 11]	= vertex normal parameter I
 **	vao[index + 12]	= vertex normal parameter J
 **	vao[index + 13]	= vertex normal parameter K
-**
 **	The EBO OpenGL buffer will contains all vertices index needed to build faces
-**
 */
 typedef struct					s_scop
 {
@@ -252,11 +248,11 @@ typedef struct					s_scop
 	t_uni						*uni;
 
 	GLuint						vbo;
-	
+
 	GLuint						vao;
 	size_t						vao_len;
 	GLfloat						*prepack_vao;
-	
+
 	GLuint						ebo;
 	GLint						*prepack_ebo;
 
@@ -293,11 +289,11 @@ bool							buffer_create(t_scop *env);
 */
 void							cb_error(const int error, \
 										const char *description);
-void							cb_keyboard(GLFWwindow* window, \
+void							cb_keyboard(GLFWwindow *window, \
 											int key, \
 											int scancode, \
 											int action);
-void							cb_framebuffer_size(GLFWwindow* window, \
+void							cb_framebuffer_size(GLFWwindow *window, \
 													int width, \
 													int height);
 void							cb_mouse_btn(GLFWwindow *window, \
@@ -352,7 +348,6 @@ bool							scop_log_err(const char *message, ...);
 void							scop_log_gl_params(void);
 bool							scop_log_restart(void);
 
-
 /*
 ** GLFW Functions
 */
@@ -365,11 +360,12 @@ bool							glfw_poly_mode(int key);
 */
 bool							mesh_prepack(t_scop *env);
 bool							mesh_prepack_center_vertices(t_obj *mesh);
+bool							mesh_prepack_ebo_check_indexes(t_obj *mesh);
 bool							mesh_prepack_ebo_data(t_scop *env);
 bool							mesh_prepack_get_center_axis(t_obj *mesh);
 bool							mesh_prepack_vao_data(t_scop *env);
-void							mesh_print_data_packed_ebo(t_scop* env);
-void							mesh_print_data_packed_vao(t_scop* env);
+void							mesh_print_data_packed_ebo(t_scop *env);
+void							mesh_print_data_packed_vao(t_scop *env);
 void							mesh_reset(t_scop *env);
 bool							mesh_rotate_self(t_scop *env);
 bool							mesh_scale(t_scop *env);

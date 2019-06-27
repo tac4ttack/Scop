@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/06/27 16:10:18 by fmessina         ###   ########.fr        #
+#    Updated: 2019/06/27 18:18:42 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,8 +84,9 @@ SRC_FILES =  			buffer/buffer_create.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
 						mesh/prepack/mesh_prepack_center_vertices.c \
-						mesh/prepack/mesh_prepack.c \
+						mesh/prepack/mesh_prepack_ebo_check_indices.c \
 						mesh/prepack/mesh_prepack_get_center_axis.c \
+						mesh/prepack/mesh_prepack.c \
 						mesh/prepack/mesh_print_data_prepack_ebo.c \
 						mesh/prepack/mesh_print_data_prepack_vao.c \
 						mesh/mesh_reset.c \
@@ -315,26 +316,12 @@ debuglibft:
 # 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)readline$(EOC) $(GREEN)package$(EOC)"
 # 	@brew uninstall -f readline
 
-norme:
+norminette:
 	norminette $(SRC_PATH)
 	norminette $(SCOP_INCLUDES_PATH)
 	norminette $(LIBFT_PATH)
-
-# usage:
-# 	@echo "\n$(B_RED)Please use one of the following commands:$(EOC)\n"
-# 	@echo "\tCompile and compute with one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make cpu$(EOC)\n"
-# 	@echo "\tCompile the $(GREEN)LIBFT$(EOC) -> $(B_YELL)make libft$(EOC)\n"
-# 	@echo "\tCompile the $(GREEN)MLX$(EOC) (according to your OS) -> $(B_YELL)make mlx$(EOC)\n"
-# 	@echo "\tCheck the $(GREEN)42 C STANDARD$(EOC) in sources and includes directories -> $(B_YELL)make norme$(EOC)\n"
-# 	@echo "\tClean the $(GREEN)$(NAME)$(EOC) directory from object files -> $(B_YELL)make clean$(EOC)\n"
-# 	@echo "\tClean the $(GREEN)LIBFT$(EOC) directory from object files -> $(B_YELL)make cleanlibft$(EOC)\n"
-# 	@echo "\tClean the $(GREEN)MLX$(EOC) directory from object files -> $(B_YELL)make cleanmlx$(EOC)\n"
-# 	@echo "\tRemove object files and binaries from $(GREEN)$(NAME) LIBFT and MLX$(EOC) directories -> $(B_YELL)make fclean$(EOC)\n"
-# 	@echo "\tRemove object files and binaries from $(GREEN)LIBFT$(EOC) directory -> $(B_YELL)make fcleanlibft$(EOC)\n"
-# 	@echo "\tRemove object files and binaries from $(GREEN)$(NAME)$(EOC) directory then compile it again using one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make re$(EOC)\n"
-# 	@echo "\t$(B_RED)NOT IMPLEMENTED YET!$(EOC) Compile and compute with $(GREEN)OpenCL$(EOC) using multiple threads -> $(B_YELL)make gpu$(EOC)\n"
-# 	@echo "\tIf you want to activate the debugging output add \
-# 	$(GREEN)debug$(EOC) before -> $(B_YELL)make debug cpu$(EOC)\n"
+	norminette $(SIMPLETGA_PATH)
+	norminette $(SIMPLEOBJ_PATH)
 
 
 ######

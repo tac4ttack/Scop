@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 12:14:25 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 17:20:25 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:55:01 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 bool		mesh_prepack_center_vertices(t_obj *mesh)
 {
 	size_t	i;
-	float angle = 90.0f * (M_PI / 180);
+	float	angle;
 	float	trans;
 
 	i = 0;
+	angle = 90.0f * (M_PI / 180);
 	if (mesh)
 	{
 		while (i < mesh->n_vertex[0] * 8)

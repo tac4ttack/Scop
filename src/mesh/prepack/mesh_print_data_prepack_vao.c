@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:17:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/25 12:41:38 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:10:10 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void		mesh_print_data_packed_vao(t_scop *env)
 	if (env && env->mesh && env->prepack_vao && !(i = 0))
 	{
 		scop_log("\nVertex VAO data =\n-----------------\n", NULL);
-		// while (i < env->mesh->n_vertex[0])
 		while (i < env->mesh->n_face[0] * 3)
 		{
 			scop_log("vao[%d]\t=\t%f %f %f %f | %f %f %f %f | %f %f %f | "\

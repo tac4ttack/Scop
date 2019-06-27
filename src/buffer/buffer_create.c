@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 15:00:38 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:32:48 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,10 @@ static bool	buffer_create_texture(t_scop *env)
 		{
 			glGenTextures(1, &env->texture->id);
 			glBindTexture(GL_TEXTURE_2D, env->texture->id);
-			// TEXTURES PART
-			// specify the texture wrapping
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			// if we use GL_CLAMP_TO_BORDER
-			float clamped_border_color[] = {1.0f, 1.0f, 0.0f, 1.0f };
-			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, clamped_border_color);
-			// specify the filtering method
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// nearest when unzoom
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	// linear when zoom
-			// tester avec GL_RGBA?
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, env->texture->size[0], \
 						env->texture->size[1], 0, GL_BGRA, GL_UNSIGNED_BYTE, \
 						env->texture->pixels);
@@ -55,9 +48,6 @@ static bool	buffer_create_vao_vbo(t_scop *env)
 		glBindVertexArray(env->vao);
 		glGenBuffers(1, &env->vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, env->vbo);
-
-		// glBufferData(GL_ARRAY_BUFFER, env->mesh->n_vertex[0] * VAOLEN
-			// * sizeof(float), env->mesh->prepack_vao, GL_STATIC_DRAW);
 		glBufferData(GL_ARRAY_BUFFER, \
 					sizeof(GLfloat) * env->mesh->n_face[0] * 3 * VAOLEN, \
 					env->prepack_vao, GL_STATIC_DRAW);
@@ -74,9 +64,6 @@ static bool	buffer_create_ebo(t_scop *env)
 		scop_log("Copying faces data into EBO\n");
 		glGenBuffers(1, &env->ebo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->ebo);
-		// glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
-		// 			sizeof(GLuint) * env->mesh->n_face[0] * 3, \
-		// 			env->mesh->prepack_ebo, GL_STATIC_DRAW);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
 					sizeof(GLuint) * env->mesh->n_face[0] * 3, \
 					env->prepack_ebo, GL_STATIC_DRAW);
@@ -102,11 +89,6 @@ static bool	buffer_create_vertex_attrib(t_scop *env)
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, VAOLEN \
 							* sizeof(GLfloat), (void*)(11 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(3);
-
-		// no more used as we dont use space para?
-		// glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, VAOLEN \
-		// 					* sizeof(GLfloat), (void*)(14 * sizeof(GLfloat)));
-		// glEnableVertexAttribArray(4);
 		return (true);
 	}
 	return (error_bool("[ERROR buffer_create_vertex_attrib]\t" \

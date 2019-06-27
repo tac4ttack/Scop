@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:27:45 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/09 17:28:45 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:43:31 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-bool text_init(const char *path)
+bool	text_init(const char *path)
 {
 	if (path)
 		return (true);
