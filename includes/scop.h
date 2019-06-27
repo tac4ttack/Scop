@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 17:28:21 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:08:16 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,6 @@
 # include "GL/glew.h"
 # include "GLFW/glfw3.h"
 
-/*
-**	Standard libs
-*/
-# include <stdbool.h>	// required for bool type
-# include <stdio.h>		// required for FILE printf etc
-# include <string.h>	// required for strspn() used in mesh_line_process_check()
-# include <math.h>		// required for sin() etc
-
 # define SCOP_LOG_FILENAME		"scop.log"
 
 # define DEFAULT_TEXTURE		"./ressources/textures/default.tga"
@@ -48,10 +40,44 @@
 # define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
 # define VERTEX_FRAGMENT_PATH 	"./shaders/simple_fs.glsl"
 
-
 # define ANTIALIASING			4
 
 # define VAOLEN				14
+
+/*
+**	Input keys mapping
+*/
+# define K_TRA_UP	87
+# define K_TRA_DN	83
+# define K_TRA_LT	65
+# define K_TRA_RT	68
+# define K_TRA_FR	69
+# define K_TRA_BC	81
+
+# define K_SCA_UP	93
+# define K_SCA_DN	91
+
+# define K_ROT_PX	73
+# define K_ROT_NX	75
+# define K_ROT_PY	76
+# define K_ROT_NY	74
+# define K_ROT_PZ	79 
+# define K_ROT_NZ	85
+
+# define K_AUTO_ROT	48
+# define K_AUTO_ROT_UP	61
+# define K_AUTO_ROT_DN	45
+
+# define K_POLY	49
+# define K_WIRE	50
+# define K_POINTS	51
+# define K_SHADING	52
+# define K_DESATURATE	53
+# define K_TEXTU_DEF 54
+# define K_TEXTU_MESH 55
+# define K_UV_MODE 56
+# define K_COLORIZE 57
+# define K_RESET 259
 
 # ifdef DEBUG
 #  define DEBUG_SCOP			1
@@ -96,6 +122,12 @@ typedef struct					s_text2d
 typedef struct 					s_uni
 {
 	GLint						mvp_id;
+	GLint						shading_mode_id;
+	GLint						desaturate_id;
+	GLint						colorize_id;
+	GLint						texture_doge_id;
+	GLint						texture_mesh_id;
+	GLint						uv_mode_id;
 }								t_uni;
 
 /*
@@ -126,7 +158,6 @@ typedef struct 					s_world
 	t_vec3f						mesh_scaler;
 	t_mat4						mesh_scale;
 
-
 	t_mat4						model;
 	t_mat4						view;
 	t_mat4						projection;
@@ -142,7 +173,38 @@ typedef struct 					s_world
 */
 typedef struct					s_keyboard
 {
-	GLfloat						dummy;
+	bool						key_autorot;
+	bool						key_autorot_minus;
+	bool						key_autorot_plus;
+
+	bool						key_poly;
+	bool						key_wire;
+	bool						key_points;
+
+	bool						key_shading;
+	bool						key_desaturate;
+
+	bool						key_texture_default;			// activate default texture
+	bool						key_texture_mesh;			// activate mesh texture (bonus)
+	bool						key_uv_mode;			// switch between meshUV / defaultUV
+	bool						key_colorize;			// add color to texture
+
+	bool						key_w;			// mesh translation
+	bool						key_a;
+	bool						key_s;
+	bool						key_d;
+	bool						key_q;
+	bool						key_e;
+
+	bool						key_i;			// mesh rotation
+	bool						key_j;
+	bool						key_k;
+	bool						key_l;
+	bool						key_u;
+	bool						key_o;
+
+	bool						key_lbra;		// mesh scale
+	bool						key_rbra;
 }								t_keyboard;
 
 /*
@@ -214,6 +276,14 @@ typedef struct					s_scop
 	GLfloat						time_delta;
 	GLint						time_frames;
 
+	bool						auto_rot;
+	float						auto_rot_speed;
+	bool						smooth_shading;
+	int							desaturate;
+	bool						colorize;
+	bool						texture_default;
+	bool						texture_mesh;
+	bool						mesh_uv;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);
@@ -226,8 +296,7 @@ void							cb_error(const int error, \
 void							cb_keyboard(GLFWwindow* window, \
 											int key, \
 											int scancode, \
-											int action, \
-											int mods);
+											int action);
 void							cb_framebuffer_size(GLFWwindow* window, \
 													int width, \
 													int height);
@@ -256,6 +325,12 @@ bool							init_mouse(t_scop *env);
 bool							init_textures(t_scop *env);
 bool							init_uniforms(t_scop *env);
 bool							init_world(t_scop *env);
+
+/*
+**	INPUT PROCESSING Functions
+*/
+bool							input_process(t_scop *env);
+void							input_cycle_desaturate(t_scop *env);
 
 /*
 **	UTILITY Functions
@@ -295,9 +370,10 @@ bool							mesh_prepack_get_center_axis(t_obj *mesh);
 bool							mesh_prepack_vao_data(t_scop *env);
 void							mesh_print_data_packed_ebo(t_scop* env);
 void							mesh_print_data_packed_vao(t_scop* env);
-bool							mesh_rotate_self(t_scop *env, int key);
-bool							mesh_scale(t_scop *env, int key);
-bool							mesh_translate(t_scop *env, int key);
+void							mesh_reset(t_scop *env);
+bool							mesh_rotate_self(t_scop *env);
+bool							mesh_scale(t_scop *env);
+bool							mesh_translate(t_scop *env);
 
 /*
 ** SHADER Functions

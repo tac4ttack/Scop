@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/06/25 16:52:42 by fmessina         ###   ########.fr        #
+#    Updated: 2019/06/27 16:10:18 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,8 @@ SRC_FILES =  			buffer/buffer_create.c \
 						init/init_textures.c \
 						init/init_uniforms.c \
 						init/init_world.c \
+						input/input_cycle_desaturate.c \
+						input/input_process.c \
 						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
@@ -86,6 +88,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/prepack/mesh_prepack_get_center_axis.c \
 						mesh/prepack/mesh_print_data_prepack_ebo.c \
 						mesh/prepack/mesh_print_data_prepack_vao.c \
+						mesh/mesh_reset.c \
 						mesh/mesh_rotate.c \
 						mesh/mesh_scale.c \
 						mesh/mesh_translate.c \
@@ -128,6 +131,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/log
 	@mkdir $(OBJ_PATH)/glfw
 	@mkdir $(OBJ_PATH)/init
+	@mkdir $(OBJ_PATH)/input
 	@mkdir $(OBJ_PATH)/mesh
 	@mkdir $(OBJ_PATH)/mesh/line
 	@mkdir $(OBJ_PATH)/mesh/print

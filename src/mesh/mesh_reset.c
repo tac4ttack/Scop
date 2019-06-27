@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   glfw_poly_mode.c                                   :+:      :+:    :+:   */
+/*   mesh_reset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 10:53:25 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 15:21:26 by fmessina         ###   ########.fr       */
+/*   Created: 2019/06/27 13:27:54 by fmessina          #+#    #+#             */
+/*   Updated: 2019/06/27 13:28:37 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-bool		glfw_poly_mode(int key)
+void	mesh_reset(t_scop *env)
 {
-	if (key == K_POINTS)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-	else if (key == K_WIRE)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	else if (key == K_POLY)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	else
-		return (false);
-	return (true);
+	if (env)
+	{
+		env->world->mesh_orient = quat_set_identity();
+		env->world->mesh_position = vec3f(0, 0, 0);
+		env->world->mesh_scaler = vec3f(1, 1, 1);
+	}
 }

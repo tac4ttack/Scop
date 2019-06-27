@@ -22,11 +22,10 @@ bool	glfw_main_loop(t_scop *env)
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// wipe the drawing surface clear
 
-			// SECURE THIS
-			time_update(env);
-			// SECURE THIS
-			world_update(env);
-
+			if (!(input_process(env)) || !(time_update(env)) || !(world_update(env)))
+				return (error_bool("[ERROR glfw_main_loop]\t" \
+				"Failed processing inputs and updating data!\n"));
+			
 			glUseProgram(env->shader_program); // specify wich shader to use
 			shader_uniform_update(env);	// update our uniforms
 

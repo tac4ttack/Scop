@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/25 16:38:21 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:00:38 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static bool	buffer_create_texture(t_scop *env)
 			glBindTexture(GL_TEXTURE_2D, env->texture->id);
 			// TEXTURES PART
 			// specify the texture wrapping
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			// if we use GL_CLAMP_TO_BORDER
 			float clamped_border_color[] = {1.0f, 1.0f, 0.0f, 1.0f };
 			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, clamped_border_color);
@@ -102,9 +102,11 @@ static bool	buffer_create_vertex_attrib(t_scop *env)
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, VAOLEN \
 							* sizeof(GLfloat), (void*)(11 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, VAOLEN \
-							* sizeof(GLfloat), (void*)(14 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(4);
+
+		// no more used as we dont use space para?
+		// glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, VAOLEN \
+		// 					* sizeof(GLfloat), (void*)(14 * sizeof(GLfloat)));
+		// glEnableVertexAttribArray(4);
 		return (true);
 	}
 	return (error_bool("[ERROR buffer_create_vertex_attrib]\t" \
