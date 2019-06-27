@@ -29,7 +29,7 @@ MATRIX:
     ✔ prototype a transform matrix @done (3/8/2019, 4:38:58 PM)
 
 KEYBOARD INPUT:
-    ☐ support multi input!
+    ✔ support multi input! @done (6/27/2019, 2:23:58 PM)
 
 UI:
     ☐ Add a 2d text writer!
@@ -47,17 +47,19 @@ REPRISE:
 	
 	☐ supprimer parsing de VP?
 
+	☐ tester fichiers sans faces!!!!!!!!!!!!!!!!
+
 	☐ revoir parsing vertex (pos + couleur, caffouillage si pas de W etc)
 	
 	☐ rajout dans libft ou quoi une fonction CLAMP?
 	✔ extract simpleOBJ parser!!!!! @done (6/24/2019, 11:04:36 AM)
 	
-	☐ calcul axe central foiré?????
+	✔ calcul axe central foiré????? @done (6/27/2019, 9:33:26 AM)
 	
 	☐ recompile pas les sous modules si modifiés?
 	
-	☐ transition texture pas texture  
-	☐ gestion options via uniform+bool?
+	✔ transition texture pas texture @done (6/27/2019, 4:16:44 PM)
+	✔ gestion options via uniform+bool? @done (6/27/2019, 4:16:47 PM)
 	
 	✘ generation aleatoire de couleur pour vertex borken??? (mais ca colore les facette en entier par carre)
 
@@ -75,18 +77,19 @@ REPRISE:
 
 
 MANDATORY:
-	☐ Mesh rotation sur axe central tout seul
+	✔ Mesh rotation sur axe central tout seul @done (6/27/2019, 4:16:55 PM)
 	☐ Faces avec couleurs ou grayscale
-	☐ Basic texturing
-	☐ translation objet
-	☐ rotation objet
+	✔ Basic texturing @done (6/27/2019, 4:17:00 PM)
+	✔ translation objet @done (6/27/2019, 4:17:02 PM)
+	✔ rotation objet @done (6/27/2019, 4:17:07 PM)
 	☐ norme
 	☐ leaks
 	☐ no crash
 
 BONUS:
-	☐ Ajout controle pour gérer les options
-	☐ Big parser TGA
+	✔ Ajout controle pour gérer les options @done (6/27/2019, 4:17:10 PM)
+	✔ Big parser TGA @done (6/27/2019, 4:17:15 PM)
+	☐ Text renderer + interface
 
 EVALUTATION:
 	✔ fenetre s'ouvre avec objet 3d affiché, face cachées bien gérées @done (6/25/2019, 5:09:21 PM)
@@ -106,9 +109,10 @@ EVALUATION BONUS:
 		✔ teapot1.obj? @done (6/25/2019, 5:09:32 PM)
 	TEXTURE++:
 		☐ texture non déformée sur aucune des faces
+		
 	AUTRE:
 		☐ slider sur 5....
 			-> big parserTGA
-			-> options au clavier
-			-> interface?
+			✔ -> options au clavier @done (6/27/2019, 4:17:36 PM)
+			-> interface? faire text renderer
 
