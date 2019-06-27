@@ -66,11 +66,14 @@ REPRISE:
 	☐ replace all obj_berror and obj_error by obj_log_error in simpleOBJ?
 	
 	☐ remove VAO and EBO prepack from simpleOBJ
+
+	☐ probleme input avec la touche 7 ?????
 		
 	☐ norme!!!
 	☐ mise au propre etc
 	☐ SEGFAULT si fichier mesh vide ou invalide?  !!!!!!
-	☐ you have some leaks!!!!!!
+	☐ FINAL LEAKS CHECK!!!!!!
+	✔ you have some leaks!!!!!! @done (6/27/2019, 5:05:53 PM)
 	✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
 	
 
