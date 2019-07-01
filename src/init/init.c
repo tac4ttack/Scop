@@ -6,11 +6,23 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 10:47:48 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:03:30 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+
+static bool	init_options(t_scop *env)
+{
+	if (env)
+	{
+		env->auto_rot = true;
+		env->auto_rot_speed = 1.0f;
+		env->mesh_uv = true;
+		return (true);
+	}
+	return (error_bool("[ERROR init_options]\tNULL scop pointer!\n"));
+}
 
 t_scop		*init(const char *av)
 {
@@ -27,7 +39,8 @@ t_scop		*init(const char *av)
 		env->win_title = ft_memalloc(sizeof(char) * 100);
 		if (!(init_glfw(env)) || !(init_glew(env)) || !(init_keyboard(env)) \
 			|| !(init_mouse(env)) || !(init_uniforms(env)) \
-			|| !(init_world(env)) || !(init_textures(env)))
+			|| !(init_world(env)) || !(init_textures(env)) \
+			|| !(init_options(env)))
 		{
 			free(env);
 			return (error("[ERROR init]\tCould initialize Scop!\n"));

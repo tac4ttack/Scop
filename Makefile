@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/06/27 18:18:42 by fmessina         ###   ########.fr        #
+#    Updated: 2019/06/29 19:52:41 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ OFLAGS := 				-O3
 SCOP_INCLUDE =			-I $(SCOP_INCLUDES_PATH)
 SCOP_INCLUDES_PATH =	./includes
 SCOP_INCLUDES =			$(addprefix $(SCOP_INCLUDES_PATH)/,$(SCOP_INCLUDES_FILES))
-SCOP_INCLUDES_FILES =	scop.h
+SCOP_INCLUDES_FILES =	scop.h \
+						trackball.h
 
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
@@ -104,6 +105,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						utility/split.c \
 						utility/time_update.c \
 						world/world_update.c \
+						trackball.c \
 						main.c
 
 OS_TEST := $(shell uname)

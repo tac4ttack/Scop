@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 18:17:40 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:55:44 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include "libftmath.h"
 # include "simpleOBJ.h"
 # include "simpleTGA.h"
+
+# include "trackball.h"
 
 /*
 **	OpenGL related libs
@@ -212,7 +214,15 @@ typedef struct					s_keyboard
 */
 typedef struct					s_mouse
 {
-	GLfloat						sensitivity;
+	bool						lmb;
+	bool						rmb;
+	bool						mmb;
+
+	float						prev_rot[4];
+	
+	float						rot_speed;
+	float						tra_speed;
+	
 	double						last[2];
 	bool						ready;
 }								t_mouse;
