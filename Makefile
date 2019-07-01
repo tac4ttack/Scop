@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/07/01 11:27:08 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/01 13:41:14 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,9 +98,6 @@ SRC_FILES =  			buffer/buffer_create.c \
 						mesh/mesh_translate.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
-						text/text_clean.c \
-						text/text_init.c \
-						text/text_print.c \
 						utility/error.c \
 						utility/exit.c \
 						utility/flush.c \
@@ -148,7 +145,6 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/mesh/process/texture
 	@mkdir $(OBJ_PATH)/mesh/process/vertex
 	@mkdir $(OBJ_PATH)/shader
-	@mkdir $(OBJ_PATH)/text
 	@mkdir $(OBJ_PATH)/utility
 	@mkdir $(OBJ_PATH)/world
 
