@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/06/29 19:52:41 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/01 11:27:08 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ OFLAGS := 				-O3
 SCOP_INCLUDE =			-I $(SCOP_INCLUDES_PATH)
 SCOP_INCLUDES_PATH =	./includes
 SCOP_INCLUDES =			$(addprefix $(SCOP_INCLUDES_PATH)/,$(SCOP_INCLUDES_FILES))
-SCOP_INCLUDES_FILES =	scop.h \
-						trackball.h
+SCOP_INCLUDES_FILES =	scop.h
 
 LIBFT_PATH :=			./lib/libft
 LIBFT_INCLUDE :=		-I $(LIBFT_PATH)
@@ -66,7 +65,9 @@ SRC_FILES =  			buffer/buffer_create.c \
 						callback/cb_error.c \
 						callback/cb_framebuffer.c \
 						callback/cb_keyboard.c \
-						callback/cb_mouse.c \
+						callback/cb_mouse_btn.c \
+						callback/cb_mouse_pos.c \
+						callback/cb_mouse_scroll.c \
 						callback/cb_window.c \
 						glfw/glfw_clean.c \
 						glfw/glfw_main_loop.c \
@@ -80,6 +81,7 @@ SRC_FILES =  			buffer/buffer_create.c \
 						init/init_uniforms.c \
 						init/init_world.c \
 						input/input_cycle_desaturate.c \
+						input/input_mouse.c \
 						input/input_process.c \
 						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
@@ -105,7 +107,6 @@ SRC_FILES =  			buffer/buffer_create.c \
 						utility/split.c \
 						utility/time_update.c \
 						world/world_update.c \
-						trackball.c \
 						main.c
 
 OS_TEST := $(shell uname)

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/30 14:55:44 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:34:02 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include "simpleOBJ.h"
 # include "simpleTGA.h"
 
-# include "trackball.h"
-
 /*
 **	OpenGL related libs
 */
@@ -33,53 +31,55 @@
 
 # define DEFAULT_TEXTURE		"./ressources/textures/default.tga"
 
-# define WIDTH					1024
-# define HEIGHT					768
-# define FOV					45.0
-# define NEAR					0.1
-# define FAR					100.0
+# define WIDTH					(1024)
+# define HEIGHT					(768)
+# define FOV					(45.0)
+# define NEAR					(0.1)
+# define FAR					(100.0)
+
+# define MOUSE_ROT_RADIUS		(0.8)
 
 # define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
 # define VERTEX_FRAGMENT_PATH 	"./shaders/simple_fs.glsl"
 
-# define ANTIALIASING			4
+# define ANTIALIASING			(4)
 
-# define VAOLEN				14
+# define VAOLEN					(14)
 
 /*
 **	Input keys mapping
 */
-# define K_TRA_UP	87
-# define K_TRA_DN	83
-# define K_TRA_LT	65
-# define K_TRA_RT	68
-# define K_TRA_FR	69
-# define K_TRA_BC	81
+# define K_TRA_UP				(87)
+# define K_TRA_DN				(83)
+# define K_TRA_LT				(65)
+# define K_TRA_RT				(68)
+# define K_TRA_FR				(69)
+# define K_TRA_BC				(81)
 
-# define K_SCA_UP	93
-# define K_SCA_DN	91
+# define K_SCA_UP				(93)
+# define K_SCA_DN				(91)
 
-# define K_ROT_PX	73
-# define K_ROT_NX	75
-# define K_ROT_PY	76
-# define K_ROT_NY	74
-# define K_ROT_PZ	79
-# define K_ROT_NZ	85
+# define K_ROT_PX				(73)
+# define K_ROT_NX				(75)
+# define K_ROT_PY				(76)
+# define K_ROT_NY				(74)
+# define K_ROT_PZ				(79)
+# define K_ROT_NZ				(85)
 
-# define K_AUTO_ROT	48
-# define K_AUTO_ROT_UP	61
-# define K_AUTO_ROT_DN	45
+# define K_AUTO_ROT				(48)
+# define K_AUTO_ROT_UP			(61)
+# define K_AUTO_ROT_DN			(45)
 
-# define K_POLY	49
-# define K_WIRE	50
-# define K_POINTS	51
-# define K_SHADING	52
-# define K_DESATURATE	53
-# define K_TEXTU_DEF 54
-# define K_TEXTU_MESH 55
-# define K_UV_MODE 56
-# define K_COLORIZE 57
-# define K_RESET 259
+# define K_POLY					(49)
+# define K_WIRE					(50)
+# define K_POINTS				(51)
+# define K_SHADING				(52)
+# define K_DESATURATE			(53)
+# define K_TEXTU_DEF			(54)
+# define K_TEXTU_MESH			(55)
+# define K_UV_MODE				(56)
+# define K_COLORIZE				(57)
+# define K_RESET				(259)
 
 # ifdef DEBUG
 #  define DEBUG_SCOP			1
@@ -218,7 +218,9 @@ typedef struct					s_mouse
 	bool						rmb;
 	bool						mmb;
 
-	float						prev_rot[4];
+	// float						prev_rot[4];
+	t_quat						prev;
+	float						dummy[4];
 	
 	float						rot_speed;
 	float						tra_speed;
@@ -335,8 +337,9 @@ bool							init_world(t_scop *env);
 /*
 **	INPUT PROCESSING Functions
 */
-bool							input_process(t_scop *env);
 void							input_cycle_desaturate(t_scop *env);
+void							input_mouse_rot(t_quat *prev, float pos[4]);
+bool							input_process(t_scop *env);
 
 /*
 **	UTILITY Functions
