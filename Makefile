@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/07/01 13:41:14 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/01 16:58:23 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -273,47 +273,17 @@ debuglibft:
 	@echo "$(GREEN)Compiling$(EOC) $(YELL)Libft$(EOC) $(GREEN)library with ASan$(EOC)"
 	make -C $(LIBFT_PATH)/ debug all
 
-# brewinstall:
-# 	@echo "$(GREEN)Updating$(EOC) $(YELL)Brew$(EOC) $(GREEN)package$(EOC)"
-# 	@brew update
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)readline$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f readline
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)sqlite$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f sqlite
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)xz$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f xz
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)openssl$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f openssl
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)gdbm$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f gdbm
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)python$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f python
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)sphinx-doc$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f sphinx-doc
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f cmake
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f pkg-config
+brewinstall:
+	@echo "$(GREEN)Installing$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
+	@brew install -f cmake
+	@echo "$(GREEN)Installing$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
+	@brew install -f pkg-config
 
-# brewuninstall:
-# 	# @echo "$(GREEN)Uninstalling$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
-# 	# @brew uninstall -f pkg-config
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f cmake
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)sphinx-doc$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f sphinx-doc
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)python$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f python
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)gdbm$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f gdbm
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)openssl$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f openssl
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)xz$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f xz
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)sqlite$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f sqlite
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)readline$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f readline
+brewuninstall:
+	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
+	@brew uninstall -f pkg-config
+	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
+	@brew uninstall -f cmake
 
 norminette:
 	norminette $(SRC_PATH)
@@ -326,7 +296,7 @@ norminette:
 ######
 ## REDO YOUR FUCKIN' PHONY!!!!!!
 ##
-.PHONY: all clean fclean re libft simpleTGA cleanlibft fcleanlibft debug usage norme
+.PHONY: all clean fclean re libft simpleTGA simpleOBJ cleanlibft fcleanlibft debug usage norme
 #####
 
 ## SHELL COLOR CODES ##
