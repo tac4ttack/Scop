@@ -107,7 +107,7 @@ static void	keyboard_process_no_repeat(t_scop *env, int key)
 		if (key == K_TEXTU_DEF && !env->key->key_texture_default)
 			env->texture_default = !env->texture_default;
 		if (key == K_TEXTU_MESH && !env->key->key_texture_mesh)
-			env->colorize = !env->colorize;
+			ft_putendl("sorry this key is unused for now :(");
 		if (key == K_UV_MODE && !env->key->key_uv_mode)
 			env->mesh_uv = !env->mesh_uv;
 		if (key == K_COLORIZE && !env->key->key_colorize)
