@@ -23,7 +23,7 @@ VAO PACKING:
     ✔ pack vertex space @done (3/7/2019, 12:07:59 PM)
 
 VARIOUS:
-    ☐ totally remove the space VP support
+    ✘ totally remove the space VP support @cancelled (7/1/2019, 12:30:52 PM)
 
 MATRIX:
     ✔ prototype a transform matrix @done (3/8/2019, 4:38:58 PM)
@@ -40,12 +40,12 @@ LEAKS:
 REPRISE:
     ☐ résoudre problème des normals!!!!!!
 	
-	☐ textures hs???
+	✔ textures hs??? @done (7/1/2019, 12:30:45 PM)
 		-> du à la construction du VAO qui est naze?
 		-> algo actuel working as designed, mais peut-être j'ai rien pité au concept de vao etc...
 		-> ok il semblerait qu'il faille que je refasse un vrai VBOindexer pour checker les sommets identiques et les foutres dans le VAO
 	
-	☐ supprimer parsing de VP?
+	✘ supprimer parsing de VP? @cancelled (7/1/2019, 12:30:49 PM)
 
 	☐ tester fichiers sans faces!!!!!!!!!!!!!!!!
 
@@ -111,11 +111,13 @@ EVALUATION BONUS:
 		✔ triangularisation @done (6/25/2019, 5:09:33 PM)
 		✔ teapot1.obj? @done (6/25/2019, 5:09:32 PM)
 	TEXTURE++:
-		☐ texture non déformée sur aucune des faces
+		☐ texture non déformée sur aucune des faces (semble ok mais pourquoi ca marche pas sur le mesh du
 		
 	AUTRE:
 		☐ slider sur 5....
-			-> big parserTGA
+			✔ -> big parserTGA @done (7/1/2019, 12:32:27 PM)
 			✔ -> options au clavier @done (6/27/2019, 4:17:36 PM)
-			-> interface? faire text renderer
+			☐ -> interface? faire text renderer
+			✔ -> control à la souris @done (7/1/2019, 12:32:29 PM)
+			☐ -> options sur les couleurs?
 
