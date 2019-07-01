@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 17:36:34 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:36:42 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	init_glew(t_scop *env)
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 		glDisable(GL_CULL_FACE);
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		env->time_last = glfwGetTime();
 		scop_log("Current system parameters are:\n");
 		scop_log_gl_params();

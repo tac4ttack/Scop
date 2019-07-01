@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/01 11:34:02 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:33:35 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 */
 # include "libft.h"
 # include "libftmath.h"
-# include "simpleOBJ.h"
-# include "simpleTGA.h"
+# include "simple_obj.h"
+# include "simple_tga.h"
 
 /*
 **	OpenGL related libs
@@ -37,7 +37,8 @@
 # define NEAR					(0.1)
 # define FAR					(100.0)
 
-# define MOUSE_ROT_RADIUS		(0.8)
+# define MOUSE_ROT_RADIUS				(0.8)
+# define DEFAULT_MESH_AUTOROT_SPEED		(1.0f)
 
 # define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
 # define VERTEX_FRAGMENT_PATH 	"./shaders/simple_fs.glsl"
@@ -103,19 +104,6 @@ typedef struct					s_texture
 	GLuint						*pixels;
 	size_t						size[2];
 }								t_texture;
-
-/*
-**	BITMAP FONT STRUCT:
-**	-------------------
-*/
-typedef struct					s_text2d
-{
-	GLuint						text2d_vertex_buffer_id;
-	GLuint						text2d_buffer_id;
-	GLuint						text2d_texture_id;
-	GLuint						text_shader_program;
-	GLuint						text2d_uniform_id;
-}								t_text2d;
 
 /*
 **	OPENGL UNIFORMS STRUCT:
@@ -218,19 +206,35 @@ typedef struct					s_mouse
 	bool						rmb;
 	bool						mmb;
 
-	// float						prev_rot[4];
 	t_quat						prev;
 	float						dummy[4];
-	
+
 	float						rot_speed;
 	float						tra_speed;
-	
+
 	double						last[2];
 	bool						ready;
 }								t_mouse;
 
 /*
-**	MOUSE INPUT STRUCT:
+**	NUKLEAR GUI STRUCT:
+**	-------------------
+*/
+typedef struct					s_nuk
+{
+	GLFWwindow					*win;
+	// struct nk_context			*ctx;
+	// struct nk_colorf			bg;
+	// struct nk_font_atlas		*atlas;
+	// struct nk_image				img;
+	// struct nk_user_font			font;
+
+	int							tex_index;
+	char						*tex_bindless;
+}								t_nuk;
+
+/*
+**	SCOP MAIN STRUCT:
 **	-------------------
 **	This is the core data structure of this program
 **	The VAO OpenGL buffer will contain for each vertex the following data:
@@ -256,6 +260,8 @@ typedef struct					s_scop
 	GLsizei						win_res[3];
 	char						*win_title;
 
+	t_nuk						*nuk;
+
 	GLuint						shader_program;
 	t_uni						*uni;
 
@@ -274,8 +280,6 @@ typedef struct					s_scop
 
 	t_keyboard					*key;
 	t_mouse						*mouse;
-
-	t_text2d					*text;
 
 	t_texture					*texture;
 	size_t						n_texture;

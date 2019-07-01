@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 17:29:32 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:22:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,14 @@ bool			glfw_main_loop(t_scop *env)
 		while (!glfwWindowShouldClose(env->win))
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glfwPollEvents();
+			
+			// nk_glfw3_new_frame();
+			
 			if (!(glfw_input_world_udpate(env)))
 				return (error_bool("[ERROR glfw_main_loop]\t" \
 				"Failed processing inputs and updating data!\n"));
+			// gui_update();
 			if (env->mesh->face && env->mesh->n_face[1] >= 1)
 				glDrawElements(GL_TRIANGLES, \
 								env->mesh->n_face[1] * 3, GL_UNSIGNED_INT, 0);
@@ -66,9 +71,17 @@ bool			glfw_main_loop(t_scop *env)
 				glDrawArrays(GL_TRIANGLES, 0, env->mesh->n_vertex[1]);
 			else
 				glfw_main_loop_error(env);
-			glfwPollEvents();
+			
+			//nk_glfw3_render(NK_ANTI_ALIASING_ON);
+			// gui_draw(env);
+			// nk_clear(env->nuk->ctx);
+		
 			glfwSwapBuffers(env->win);
 		}
+		
+		// nk_free(env->nuk->ctx);
+		// nk_glfw3_shutdown();
+
 		glfw_clean(env);
 		return (true);
 	}
