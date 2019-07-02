@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/01 15:33:35 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:30:26 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@
 # define HEIGHT					(768)
 # define FOV					(45.0)
 # define NEAR					(0.1)
-# define FAR					(100.0)
+# define FAR					(10000.0)
 
-# define MOUSE_ROT_RADIUS				(0.8)
+# define MOUSE_ROT_RADIUS				(0.8f)
 # define DEFAULT_MESH_AUTOROT_SPEED		(1.0f)
 
 # define VERTEX_SHADER_PATH 	"./shaders/simple_vs.glsl"
