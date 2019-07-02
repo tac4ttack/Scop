@@ -55,6 +55,7 @@ REPRISE:
 	✔ transition texture pas texture @done (6/27/2019, 4:16:44 PM)
 	✔ gestion options via uniform+bool? @done (6/27/2019, 4:16:47 PM)
 	☐ replace all obj_berror and obj_error by obj_log_error in simpleOBJ?
+	☐ problem avec resize et aspect ratio?????
 	✔ remove VAO and EBO prepack from simpleOBJ @done (7/2/2019, 5:04:44 PM)
 	✔ probleme input avec la touche 7 ????? @done (7/2/2019, 5:04:46 PM)	
 	☐ norme!!!
