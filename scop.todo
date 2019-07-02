@@ -13,7 +13,7 @@ OBJ PARSING:
      ✔ parse VN @done (3/6/2019, 11:42:49 AM)
      ✘ parse VP ( -> optionnel?) @cancelled (3/6/2019, 11:14:50 AM)
      ✔ fix faces indices problem, should start at 1 or -1 @done (3/9/2019, 3:54:11 PM)
-     ☐ Problem with vertex parsing (default values and shit)?
+     ✔ Problem with vertex parsing (default values and shit)? @done (7/2/2019, 5:04:09 PM)
 
 VAO PACKING:
     ✔ pack vertex position @done (3/6/2019, 6:20:24 PM)
@@ -39,36 +39,24 @@ LEAKS:
 
 REPRISE:
     ☐ résoudre problème des normals!!!!!!
-	
 	✔ textures hs??? @done (7/1/2019, 12:30:45 PM)
 		-> du à la construction du VAO qui est naze?
 		-> algo actuel working as designed, mais peut-être j'ai rien pité au concept de vao etc...
 		-> ok il semblerait qu'il faille que je refasse un vrai VBOindexer pour checker les sommets identiques et les foutres dans le VAO
-	
 	✘ supprimer parsing de VP? @cancelled (7/1/2019, 12:30:49 PM)
-
 	☐ tester fichiers sans faces!!!!!!!!!!!!!!!!
-
-	☐ revoir parsing vertex (pos + couleur, caffouillage si pas de W etc)
-	
-	☐ rajout dans libft ou quoi une fonction CLAMP?
+	☐ faire une sélection de mesh pour la demo
+	✔ revoir parsing vertex (pos + couleur, caffouillage si pas de W etc) @done (7/2/2019, 5:04:17 PM)
+	☐ mouse rotation trackball size dynamique avec taille mesh?
+	✔ rajout dans libft ou quoi une fonction CLAMP? @done (7/2/2019, 5:04:20 PM)
 	✔ extract simpleOBJ parser!!!!! @done (6/24/2019, 11:04:36 AM)
-	
-	✔ calcul axe central foiré????? @done (6/27/2019, 9:33:26 AM)
-	
-	☐ recompile pas les sous modules si modifiés?
-	
+	✔ calcul axe central foiré????? @done (6/27/2019, 9:33:26 AM)	
+	☐ recompile pas les sous modules si modifiés?	
 	✔ transition texture pas texture @done (6/27/2019, 4:16:44 PM)
 	✔ gestion options via uniform+bool? @done (6/27/2019, 4:16:47 PM)
-	
-	✘ generation aleatoire de couleur pour vertex borken??? (mais ca colore les facette en entier par carre)
-
 	☐ replace all obj_berror and obj_error by obj_log_error in simpleOBJ?
-	
-	☐ remove VAO and EBO prepack from simpleOBJ
-
-	☐ probleme input avec la touche 7 ?????
-		
+	✔ remove VAO and EBO prepack from simpleOBJ @done (7/2/2019, 5:04:44 PM)
+	✔ probleme input avec la touche 7 ????? @done (7/2/2019, 5:04:46 PM)	
 	☐ norme!!!
 	☐ mise au propre etc
 	☐ SEGFAULT si fichier mesh vide ou invalide?  !!!!!!
@@ -76,12 +64,9 @@ REPRISE:
 	✔ you have some leaks!!!!!! @done (6/27/2019, 5:05:53 PM)
 	✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
 	
-
-
-
 MANDATORY:
 	✔ Mesh rotation sur axe central tout seul @done (6/27/2019, 4:16:55 PM)
-	☐ Faces avec couleurs ou grayscale
+	✔ Faces avec couleurs ou grayscale @done (7/2/2019, 5:04:53 PM)
 	✔ Basic texturing @done (6/27/2019, 4:17:00 PM)
 	✔ translation objet @done (6/27/2019, 4:17:02 PM)
 	✔ rotation objet @done (6/27/2019, 4:17:07 PM)
@@ -111,7 +96,7 @@ EVALUATION BONUS:
 		✔ triangularisation @done (6/25/2019, 5:09:33 PM)
 		✔ teapot1.obj? @done (6/25/2019, 5:09:32 PM)
 	TEXTURE++:
-		☐ texture non déformée sur aucune des faces (semble ok mais pourquoi ca marche pas sur le mesh du
+		☐ texture non déformée sur aucune des faces (semble ok mais pourquoi ca marche pas sur le mesh du chat)
 		
 	AUTRE:
 		☐ slider sur 5....
@@ -119,5 +104,5 @@ EVALUATION BONUS:
 			✔ -> options au clavier @done (6/27/2019, 4:17:36 PM)
 			☐ -> interface? faire text renderer
 			✔ -> control à la souris @done (7/1/2019, 12:32:29 PM)
-			☐ -> options sur les couleurs?
+			✔ -> options sur les couleurs? @done (7/2/2019, 5:05:23 PM)
 
