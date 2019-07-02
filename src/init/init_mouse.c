@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/01 12:27:29 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:03:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ bool	init_mouse(t_scop *env)
 		env->mouse->last[1] = (double)env->win_res[1] / 2.0;
 		return (true);
 	}
-	return (error_bool("[ERROR init_mouse]\tNULL scop pointer!\n"));
+	return (error_bool("[ERROR init_mouse]\tNULL Scop pointer!\n"));
 }

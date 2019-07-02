@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 17:39:01 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:03:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	init_glfw_window(t_scop *env)
 		}
 		return (true);
 	}
-	return (error_bool("[ERROR init_glfw]\tNULL scop pointer!\n"));
+	return (error_bool("[ERROR init_glfw]\tNULL Scop pointer!\n"));
 }
 
 bool		init_glfw(t_scop *env)
@@ -75,5 +75,5 @@ bool		init_glfw(t_scop *env)
 		glEnable(GL_PROGRAM_POINT_SIZE);
 		return (true);
 	}
-	return (error_bool("[ERROR init_glfw]\tNULL scop pointer!\n"));
+	return (error_bool("[ERROR init_glfw]\tNULL Scop pointer!\n"));
 }

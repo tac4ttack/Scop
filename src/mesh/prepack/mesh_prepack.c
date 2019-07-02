@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:07:32 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 18:25:01 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:29:08 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,16 @@ static void	mesh_prepack_texture_normals(t_scop *env, size_t i, int face[3])
 
 static void	mesh_prepack_vertex_pos_hue(t_scop *env, size_t i, int face[3])
 {
-	if (env)
+	int		j;
+
+	if (env && !(j = 0))
 	{
-		env->prepack_vao[(i * VAOLEN) + 0] = \
-			env->mesh->vertex[(face[0] * 8) + 0];
-		env->prepack_vao[(i * VAOLEN) + 1] = \
-			env->mesh->vertex[(face[0] * 8) + 1];
-		env->prepack_vao[(i * VAOLEN) + 2] = \
-			env->mesh->vertex[(face[0] * 8) + 2];
-		env->prepack_vao[(i * VAOLEN) + 3] = \
-			env->mesh->vertex[(face[0] * 8) + 3];
-		env->prepack_vao[(i * VAOLEN) + 4] = \
-			env->mesh->vertex[(face[0] * 8) + 4];
-		env->prepack_vao[(i * VAOLEN) + 5] = \
-			env->mesh->vertex[(face[0] * 8) + 5];
-		env->prepack_vao[(i * VAOLEN) + 6] = \
-			env->mesh->vertex[(face[0] * 8) + 6];
-		env->prepack_vao[(i * VAOLEN) + 7] = \
-			env->mesh->vertex[(face[0] * 8) + 7];
+		while (j < 8)
+		{
+			env->prepack_vao[(i * VAOLEN) + j] = \
+										env->mesh->vertex[(face[0] * 8) + j];
+			j++;
+		}
 	}
 }
 

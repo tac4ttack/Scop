@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 09:46:27 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/01 11:32:15 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:29:29 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** if we are away from the center of the sphere.
 */
 
-static float	input_mouse_porject_to_sphere(float radius, float x, float y)
+static float	input_mouse_project_to_sphere(float radius, float x, float y)
 {
 	float d;
 	float t;
@@ -49,9 +49,9 @@ void			input_mouse_rot(t_quat *prev, float pos[4])
 		return ;
 	}
 	pt[0] = vec3f(pos[0], pos[1], \
-			input_mouse_porject_to_sphere(MOUSE_ROT_RADIUS, pos[0], pos[1]));
+			input_mouse_project_to_sphere(MOUSE_ROT_RADIUS, pos[0], pos[1]));
 	pt[1] = vec3f(pos[2], pos[3], \
-			input_mouse_porject_to_sphere(MOUSE_ROT_RADIUS, pos[2], pos[3]));
+			input_mouse_project_to_sphere(MOUSE_ROT_RADIUS, pos[2], pos[3]));
 	axis = vec3f_cross(pt[1], pt[0]);
 	pt[2] = vec3f_sub(pt[0], pt[1]);
 	t = vec3f_len(pt[2]) / (2.0 * MOUSE_ROT_RADIUS);

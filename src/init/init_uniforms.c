@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 10:28:42 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:03:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ bool	init_uniforms(t_scop *env)
 			"allocate memory for OpenGL uniforms!\n"));
 		return (true);
 	}
-	return (error_bool("[ERROR init_uniforms]\tNULL scop pointer!\n"));
+	return (error_bool("[ERROR init_uniforms]\tNULL Scop pointer!\n"));
 }

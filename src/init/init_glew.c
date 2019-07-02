@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/01 12:36:42 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:03:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ bool	init_glew(t_scop *env)
 		return (scop_log("Renderer: %s\n", glGetString(GL_RENDERER)) &
 		scop_log("OpenGL version supported %s\n", glGetString(GL_VERSION)));
 	}
-	return (error_bool("[ERROR init_glew]\tNULL scop pointer!\n"));
+	return (error_bool("[ERROR init_glew]\tNULL Scop pointer!\n"));
 }
