@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/07/04 10:03:44 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/04 12:45:21 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,13 @@ LIBFTMATH_LINK :=		-L $(LIBFTMATH_PATH) -lftmath
 LIBMATH_LINK :=			-lm
 
 GLEW_PATH :=			./lib/glew
+# GLEW_PATH :=			./lib/glew-2.1.0
 GLEW_INCLUDE =			-I $(GLEW_PATH)/include
 GLEW_LINK =				-L $(GLEW_PATH)/lib $(GLEW_LIB_FILE)
 GLEW_LIB_FILE =			$(shell ls $(GLEW_PATH)/lib/libGLEW.a)
 
-GLFW_PATH :=			./lib/glfw
+# GLFW_PATH :=			./lib/glfw
+GLFW_PATH :=			./lib/glfw-3.2.1
 GLFW_BUILD_PATH := 		$(GLFW_PATH)/glfw-build
 GLFW_INCLUDE =			-I $(GLFW_PATH)/include
 GLFW_LINK =				-L $(GLFW_BUILD_PATH)/src $(GLFW_LIB_FILE)
