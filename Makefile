@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/07/04 09:44:49 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/04 10:03:44 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,11 +116,10 @@ default: all
 all: libft libftmath simpleOBJ simpleTGA glew glfw $(NAME)
 
 $(NAME): $(SRC) $(OBJ_PATH) $(OBJ)
-	@echo $(SCOP_INCLUDES)
 	@echo "\n$(GREEN)Compiling $(NAME) for MacOSX $(OS_NAME)$(EOC)"
 	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBFTMATH_LINK) $(LIBMATH_LINK) $(SIMPLETGA_LINK) $(SIMPLEOBJ_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(SCOP_INCLUDES)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(SCOP_INCLUDES) $(LIBFT_PATH)/libft.a $(LIBFTMATH_PATH)/libftmath.a $(SIMPLEOBJ_PATH)/simpleOBJ.a $(SIMPLETGA_PATH)/simpleTGA.a ./Makefile
 	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(LIBFTMATH_INCLUDE) $(SIMPLETGA_INCLUDE) $(SIMPLEOBJ_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
 
 $(OBJ_PATH):
