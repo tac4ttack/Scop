@@ -44,23 +44,25 @@ REPRISE:
 		-> algo actuel working as designed, mais peut-être j'ai rien pité au concept de vao etc...
 		-> ok il semblerait qu'il faille que je refasse un vrai VBOindexer pour checker les sommets identiques et les foutres dans le VAO
 	✘ supprimer parsing de VP? @cancelled (7/1/2019, 12:30:49 PM)
-	☐ tester fichiers sans faces!!!!!!!!!!!!!!!!
+	✔ tester fichiers sans faces!!!!!!!!!!!!!!!! @done (7/4/2019, 4:55:29 PM)
 	☐ faire une sélection de mesh pour la demo
 	✔ revoir parsing vertex (pos + couleur, caffouillage si pas de W etc) @done (7/2/2019, 5:04:17 PM)
 	☐ mouse rotation trackball size dynamique avec taille mesh?
 	✔ rajout dans libft ou quoi une fonction CLAMP? @done (7/2/2019, 5:04:20 PM)
 	✔ extract simpleOBJ parser!!!!! @done (6/24/2019, 11:04:36 AM)
 	✔ calcul axe central foiré????? @done (6/27/2019, 9:33:26 AM)	
-	☐ recompile pas les sous modules si modifiés?	
+	✔ recompile pas les sous modules si modifiés? @done (7/4/2019, 12:54:24 PM)
 	✔ transition texture pas texture @done (6/27/2019, 4:16:44 PM)
 	✔ gestion options via uniform+bool? @done (6/27/2019, 4:16:47 PM)
 	☐ replace all obj_berror and obj_error by obj_log_error in simpleOBJ?
-	☐ problem avec resize et aspect ratio?????
+	✔ problem avec resize et aspect ratio????? @done (7/4/2019, 12:54:26 PM)
 	✔ remove VAO and EBO prepack from simpleOBJ @done (7/2/2019, 5:04:44 PM)
 	✔ probleme input avec la touche 7 ????? @done (7/2/2019, 5:04:46 PM)	
+	✔ mesh block -> texture manquante random @done (7/4/2019, 1:13:24 PM)
+	☐ faces partagent une couleur alors qu'elles sont censees avoir la leur
 	☐ norme!!!
 	☐ mise au propre etc
-	☐ SEGFAULT si fichier mesh vide ou invalide?  !!!!!!
+	✔ SEGFAULT si fichier mesh vide ou invalide?  !!!!!! @done (7/4/2019, 4:55:23 PM)
 	☐ FINAL LEAKS CHECK!!!!!!
 	✔ you have some leaks!!!!!! @done (6/27/2019, 5:05:53 PM)
 	✔ support mac5k de l'E3? @done (6/17/2019, 12:01:29 PM)
