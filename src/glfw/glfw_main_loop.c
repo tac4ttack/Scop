@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/01 14:22:55 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:28:44 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ bool			glfw_main_loop(t_scop *env)
 				"Failed processing inputs and updating data!\n"));
 			// gui_update();
 			if (env->mesh->face && env->mesh->n_face[1] >= 1)
-				glDrawElements(GL_TRIANGLES, \
-								env->mesh->n_face[1] * 3, GL_UNSIGNED_INT, 0);
+				glDrawElements(GL_TRIANGLES, env->mesh->n_face[1] * 3, \
+								GL_UNSIGNED_INT, 0);
 			else if (env->mesh->vertex && env->mesh->n_vertex[1] >= 3)
-				glDrawArrays(GL_TRIANGLES, 0, env->mesh->n_vertex[1]);
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, env->mesh->n_vertex[1]);
 			else
 				glfw_main_loop_error(env);
 			

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:17:20 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 16:32:48 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:21:24 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,18 @@ static bool	buffer_create_vao_vbo(t_scop *env)
 		glBindVertexArray(env->vao);
 		glGenBuffers(1, &env->vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, env->vbo);
-		glBufferData(GL_ARRAY_BUFFER, \
+		if (env->mesh->face && env->mesh->n_face[0] > 0)
+		{
+			glBufferData(GL_ARRAY_BUFFER, \
 					sizeof(GLfloat) * env->mesh->n_face[0] * 3 * VAOLEN, \
 					env->prepack_vao, GL_STATIC_DRAW);
+		}
+		else
+		{
+			glBufferData(GL_ARRAY_BUFFER, \
+					sizeof(GLfloat) * env->mesh->n_vertex[0] * VAOLEN, \
+					env->prepack_vao, GL_STATIC_DRAW);
+		}
 		return (true);
 	}
 	return (error_bool("[ERROR buffer_create_vao_vbo]\t" \
@@ -64,9 +73,12 @@ static bool	buffer_create_ebo(t_scop *env)
 		scop_log("Copying faces data into EBO\n");
 		glGenBuffers(1, &env->ebo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->ebo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
+		if (env->mesh->face && env->mesh->n_face[0] > 0)
+		{
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, \
 					sizeof(GLuint) * env->mesh->n_face[0] * 3, \
 					env->prepack_ebo, GL_STATIC_DRAW);
+		}
 		return (true);
 	}
 	return (error_bool("[ERROR buffer_create_ebo]\t" \
