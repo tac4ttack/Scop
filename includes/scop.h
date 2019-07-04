@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/04 09:42:59 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:36:27 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 # define K_UV_MODE				(56)
 # define K_COLORIZE				(57)
 # define K_RESET				(259)
+# define K_VSYNC				(86)
 
 # ifdef DEBUG
 #  define DEBUG_SCOP			1
@@ -191,6 +192,8 @@ typedef struct					s_keyboard
 	bool						key_u;
 	bool						key_o;
 
+	bool						key_v;
+
 	bool						key_lbra;
 	bool						key_rbra;
 }								t_keyboard;
@@ -295,6 +298,7 @@ typedef struct					s_scop
 	bool						texture_default;
 	bool						texture_mesh;
 	bool						mesh_uv;
+	bool						vsync;
 }								t_scop;
 
 bool							buffer_create(t_scop *env);

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/02 11:03:41 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:40:38 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static bool	init_options(t_scop *env)
 		env->auto_rot = true;
 		env->auto_rot_speed = DEFAULT_MESH_AUTOROT_SPEED;
 		env->mesh_uv = true;
+		env->vsync = true;
 		return (true);
 	}
 	return (error_bool("[ERROR init_options]\tNULL Scop pointer!\n"));

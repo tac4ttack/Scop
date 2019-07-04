@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/04 09:42:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:49:37 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,17 @@ static bool	init_glfw_window(t_scop *env)
 	{
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		if (MAC)
 		{
 			scop_log("You are on MacOSX!\n");
 			glfwWindowHint(GLFW_SAMPLES, ANTIALIASING);
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		}
-		if (!(env->win = glfwCreateWindow(env->win_res[0], \
-										env->win_res[1], \
-										"Scop", \
-										NULL, \
-										NULL)))
+		if (!(env->win = glfwCreateWindow(env->win_res[0], env->win_res[1], \
+										"Scop", NULL, NULL)))
 		{
 			glfwTerminate();
 			return (error_bool("[ERROR init_glfw_window]\t" \

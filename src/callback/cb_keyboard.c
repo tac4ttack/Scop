@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 16:13:00 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:46:39 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,4 +139,9 @@ void		cb_keyboard(GLFWwindow *win, \
 		glfwSetWindowShouldClose(win, 1);
 	if (param[0] == K_RESET && param[2] == GLFW_PRESS)
 		mesh_reset(env);
+	if (param[0] == K_VSYNC && param[2] == GLFW_PRESS)
+	{
+		env->vsync = !env->vsync;
+		glfwSwapInterval((int)env->vsync);
+	}
 }
