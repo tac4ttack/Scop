@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 15:59:10 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 17:40:12 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/03 11:18:48 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static bool	init_world_cam(t_scop *env)
 		env->world->cam_mod[0] = FOV;
 		env->world->cam_mod[1] = NEAR;
 		env->world->cam_mod[2] = FAR;
-		env->world->cam_speed = 0.5f;
 		env->world->cam_position = vec3f(0.0f, 0.0f, 10.0f);
 		env->world->cam_up = vec3f(0.0f, 1.0f, 0.0f);
 		env->world->cam_front = vec3f(0.0f, 0.0f, -1.0f);

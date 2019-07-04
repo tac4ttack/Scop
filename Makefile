@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/07/01 16:58:23 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/04 09:44:49 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,12 @@ LIBFTMATH_LINK :=		-L $(LIBFTMATH_PATH) -lftmath
 
 LIBMATH_LINK :=			-lm
 
-GLEW_PATH :=			./lib/glew-2.1.0
+GLEW_PATH :=			./lib/glew
 GLEW_INCLUDE =			-I $(GLEW_PATH)/include
 GLEW_LINK =				-L $(GLEW_PATH)/lib $(GLEW_LIB_FILE)
 GLEW_LIB_FILE =			$(shell ls $(GLEW_PATH)/lib/libGLEW.a)
 
-GLFW_PATH :=			./lib/glfw-3.2.1
+GLFW_PATH :=			./lib/glfw
 GLFW_BUILD_PATH := 		$(GLFW_PATH)/glfw-build
 GLFW_INCLUDE =			-I $(GLFW_PATH)/include
 GLFW_LINK =				-L $(GLFW_BUILD_PATH)/src $(GLFW_LIB_FILE)
@@ -189,6 +189,7 @@ glew:
 ifeq ($(GLEW_LIB_FILE), $(GLEW_PATH)/lib/libGLEW.a)
 	@echo "$(YELL)GLEW$(EOC) $(GREEN)library already present and compiled, skipping step...$(EOC)"
 else
+	@make -C $(GLEW_PATH)/auto
 	@make -C $(GLEW_PATH)
 endif
 
