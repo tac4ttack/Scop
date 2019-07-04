@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/02 11:03:41 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 09:42:00 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	init_glfw_callbacks(t_scop *env)
 		glfwSetCursorPosCallback(env->win, cb_mouse_pos);
 		glfwSetMouseButtonCallback(env->win, cb_mouse_btn);
 		glfwSetScrollCallback(env->win, cb_mouse_scroll);
+		glfwSetWindowPosCallback(env->win, cb_window_move);
 	}
 }
 
@@ -30,8 +31,8 @@ static bool	init_glfw_window(t_scop *env)
 {
 	if (env)
 	{
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		if (MAC)
 		{
@@ -72,6 +73,7 @@ bool		init_glfw(t_scop *env)
 		glfwGetFramebufferSize(env->win, &env->win_res[0], &env->win_res[1]);
 		glfwSetInputMode(env->win, GLFW_STICKY_KEYS, 1);
 		init_glfw_callbacks(env);
+		glfwSwapInterval(1);
 		glEnable(GL_PROGRAM_POINT_SIZE);
 		return (true);
 	}

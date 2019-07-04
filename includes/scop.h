@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/02 13:30:26 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/04 09:42:59 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 
 # define DEFAULT_TEXTURE		"./ressources/textures/default.tga"
 
-# define WIDTH					(1024)
-# define HEIGHT					(768)
+# define WIDTH					(1600)
+# define HEIGHT					(900)
 # define FOV					(45.0)
 # define NEAR					(0.1)
 # define FAR					(10000.0)
@@ -137,7 +137,6 @@ typedef struct					s_world
 	t_vec3f						cam_front;
 	t_vec3f						cam_up;
 	t_vec3f						cam_right;
-	GLfloat						cam_speed;
 
 	double						mesh_euler[3];
 	t_vec3f						mesh_position;
@@ -322,6 +321,9 @@ void							cb_mouse_pos(GLFWwindow *window, \
 void							cb_mouse_scroll(GLFWwindow *window, \
 												double xoffset, \
 												double yoffset);
+void							cb_window_move(GLFWwindow* win, \
+													int xpos, \
+													int ypos);
 void							cb_window_size(GLFWwindow *win, \
 												const int width, \
 												const int height);
