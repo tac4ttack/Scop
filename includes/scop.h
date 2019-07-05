@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/05 12:51:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:21:42 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,23 +219,6 @@ typedef struct					s_mouse
 }								t_mouse;
 
 /*
-**	NUKLEAR GUI STRUCT:
-**	-------------------
-*/
-typedef struct					s_nuk
-{
-	GLFWwindow					*win;
-	// struct nk_context			*ctx;
-	// struct nk_colorf			bg;
-	// struct nk_font_atlas		*atlas;
-	// struct nk_image				img;
-	// struct nk_user_font			font;
-
-	int							tex_index;
-	char						*tex_bindless;
-}								t_nuk;
-
-/*
 **	SCOP MAIN STRUCT:
 **	-------------------
 **	This is the core data structure of this program
@@ -328,7 +311,7 @@ void							cb_mouse_pos(GLFWwindow *window, \
 void							cb_mouse_scroll(GLFWwindow *window, \
 												double xoffset, \
 												double yoffset);
-void							cb_window_move(GLFWwindow* win, \
+void							cb_window_move(GLFWwindow *win, \
 													int xpos, \
 													int ypos);
 void							cb_window_size(GLFWwindow *win, \
