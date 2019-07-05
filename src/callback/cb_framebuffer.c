@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:33:27 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/17 12:00:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:34:11 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static void	update_viewport(t_scop *env, int width, int height)
 	}
 }
 
-void cb_framebuffer_size(GLFWwindow* win, int width, int height)
+void		cb_framebuffer_size(GLFWwindow *win, int width, int height)
 {
-    t_scop *env;
+	t_scop	*env;
 
-    env = NULL;
-    if (win)
-    {
-        env = glfwGetWindowUserPointer(win);
-   		update_viewport(env, width, height);
-    }
+	env = NULL;
+	if (win)
+	{
+		env = glfwGetWindowUserPointer(win);
+		update_viewport(env, width, height);
+	}
 }

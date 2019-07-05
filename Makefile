@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/06/24 12:01:08 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/05 12:50:37 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,13 @@ LIBFTMATH_LINK :=		-L $(LIBFTMATH_PATH) -lftmath
 
 LIBMATH_LINK :=			-lm
 
-GLEW_PATH :=			./lib/glew-2.1.0
+GLEW_PATH :=			./lib/glew
+# GLEW_PATH :=			./lib/glew-2.1.0
 GLEW_INCLUDE =			-I $(GLEW_PATH)/include
 GLEW_LINK =				-L $(GLEW_PATH)/lib $(GLEW_LIB_FILE)
 GLEW_LIB_FILE =			$(shell ls $(GLEW_PATH)/lib/libGLEW.a)
 
+# GLFW_PATH :=			./lib/glfw
 GLFW_PATH :=			./lib/glfw-3.2.1
 GLFW_BUILD_PATH := 		$(GLFW_PATH)/glfw-build
 GLFW_INCLUDE =			-I $(GLFW_PATH)/include
@@ -62,10 +64,13 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
 SRC_FILES =  			buffer/buffer_create.c \
+						buffer/buffer_len.c \
 						callback/cb_error.c \
 						callback/cb_framebuffer.c \
 						callback/cb_keyboard.c \
-						callback/cb_mouse.c \
+						callback/cb_mouse_btn.c \
+						callback/cb_mouse_pos.c \
+						callback/cb_mouse_scroll.c \
 						callback/cb_window.c \
 						glfw/glfw_clean.c \
 						glfw/glfw_main_loop.c \
@@ -78,24 +83,24 @@ SRC_FILES =  			buffer/buffer_create.c \
 						init/init_textures.c \
 						init/init_uniforms.c \
 						init/init_world.c \
+						input/input_cycle_desaturate.c \
+						input/input_mouse.c \
+						input/input_process.c \
 						log/scop_log_gl_params.c \
 						log/scop_log_restart.c \
 						log/scop_log.c \
 						mesh/prepack/mesh_prepack_center_vertices.c \
-						mesh/prepack/mesh_prepack.c \
-						mesh/prepack/mesh_prepack_ebo_data.c \
+						mesh/prepack/mesh_prepack_ebo_check_indices.c \
 						mesh/prepack/mesh_prepack_get_center_axis.c \
-						mesh/prepack/mesh_prepack_vao_data.c \
+						mesh/prepack/mesh_prepack.c \
 						mesh/prepack/mesh_print_data_prepack_ebo.c \
 						mesh/prepack/mesh_print_data_prepack_vao.c \
+						mesh/mesh_reset.c \
 						mesh/mesh_rotate.c \
 						mesh/mesh_scale.c \
 						mesh/mesh_translate.c \
 						shader/shader_build.c \
 						shader/shader_uniform.c \
-						text/text_clean.c \
-						text/text_init.c \
-						text/text_print.c \
 						utility/error.c \
 						utility/exit.c \
 						utility/flush.c \
@@ -114,11 +119,10 @@ default: all
 all: libft libftmath simpleOBJ simpleTGA glew glfw $(NAME)
 
 $(NAME): $(SRC) $(OBJ_PATH) $(OBJ)
-	@echo $(SCOP_INCLUDES)
 	@echo "\n$(GREEN)Compiling $(NAME) for MacOSX $(OS_NAME)$(EOC)"
 	$(CC) -o $@ $(OBJ) $(LIBFT_LINK) $(LIBFTMATH_LINK) $(LIBMATH_LINK) $(SIMPLETGA_LINK) $(SIMPLEOBJ_LINK) $(GLEW_LINK) $(GLFW_LINK) $(FRAMEWORKS) $(ASANFLAGS)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(SCOP_INCLUDES)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(SCOP_INCLUDES) $(LIBFT_PATH)/libft.a $(LIBFTMATH_PATH)/libftmath.a $(SIMPLEOBJ_PATH)/simpleOBJ.a $(SIMPLETGA_PATH)/simpleTGA.a ./Makefile
 	$(CC) $(CFLAGS) $(OFLAGS) -c $< -o $@ $(SCOP_INCLUDE) $(LIBFT_INCLUDE) $(LIBFTMATH_INCLUDE) $(SIMPLETGA_INCLUDE) $(SIMPLEOBJ_INCLUDE) $(GLEW_INCLUDE) $(GLFW_INCLUDE) $(DEBUG_MACRO) $(ASANFLAGS) $(MACOSX)
 
 $(OBJ_PATH):
@@ -130,6 +134,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/log
 	@mkdir $(OBJ_PATH)/glfw
 	@mkdir $(OBJ_PATH)/init
+	@mkdir $(OBJ_PATH)/input
 	@mkdir $(OBJ_PATH)/mesh
 	@mkdir $(OBJ_PATH)/mesh/line
 	@mkdir $(OBJ_PATH)/mesh/print
@@ -142,7 +147,6 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)/mesh/process/texture
 	@mkdir $(OBJ_PATH)/mesh/process/vertex
 	@mkdir $(OBJ_PATH)/shader
-	@mkdir $(OBJ_PATH)/text
 	@mkdir $(OBJ_PATH)/utility
 	@mkdir $(OBJ_PATH)/world
 
@@ -187,6 +191,7 @@ glew:
 ifeq ($(GLEW_LIB_FILE), $(GLEW_PATH)/lib/libGLEW.a)
 	@echo "$(YELL)GLEW$(EOC) $(GREEN)library already present and compiled, skipping step...$(EOC)"
 else
+	@make -C $(GLEW_PATH)/auto
 	@make -C $(GLEW_PATH)
 endif
 
@@ -271,74 +276,30 @@ debuglibft:
 	@echo "$(GREEN)Compiling$(EOC) $(YELL)Libft$(EOC) $(GREEN)library with ASan$(EOC)"
 	make -C $(LIBFT_PATH)/ debug all
 
-# brewinstall:
-# 	@echo "$(GREEN)Updating$(EOC) $(YELL)Brew$(EOC) $(GREEN)package$(EOC)"
-# 	@brew update
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)readline$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f readline
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)sqlite$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f sqlite
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)xz$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f xz
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)openssl$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f openssl
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)gdbm$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f gdbm
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)python$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f python
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)sphinx-doc$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f sphinx-doc
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f cmake
-# 	@echo "$(GREEN)Installing$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
-# 	@brew install -f pkg-config
+brewinstall:
+	@echo "$(GREEN)Installing$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
+	@brew install -f cmake
+	@echo "$(GREEN)Installing$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
+	@brew install -f pkg-config
 
-# brewuninstall:
-# 	# @echo "$(GREEN)Uninstalling$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
-# 	# @brew uninstall -f pkg-config
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f cmake
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)sphinx-doc$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f sphinx-doc
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)python$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f python
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)gdbm$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f gdbm
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)openssl$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f openssl
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)xz$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f xz
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)sqlite$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f sqlite
-# 	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)readline$(EOC) $(GREEN)package$(EOC)"
-# 	@brew uninstall -f readline
+brewuninstall:
+	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)pkg-config$(EOC) $(GREEN)package$(EOC)"
+	@brew uninstall -f pkg-config
+	@echo "$(GREEN)Uninstalling$(EOC) $(YELL)cmake$(EOC) $(GREEN)package$(EOC)"
+	@brew uninstall -f cmake
 
-norme:
+norminette:
 	norminette $(SRC_PATH)
 	norminette $(SCOP_INCLUDES_PATH)
 	norminette $(LIBFT_PATH)
-
-# usage:
-# 	@echo "\n$(B_RED)Please use one of the following commands:$(EOC)\n"
-# 	@echo "\tCompile and compute with one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make cpu$(EOC)\n"
-# 	@echo "\tCompile the $(GREEN)LIBFT$(EOC) -> $(B_YELL)make libft$(EOC)\n"
-# 	@echo "\tCompile the $(GREEN)MLX$(EOC) (according to your OS) -> $(B_YELL)make mlx$(EOC)\n"
-# 	@echo "\tCheck the $(GREEN)42 C STANDARD$(EOC) in sources and includes directories -> $(B_YELL)make norme$(EOC)\n"
-# 	@echo "\tClean the $(GREEN)$(NAME)$(EOC) directory from object files -> $(B_YELL)make clean$(EOC)\n"
-# 	@echo "\tClean the $(GREEN)LIBFT$(EOC) directory from object files -> $(B_YELL)make cleanlibft$(EOC)\n"
-# 	@echo "\tClean the $(GREEN)MLX$(EOC) directory from object files -> $(B_YELL)make cleanmlx$(EOC)\n"
-# 	@echo "\tRemove object files and binaries from $(GREEN)$(NAME) LIBFT and MLX$(EOC) directories -> $(B_YELL)make fclean$(EOC)\n"
-# 	@echo "\tRemove object files and binaries from $(GREEN)LIBFT$(EOC) directory -> $(B_YELL)make fcleanlibft$(EOC)\n"
-# 	@echo "\tRemove object files and binaries from $(GREEN)$(NAME)$(EOC) directory then compile it again using one $(GREEN)CPU$(EOC) thread -> $(B_YELL)make re$(EOC)\n"
-# 	@echo "\t$(B_RED)NOT IMPLEMENTED YET!$(EOC) Compile and compute with $(GREEN)OpenCL$(EOC) using multiple threads -> $(B_YELL)make gpu$(EOC)\n"
-# 	@echo "\tIf you want to activate the debugging output add \
-# 	$(GREEN)debug$(EOC) before -> $(B_YELL)make debug cpu$(EOC)\n"
+	norminette $(SIMPLETGA_PATH)
+	norminette $(SIMPLEOBJ_PATH)
 
 
 ######
 ## REDO YOUR FUCKIN' PHONY!!!!!!
 ##
-.PHONY: all clean fclean re libft simpleTGA cleanlibft fcleanlibft debug usage norme
+.PHONY: all clean fclean re libft simpleTGA simpleOBJ cleanlibft fcleanlibft debug usage norme
 #####
 
 ## SHELL COLOR CODES ##

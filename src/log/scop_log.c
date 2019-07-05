@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 11:46:44 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 11:34:28 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/25 15:17:26 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ bool		scop_log(const char *message, ...)
 	va_start(argptr, message);
 	vfprintf(file, message, argptr);
 	va_end(argptr);
-	va_start(argptr, message);
-	vprintf(message, argptr);
-	va_end(argptr);
+	if (DEBUG_SCOP)
+	{
+		va_start(argptr, message);
+		vprintf(message, argptr);
+		va_end(argptr);
+	}
 	fclose(file);
 	return (true);
 }
@@ -52,9 +55,12 @@ bool		scop_log_err(const char *message, ...)
 	va_start(argptr, message);
 	vfprintf(file, message, argptr);
 	va_end(argptr);
-	va_start(argptr, message);
-	vfprintf(stderr, message, argptr);
-	va_end(argptr);
+	if (DEBUG_SCOP)
+	{
+		va_start(argptr, message);
+		vfprintf(stderr, message, argptr);
+		va_end(argptr);
+	}
 	fclose(file);
 	return (true);
 }

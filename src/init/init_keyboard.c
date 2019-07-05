@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 10:29:24 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:03:41 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ bool	init_keyboard(t_scop *env)
 			"memory for the keyboard support!\n"));
 		return (true);
 	}
-	return (error_bool("[ERROR init_key]\tNULL scop pointer!\n"));
+	return (error_bool("[ERROR init_key]\tNULL Scop pointer!\n"));
 }

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:53:25 by fmessina          #+#    #+#             */
-/*   Updated: 2019/03/12 10:53:30 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:21:26 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 bool		glfw_poly_mode(int key)
 {
-	if (key == GLFW_KEY_1)
+	if (key == K_POINTS)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-	else if (key == GLFW_KEY_2)
+	else if (key == K_WIRE)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	else if (key == GLFW_KEY_3)
+	else if (key == K_POLY)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	else
 		return (false);

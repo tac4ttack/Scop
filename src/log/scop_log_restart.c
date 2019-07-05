@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:23:46 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/24 11:34:23 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:41:51 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ bool		scop_log_restart(void)
 	if (!file)
 	{
 		fprintf(stderr,
-				"ERROR: could not open SCOP_LOG_FILENAME log file %s for writing\n",
-				SCOP_LOG_FILENAME);
+			"ERROR: could not open SCOP_LOG_FILENAME log file %s for writing\n",
+			SCOP_LOG_FILENAME);
 		return (false);
 	}
 	now = time(NULL);

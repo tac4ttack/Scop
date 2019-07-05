@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 17:55:18 by fmessina          #+#    #+#             */
-/*   Updated: 2019/02/28 15:03:18 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:45:16 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-size_t	split_len(char **split)
+size_t		split_len(char **split)
 {
 	size_t	ret;
 
@@ -31,7 +31,7 @@ size_t	split_len(char **split)
 
 void		split_destroy(char **split)
 {
-	char 	**tmp;
+	char	**tmp;
 
 	tmp = split;
 	if (*split)

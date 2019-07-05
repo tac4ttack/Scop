@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:28:09 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/10 19:26:22 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:39:31 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	init_textures(t_scop *env)
 {
 	t_tga *tga;
-	
+
 	if (env)
 	{
 		if (!(env->texture = ft_memalloc(sizeof(t_texture))))

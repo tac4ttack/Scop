@@ -2,6 +2,8 @@
 obj/
 scop
 scop.log
+simpleOBJ.log
+debug.log
 lib/libft/*.o
 lib/glew-2.1.0/bin
 lib/glfw-3.2.1/glfw-build
@@ -60,5 +62,4 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-simpleOBJ.log
 lib/glew-2.1.0/glew.pc
