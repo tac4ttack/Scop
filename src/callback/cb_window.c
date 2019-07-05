@@ -6,13 +6,13 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 10:35:13 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/04 09:43:05 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:23:55 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void		cb_window_move(GLFWwindow* win, int xpos, int ypos)
+void		cb_window_move(GLFWwindow *win, int xpos, int ypos)
 {
 	t_scop	*env;
 

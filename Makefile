@@ -6,7 +6,7 @@
 #    By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/01 16:47:13 by fmessina          #+#    #+#              #
-#    Updated: 2019/07/04 12:45:21 by fmessina         ###   ########.fr        #
+#    Updated: 2019/07/05 12:50:37 by fmessina         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ OBJ_NAME =				$(SRC_FILES:.c=.o)
 SRC =					$(addprefix $(SRC_PATH)/,$(SRC_FILES))
 SRC_PATH =				./src
 SRC_FILES =  			buffer/buffer_create.c \
+						buffer/buffer_len.c \
 						callback/cb_error.c \
 						callback/cb_framebuffer.c \
 						callback/cb_keyboard.c \

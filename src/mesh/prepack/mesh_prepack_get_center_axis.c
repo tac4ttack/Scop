@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/18 12:14:25 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 18:06:45 by fmessina         ###   ########.fr       */
+/*   Created: 2019/07/05 12:38:16 by fmessina          #+#    #+#             */
+/*   Updated: 2019/07/05 12:38:16 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	center_z_axis(t_obj *mesh, size_t i)
 	}
 }
 
-bool		mesh_prepack_get_center_axis(t_obj *mesh)
+bool		get_center_axis(t_obj *mesh)
 {
 	size_t	i;
 
@@ -63,6 +63,6 @@ bool		mesh_prepack_get_center_axis(t_obj *mesh)
 												mesh->axis[0]), 0.5f);
 		return (true);
 	}
-	return (error_bool("[ERROR mesh_prepack_get_center_axis]\t" \
+	return (error_bool("[ERROR get_center_axis]\t" \
 	"NULL mesh pointer!\n"));
 }

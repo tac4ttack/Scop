@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:50:47 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/04 12:40:38 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:38:58 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,6 @@ static bool	init_options(t_scop *env)
 	return (error_bool("[ERROR init_options]\tNULL Scop pointer!\n"));
 }
 
-static bool init_nuklear(t_scop *env)
-{
-	if (env)
-	{
-		if (!(env->nuk = ft_memalloc(sizeof(t_nuk))))
-			return (error_bool("[ERROR init_nuklear]\t" \
-			"Can\'t allocate memory for Nuklear GUI!\n"));
-		// nk_init_default(env->nuk->ctx, &env->nuk->font);
-
-		return (true);
-	}
-	return (error_bool("[ERROR init_nuklear]\tNULL Scop pointer!\n"));
-}
-
 t_scop		*init(const char *av)
 {
 	t_scop	*env;
@@ -55,7 +41,7 @@ t_scop		*init(const char *av)
 		if (!(init_glfw(env)) || !(init_glew(env)) || !(init_keyboard(env)) \
 			|| !(init_mouse(env)) || !(init_uniforms(env)) \
 			|| !(init_world(env)) || !(init_textures(env)) \
-			|| !(init_options(env)) || !(init_nuklear(env)))
+			|| !(init_options(env)))
 		{
 			free(env);
 			return (error("[ERROR init]\tCould initialize Scop!\n"));

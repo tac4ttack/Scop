@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/18 12:14:25 by fmessina          #+#    #+#             */
-/*   Updated: 2019/06/27 17:55:01 by fmessina         ###   ########.fr       */
+/*   Created: 2019/07/05 12:38:07 by fmessina          #+#    #+#             */
+/*   Updated: 2019/07/05 12:38:09 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-bool		mesh_prepack_center_vertices(t_obj *mesh)
+bool		center_vertices(t_obj *mesh)
 {
 	size_t	i;
 	float	angle;
@@ -37,6 +37,6 @@ bool		mesh_prepack_center_vertices(t_obj *mesh)
 		mesh->axis[1] = vec3f(0.0f, 0.0f, 0.0f);
 		return (true);
 	}
-	return (error_bool("[ERROR mesh_prepack_center_vertices]\t" \
+	return (error_bool("[ERROR center_vertices]\t" \
 	"NULL mesh pointer!\n"));
 }

@@ -6,7 +6,7 @@
 /*   By: fmessina <fmessina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:46:23 by fmessina          #+#    #+#             */
-/*   Updated: 2019/07/04 12:36:27 by fmessina         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:51:27 by fmessina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,8 +262,6 @@ typedef struct					s_scop
 	GLsizei						win_res[3];
 	char						*win_title;
 
-	t_nuk						*nuk;
-
 	GLuint						shader_program;
 	t_uni						*uni;
 
@@ -301,7 +299,12 @@ typedef struct					s_scop
 	bool						vsync;
 }								t_scop;
 
+/*
+**	OPENGL BUFFER Functions
+*/
 bool							buffer_create(t_scop *env);
+size_t							buffer_get_ebo_len(t_scop *env);
+size_t							buffer_get_vao_len(t_scop *env);
 
 /*
 **	CALLBACK Functions
@@ -382,10 +385,10 @@ bool							glfw_poly_mode(int key);
 ** MESH Functions
 */
 bool							mesh_prepack(t_scop *env);
-bool							mesh_prepack_center_vertices(t_obj *mesh);
+bool							center_vertices(t_obj *mesh);
+bool							get_center_axis(t_obj *mesh);
 bool							mesh_prepack_ebo_check_indexes(t_obj *mesh);
 bool							mesh_prepack_ebo_data(t_scop *env);
-bool							mesh_prepack_get_center_axis(t_obj *mesh);
 bool							mesh_prepack_vao_data(t_scop *env);
 void							mesh_print_data_packed_ebo(t_scop *env);
 void							mesh_print_data_packed_vao(t_scop *env);
